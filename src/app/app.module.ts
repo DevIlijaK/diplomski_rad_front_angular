@@ -1,20 +1,90 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {META_REDUCERS, StoreModule} from "@ngrx/store";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {EffectsModule} from "@ngrx/effects";
+import {NgxSpinnerModule} from "ngx-spinner";
+import {StoreRouterConnectingModule} from "@ngrx/router-store";
+import {LocalStorageService} from "./shared/services/local-storage.service";
+import {MetaReducer} from "@ngrx/store/src/models";
+import {storageMetaReducerFactory} from "./shared/services/storage.metareducer";
+import {ROOT_LOCAL_STORAGE_KEY, ROOT_STORAGE_KEYS} from "./app.tokens";
+import {MAT_DATE_FORMATS} from "@angular/material/core";
+import {MAT_MOMENT_DATE_FORMATS} from "@angular/material-moment-adapter";
+import {AuthInterceptor} from "./shared/interceptors/interceptors";
+import {ESharedAction} from "./shared/constants/constants";
+
+const grantedActions = [
+  ESharedAction.SET_ACTIVE_ROUTE_SUCCESS,
+  ESharedAction.TOGGLE_LANGUAGE
+];
+
+export function getSharedConfig(
+  saveKeys: string[],
+  localStorageKey: string,
+  storageService: LocalStorageService,
+): { metaReducers: MetaReducer<any>[] } {
+  return {
+    metaReducers: [
+      storageMetaReducerFactory(saveKeys, localStorageKey, storageService, grantedActions),
+    ],
+  };
+}
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ count: counterReducer })
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    StoreModule.forRoot({}, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 20, // Retains last 10 states
+      // logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    EffectsModule.forRoot([]),
+    NgxSpinnerModule,
+    StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [],
+  providers: [{provide: ROOT_STORAGE_KEYS, useValue: ['']},
+    {provide: ROOT_LOCAL_STORAGE_KEY, useValue: '__app_storage__'},
+    {
+      provide: META_REDUCERS,
+      deps: [ROOT_STORAGE_KEYS, ROOT_LOCAL_STORAGE_KEY, LocalStorageService],
+      useFactory: storageMetaReducerFactory,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    // {
+    //   provide: DateAdapter,
+    //   useClass: MomentDateAdapter,
+    //   deps: [MAT_DATE_LOCALE]
+    // },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MAT_MOMENT_DATE_FORMATS
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
