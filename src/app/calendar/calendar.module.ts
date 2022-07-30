@@ -6,6 +6,9 @@ import {CalendarEffects} from "./store/effects";
 import {EffectsModule} from "@ngrx/effects";
 import {CALENDAR_CONFIG_TOKEN} from "./calendar.token";
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { SHARED_LOCAL_STORAGE_KEY, SHARED_STORAGE_KEYS} from "../shared/shared.tokens";
+import {LocalStorageService} from "../shared/services/local-storage.service";
+import {getSharedConfig} from "../app.module";
 
 
 @NgModule({
@@ -17,6 +20,11 @@ import { CalendarComponent } from './components/calendar/calendar.component';
   ],
   providers: [
     CalendarEffects,
+    {
+      provide: CALENDAR_CONFIG_TOKEN,
+      deps: [SHARED_STORAGE_KEYS, SHARED_LOCAL_STORAGE_KEY, LocalStorageService],
+      useFactory: getSharedConfig,
+    },
      ]
 })
 export class CalendarModule { }

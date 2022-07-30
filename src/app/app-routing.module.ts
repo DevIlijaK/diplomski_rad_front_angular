@@ -7,7 +7,7 @@ import {CalendarComponent} from "./calendar/components/calendar/calendar.compone
 const routes: Routes = [
   {
     path: '',
-    // loadChildren: () => import('./core/core.module').then(module => module.CoreModule),
+    loadChildren: () => import('./calendar/calendar.module').then(module => module.CalendarModule),
     canActivate: [MainPanelGuard],
     canActivateChild: [MainPanelGuard]
   },
