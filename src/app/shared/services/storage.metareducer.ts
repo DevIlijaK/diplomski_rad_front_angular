@@ -29,6 +29,7 @@ export function storageMetaReducerFactory<S, A extends Action = Action>(
         const stateToSave = pick(nextState, saveKeys);
         storage.setSavedState(stateToSave, localStorageKey);
       }
+      console.log(nextState);
       return nextState;
     };
   };

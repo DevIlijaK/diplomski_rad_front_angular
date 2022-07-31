@@ -3,9 +3,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppState} from '../../root-store/state';
 import {Store} from '@ngrx/store';
-import {selectUserTicket} from '../../auth/store/selectors';
 import {first, map} from 'rxjs/operators';
 import * as SharedActions from '../store/actions';
+import {selectUserTicket} from "../../auth/store/selectors";
 
 @Injectable({
   providedIn: 'root'

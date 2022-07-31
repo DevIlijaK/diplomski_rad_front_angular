@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -12,30 +12,15 @@ import {EffectsModule} from "@ngrx/effects";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
 import {LocalStorageService} from "./shared/services/local-storage.service";
-import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "./shared/services/storage.metareducer";
 import {ROOT_LOCAL_STORAGE_KEY, ROOT_STORAGE_KEYS} from "./app.tokens";
 import {MAT_DATE_FORMATS} from "@angular/material/core";
 import {MAT_MOMENT_DATE_FORMATS} from "@angular/material-moment-adapter";
 import {AuthInterceptor} from "./shared/interceptors/interceptors";
-import {ESharedAction} from "./shared/constants/constants";
-
-const grantedActions = [
-  ESharedAction.SET_ACTIVE_ROUTE_SUCCESS,
-  ESharedAction.TOGGLE_LANGUAGE
-];
-
-export function getSharedConfig(
-  saveKeys: string[],
-  localStorageKey: string,
-  storageService: LocalStorageService,
-): { metaReducers: MetaReducer<any>[] } {
-  return {
-    metaReducers: [
-      storageMetaReducerFactory(saveKeys, localStorageKey, storageService, grantedActions),
-    ],
-  };
-}
+import {reducers} from "./root-store/reducers";
+import {AuthModule} from "./auth/auth.module";
+import {CalendarModule} from "./calendar/calendar.module";
+import {SharedModule} from "./shared/shared.module";
 
 
 @NgModule({
@@ -47,9 +32,10 @@ export function getSharedConfig(
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    AuthModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {
+    StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: false,
         strictActionImmutability: false,
@@ -62,8 +48,10 @@ export function getSharedConfig(
     EffectsModule.forRoot([]),
     NgxSpinnerModule,
     StoreRouterConnectingModule.forRoot(),
+    SharedModule,
   ],
-  providers: [{provide: ROOT_STORAGE_KEYS, useValue: ['']},
+  providers: [
+    {provide: ROOT_STORAGE_KEYS, useValue: ['']},
     {provide: ROOT_LOCAL_STORAGE_KEY, useValue: '__app_storage__'},
     {
       provide: META_REDUCERS,
@@ -85,6 +73,9 @@ export function getSharedConfig(
       provide: MAT_DATE_FORMATS,
       useValue: MAT_MOMENT_DATE_FORMATS
     },],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

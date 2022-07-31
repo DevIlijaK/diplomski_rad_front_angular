@@ -6,6 +6,6 @@ export interface AuthState {
   user: User;
 }
 export const INIT_AUTH_STATE: AuthState = {
-  ticket: null,
+  ticket: 'nesto',
   user: null,
 }

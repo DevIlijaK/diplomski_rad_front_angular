@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import {MainPanelGuard} from "./shared/guards/main-panel.guard";
 import {AuthGuard} from "./shared/guards/auth.guard";
 import {CalendarComponent} from "./calendar/components/calendar/calendar.component";
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./calendar/calendar.module').then(module => module.CalendarModule),
+    component: CalendarComponent,
     canActivate: [MainPanelGuard],
     canActivateChild: [MainPanelGuard]
   },

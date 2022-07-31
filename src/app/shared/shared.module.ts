@@ -8,13 +8,37 @@ import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SHARED_CONFIG_TOKEN, SHARED_LOCAL_STORAGE_KEY, SHARED_STORAGE_KEYS} from "./shared.tokens";
 import {LocalStorageService} from "./services/local-storage.service";
-import {getSharedConfig} from "../app.module";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {ToastrModule} from "ngx-toastr";
+import {MetaReducer} from "@ngrx/store/src/models";
+import {storageMetaReducerFactory} from "./services/storage.metareducer";
+import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SendMailButtonComponent } from './components/send-mail-button/send-mail-button.component';
+import {CalendarModule} from "../calendar/calendar.module";
 
+const grantedActions = [
+
+];
+
+export function getSharedConfig(
+  saveKeys: string[],
+  localStorageKey: string,
+  storageService: LocalStorageService,
+): { metaReducers: MetaReducer<any>[] } {
+  return {
+    metaReducers: [
+      storageMetaReducerFactory(saveKeys, localStorageKey, storageService, grantedActions),
+    ],
+  };
+}
 
 @NgModule({
-  declarations: []
+  declarations: [
+    HeaderComponent,
+    SidebarComponent,
+    SendMailButtonComponent
+  ]
   ,
   imports: [
     CommonModule,
@@ -32,14 +56,18 @@ import {ToastrModule} from "ngx-toastr";
     }),
     ReactiveFormsModule,
     RouterModule,
+    CalendarModule,
 
   ],
-  exports: [ ],
+  exports: [
+    HeaderComponent,
+    SidebarComponent
+  ],
   entryComponents: [],
   providers: [
     SharedEffects,
     {provide: SHARED_LOCAL_STORAGE_KEY, useValue: '__shared_storage__'},
-    {provide: SHARED_STORAGE_KEYS, useValue: ['language', 'activeRoute']},
+    {provide: SHARED_STORAGE_KEYS, useValue: ['activeRoute']},
     {
       provide: SHARED_CONFIG_TOKEN,
       deps: [SHARED_STORAGE_KEYS, SHARED_LOCAL_STORAGE_KEY, LocalStorageService],

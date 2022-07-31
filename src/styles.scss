@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+
+  font-family: 'Open Sans';
+}
+.toast-top-center {
+  //top: 8% !important;
+  width: 100%;
+  top: 10px!important;
+}
+
+.toast-container .ngx-toastr {
+  min-width: 30%;
+  height: 80px;
+  opacity: 0.95 !important;
+  text-align: center;
+}
