@@ -6,13 +6,13 @@ import {CalendarComponent} from "./calendar/components/calendar/calendar.compone
 import {AppComponent} from "./app.component";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CalendarComponent,
-    canActivate: [MainPanelGuard],
-    canActivateChild: [MainPanelGuard]
-  },
-  {path: 'login', component: CalendarComponent, canActivate: [AuthGuard]},
+  // {
+  //   path: '',
+  //   component: CalendarComponent,
+  //   canActivate: [MainPanelGuard],
+  //   canActivateChild: [MainPanelGuard]
+  // },
+  {path: '', component: CalendarComponent},
   {path: '**', redirectTo: ''},
 ];
 

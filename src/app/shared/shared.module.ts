@@ -15,10 +15,26 @@ import {storageMetaReducerFactory} from "./services/storage.metareducer";
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SendMailButtonComponent } from './components/send-mail-button/send-mail-button.component';
-import {CalendarModule} from "../calendar/calendar.module";
+import {SmallCalendarComponent} from "./components/small-calendar/small-calendar.component";
+import {ESharedAction} from "./constants/constants";
+import {INIT_SHARED_STATE} from "./store/state";
+import {INIT_AUTH_STATE} from "../auth/store/state";
 
 const grantedActions = [
-
+  ESharedAction.NAVIGATE,
+  ESharedAction.SUCCESS_MESSAGES,
+  ESharedAction.ERROR_MESSAGES,
+  ESharedAction.OPEN_DIALOG,
+  ESharedAction.OPEN_DIALOG_SUCCESS,
+  ESharedAction.CLOSE_DIALOG,
+  ESharedAction.CLOSE_DIALOG_SUCCESS,
+  ESharedAction.OPEN_SPINNER,
+  ESharedAction.CLOSE_SPINNER,
+  ESharedAction.SET_ACTIVE_ROUTE_SUCCESS,
+  ESharedAction.GET_CURRENT_MONTH,
+  ESharedAction.GET_CURRENT_MONTH_SUCESS,
+  ESharedAction.GET_CURRENT_MONTH_NUMBER,
+  ESharedAction.GET_CURRENT_MONTH_NUMBER_SUCESS,
 ];
 
 export function getSharedConfig(
@@ -37,7 +53,8 @@ export function getSharedConfig(
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    SendMailButtonComponent
+    SendMailButtonComponent,
+    SmallCalendarComponent,
   ]
   ,
   imports: [
@@ -56,18 +73,18 @@ export function getSharedConfig(
     }),
     ReactiveFormsModule,
     RouterModule,
-    CalendarModule,
 
   ],
   exports: [
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    SmallCalendarComponent
   ],
   entryComponents: [],
   providers: [
     SharedEffects,
     {provide: SHARED_LOCAL_STORAGE_KEY, useValue: '__shared_storage__'},
-    {provide: SHARED_STORAGE_KEYS, useValue: ['activeRoute']},
+    {provide: SHARED_STORAGE_KEYS, useValue: Object.keys(INIT_SHARED_STATE)},
     {
       provide: SHARED_CONFIG_TOKEN,
       deps: [SHARED_STORAGE_KEYS, SHARED_LOCAL_STORAGE_KEY, LocalStorageService],

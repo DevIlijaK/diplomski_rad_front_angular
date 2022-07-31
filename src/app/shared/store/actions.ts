@@ -2,6 +2,7 @@ import {createAction, props, union} from '@ngrx/store';
 
 import {MatDialogRef} from '@angular/material/dialog';
 import {ESharedAction} from "../constants/constants";
+import {Dayjs} from "dayjs";
 
 
 export const navigate = createAction(ESharedAction.NAVIGATE, props<{ url: string[] }>());
@@ -25,6 +26,13 @@ export const openSpinner = createAction(ESharedAction.OPEN_SPINNER);
 export const closeSpinner = createAction(ESharedAction.CLOSE_SPINNER);
 
 export const setActiveRouteSuccess = createAction(ESharedAction.SET_ACTIVE_ROUTE_SUCCESS, props<{ route: string }>());
+
+export const getCurrentMonth = createAction(ESharedAction.GET_CURRENT_MONTH);
+export const getCurrentMonthSucess = createAction(ESharedAction.GET_CURRENT_MONTH_SUCESS, props<{ currentMonth: Dayjs[][] }>());
+
+
+export const getCurrentMonthNumber = createAction(ESharedAction.GET_CURRENT_MONTH_NUMBER);
+export const getCurrentMonthNumberSucess = createAction(ESharedAction.GET_CURRENT_MONTH_NUMBER_SUCESS, props<{ currentMonthNumber: number }>());
 
 const all = union({
   navigate,

@@ -4,6 +4,10 @@
 
   font-family: 'Open Sans';
 }
+body{
+  margin: 0;
+  padding: 0;
+}
 .toast-top-center {
   //top: 8% !important;
   width: 100%;
@@ -15,4 +19,8 @@
   height: 80px;
   opacity: 0.95 !important;
   text-align: center;
+}
+.button-global-style{
+  border-style: none !important;
+  background-color: transparent !important;
 }

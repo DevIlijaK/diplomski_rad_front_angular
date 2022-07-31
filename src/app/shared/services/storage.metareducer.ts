@@ -8,8 +8,8 @@ import { LocalStorageService } from './local-storage.service';
 export function storageMetaReducerFactory<S, A extends Action = Action>(
   saveKeys: string[],
   localStorageKey: string,
-  storage: LocalStorageService,
-  grantedActions?: string[]
+  storageService: LocalStorageService,
+  grantedActions?: string[],
 ): MetaReducer<any> {
   let onInit = true; // after load/refresh…
 
@@ -21,15 +21,14 @@ export function storageMetaReducerFactory<S, A extends Action = Action>(
       // init the application state.
       if (onInit) {
         onInit = false;
-        const savedState = storage.getSavedState(localStorageKey);
+        const savedState = storageService.getSavedState(localStorageKey);
         return merge(cloneDeep(nextState), savedState);
       }
       if (grantedActions && grantedActions.includes(action.type)) {
         // save the next state to the application storage.
         const stateToSave = pick(nextState, saveKeys);
-        storage.setSavedState(stateToSave, localStorageKey);
+        storageService.setSavedState(stateToSave, localStorageKey);
       }
-      console.log(nextState);
       return nextState;
     };
   };

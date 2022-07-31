@@ -13,10 +13,9 @@ import {storageMetaReducerFactory} from "../shared/services/storage.metareducer"
 import {EAuthActions} from "./constants/constants";
 
 const grantedActions = [
-  EAuthActions.LOGIN_SUCCESS,
-  EAuthActions.LOGOUT_SUCCESS,
-  EAuthActions.GET_USER_SUCCESS,
+
 ];
+
 
 export function getAuthConfig(
   saveKeys: string[],
@@ -35,7 +34,7 @@ export function getAuthConfig(
     CommonModule,
     CommonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('auth', authReducers, AUTH_CONFIG_TOKEN),
+    StoreModule.forFeature('auth', authReducers),
     EffectsModule.forFeature([AuthEffects]),
   ],
   providers: [

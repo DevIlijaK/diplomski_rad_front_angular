@@ -1,6 +1,6 @@
 import {INIT_SHARED_STATE, SharedState} from "./state";
 import {createReducer, on} from "@ngrx/store";
-import {setActiveRouteSuccess, SharedActions} from "./actions";
+import {getCurrentMonthNumberSucess, getCurrentMonthSucess, setActiveRouteSuccess, SharedActions} from "./actions";
 
 
 const reducer = createReducer(
@@ -8,7 +8,15 @@ const reducer = createReducer(
   on(setActiveRouteSuccess, (state, {route}) => ({
     ...state,
     activeRoute: route
-  }))
+  })),
+on(getCurrentMonthSucess, (state, {currentMonth}) => ({
+  ...state,
+  currentMonth
+})),
+  on(getCurrentMonthNumberSucess, (state, {currentMonthNumber}) => ({
+    ...state,
+    currentMonthNumber
+  })),
 );
 
 export function sharedReducers(state: SharedState, action: SharedActions): SharedState {

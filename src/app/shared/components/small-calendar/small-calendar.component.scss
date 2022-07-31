@@ -15,10 +15,12 @@
   background-color: transparent;
   border-color: #b0b6be;
 }
-.small-calendar-grid{
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: repeat(6, minmax(0, 1fr));
+.small-calendar{
+  display: flex;
+  flex-direction: column;
+  }
+.small-calendar * {
+  width: 4.25rem;
 }
 .small-calendar-dates{
   padding-top: 0.25rem;

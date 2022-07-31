@@ -9,5 +9,8 @@ export enum ESharedAction {
   OPEN_SPINNER = '[Shared] Open Spinner',
   CLOSE_SPINNER = '[Shared] Close Spinner',
   SET_ACTIVE_ROUTE_SUCCESS = '[Shared] Set Active Route Success',
-  TOGGLE_LANGUAGE = '[Shared] Toggle language',
+  GET_CURRENT_MONTH = '[Shared] Get Current Month',
+  GET_CURRENT_MONTH_SUCESS = '[Shared] Get Current Month Sucess',
+  GET_CURRENT_MONTH_NUMBER = '[Shared] Get Current Month Number',
+  GET_CURRENT_MONTH_NUMBER_SUCESS = '[Shared] Get Current Month Number Sucess',
 }

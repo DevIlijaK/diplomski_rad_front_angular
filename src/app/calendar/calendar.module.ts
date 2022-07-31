@@ -10,7 +10,7 @@ import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
 import {SharedModule} from "../shared/shared.module";
-import { SmallCalendarComponent } from './components/small-calendar/small-calendar.component';
+import { SmallCalendarComponent } from '../shared/components/small-calendar/small-calendar.component';
 
 
 const grantedActions = [
@@ -27,7 +27,7 @@ export function getCalendarConfig(saveKeys: string[],
   };
 }
 @NgModule({
-    declarations: [CalendarComponent, SmallCalendarComponent],
+    declarations: [CalendarComponent],
     imports: [
         CommonModule,
         StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),
@@ -35,7 +35,6 @@ export function getCalendarConfig(saveKeys: string[],
         SharedModule,
     ],
     exports: [
-        SmallCalendarComponent
     ],
     providers: [
         CalendarEffects,
