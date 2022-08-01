@@ -4,6 +4,7 @@ import * as dayjs from "dayjs";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../root-store/state";
 import {Observable} from "rxjs";
+import * as CommonActions from '../../store/actions';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ import {Observable} from "rxjs";
 export class HeaderComponent implements OnInit, AfterViewInit {
 
   currentMontsNumber$: Observable<number>;
-  currentMontsNumber: string;
+  currentMontsNumberString: string;
 
   constructor(
     private store$: Store<AppState>,
@@ -24,9 +25,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
-    this.currentMontsNumber$.subscribe(currentMontsNumber => this.currentMontsNumber = dayjs(new Date(dayjs().year(),currentMontsNumber)).format("MMMM YYYY"))
+    this.currentMontsNumber$.subscribe(currentMontsNumber => this.currentMontsNumberString = dayjs(new Date(dayjs().year(),currentMontsNumber)).format("MMMM YYYY"))
 
     this.cdr.detectChanges();
+  }
+  changeCurrentMonth(leftOrRight: number){
+    if(leftOrRight === 0){
+    }
+    this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber}));
   }
 
 }

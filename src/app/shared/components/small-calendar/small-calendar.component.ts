@@ -7,6 +7,8 @@ import {Observable} from "rxjs";
 import {selectCurrentMonth, selectCurrentMonthNumber} from "../../store/selectors";
 import * as SharedActions from '../../store/actions';
 import * as dayjs from "dayjs";
+import {selectSelectedDay} from "../../../calendar/store/selectors";
+import * as CalendarActions from '../../../calendar/store/actions';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   currentMonth$: Observable<Dayjs[][]>;
   currentMontsNumber$: Observable<number>;
   currentMontsNumber: string;
+  selectedDay$: Observable<Dayjs>;
 
   constructor(
     private store$: Store<AppState>,
@@ -33,8 +36,12 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.currentMonth$ = this.store$.select(selectCurrentMonth);
     this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
+    this.selectedDay$ = this.store$.select(selectSelectedDay);
     this.currentMontsNumber$.subscribe(currentMontsNumber => this.currentMontsNumber = dayjs(new Date(dayjs().year(),currentMontsNumber)).format("MMMM YYYY"))
     this.cdr.detectChanges();
+  }
+  changeSelectedDate(day: Dayjs) {
+    this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: day}));
   }
 
 }

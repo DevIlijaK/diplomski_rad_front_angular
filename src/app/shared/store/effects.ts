@@ -5,6 +5,7 @@ import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs';
 import * as SharedActions from './actions';
 import {
+  changeCurrentMonth,
   closeSpinner,
   errorMessages, getCurrentMonth, getCurrentMonthNumber,
   navigate,
@@ -127,6 +128,14 @@ export class SharedEffects {
       const currentMonthNumber =  dayjs().month();
       return of(
         SharedActions.getCurrentMonthNumberSucess({currentMonthNumber})
+      )})
+  ))
+  changeCurrentMonth$ = createEffect(() => this.action$.pipe(
+    ofType(changeCurrentMonth),
+    switchMap((data) => {
+      const currentMonth = getMonth(data.monthNumber);
+      return of(
+        SharedActions.getCurrentMonthSucess({currentMonth})
       )})
   ))
 

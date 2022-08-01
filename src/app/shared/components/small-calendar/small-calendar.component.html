@@ -15,8 +15,14 @@
   </div>
   <div class="small-calendar">
     <div *ngFor="let currentMonthRow of currentMonth$ | async" style="display: flex; flex-direction: row; width: auto">
-      <div *ngFor="let day of currentMonthRow" style="width: 4rem;">
-        <button style="padding-top: 0.25rem;padding-bottom: 0.25rem;width: 100%; " class="button-global-style">
+      <div *ngFor="let day of currentMonthRow"
+           style="display: flex; align-items: center; justify-content: center"
+          [ngClass]="(selectedDay$ | async) == day ? 'circle' : ''"
+      >
+        <button
+          style="padding-top: 0.25rem;padding-bottom: 0.25rem;width: 100%; " class="button-global-style"
+          (click)="changeSelectedDate(day)"
+        >
           <span style="font-size: 0.875rem; line-height: 1.25rem; color: #6B7280;font-weight: 600;">{{day.format('D')}}</span>
         </button>
       </div>

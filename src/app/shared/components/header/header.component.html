@@ -5,17 +5,17 @@
   >
   <h1 class="header-title">Evidencija diplomskih radova</h1>
   <button class="button-one text">Danas</button>
-  <button class="button-two">
+  <button class="button-two" (click)="changeCurrentMonth(0)">
        <span class="material-icons-outlined cursor-pointer">
         chevron_left
        </span>
   </button>
-  <button class="button-two">
+  <button class="button-two" (click)="changeCurrentMonth(1)">
        <span class="material-icons-outlined cursor-pointer">
         chevron_right
        </span>
   </button>
   <h2 class="header-date-text ">
-    {{currentMontsNumber}}
+    {{currentMontsNumberString}}
   </h2>
 </header>
