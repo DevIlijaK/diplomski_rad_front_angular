@@ -10,40 +10,51 @@ import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
 import {SharedModule} from "../shared/shared.module";
-import { SmallCalendarComponent } from '../shared/components/small-calendar/small-calendar.component';
-import { MonthComponent } from './components/month/month.component';
+import {SmallCalendarComponent} from '../shared/components/small-calendar/small-calendar.component';
+import {MonthComponent} from './components/month/month.component';
+import {DayComponent} from './components/day/day.component';
+import {SHARED_LOCAL_STORAGE_KEY, SHARED_STORAGE_KEYS} from "../shared/shared.tokens";
+import {INIT_SHARED_STATE} from "../shared/store/state";
+import {INIT_CALENDAR_STATE} from "./store/state";
+import {EDatatableCalendarAction} from "./constants/constants";
 
 
 const grantedActions = [
-
+  EDatatableCalendarAction.CHANGE_SELECTED_DAY,
+  EDatatableCalendarAction.CHANGE_SELECTED_DAY_SUCESS,
 ];
 
 export function getCalendarConfig(saveKeys: string[],
-                                    localStorageKey: string,
-                                    storageService: LocalStorageService): { metaReducers: MetaReducer<any>[] } {
+                                  localStorageKey: string,
+                                  storageService: LocalStorageService): { metaReducers: MetaReducer<any>[] } {
   return {
     metaReducers: [
       storageMetaReducerFactory(saveKeys, localStorageKey, storageService, grantedActions)
     ]
   };
 }
+
 @NgModule({
-    declarations: [CalendarComponent, MonthComponent],
-    imports: [
-        CommonModule,
-        StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),
-        EffectsModule.forFeature([CalendarEffects]),
-        SharedModule,
-    ],
+  declarations: [CalendarComponent, MonthComponent, DayComponent],
+  imports: [
+    CommonModule,
+    StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),
+    EffectsModule.forFeature([CalendarEffects]),
+    SharedModule,
+  ],
     exports: [
+        CalendarComponent
     ],
-    providers: [
-        CalendarEffects,
-        {
-            provide: CALENDAR_CONFIG_TOKEN,
-            deps: [CALENDAR_STORAGE_KEYS, CALENDAR_LOCAL_STORAGE_KEY, LocalStorageService],
-            useFactory: getCalendarConfig,
-        },
-    ]
+  providers: [
+    CalendarEffects,
+    {provide: CALENDAR_LOCAL_STORAGE_KEY, useValue: '__calendar_storage__'},
+    {provide: CALENDAR_STORAGE_KEYS, useValue: Object.keys(INIT_CALENDAR_STATE)},
+    {
+      provide: CALENDAR_CONFIG_TOKEN,
+      deps: [CALENDAR_STORAGE_KEYS, CALENDAR_LOCAL_STORAGE_KEY, LocalStorageService],
+      useFactory: getCalendarConfig,
+    },
+  ]
 })
-export class CalendarModule { }
+export class CalendarModule {
+}

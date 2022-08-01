@@ -2,9 +2,9 @@ import {createFeatureSelector, createSelector, MemoizedSelector} from "@ngrx/sto
 import {CalendarState} from "./state";
 
 
-export const dateArray = (state: CalendarState) => state.dateArray;
+export const getSelectedDay = (state: CalendarState) => state.selectedDay;
 
 export const selectCalendarState: MemoizedSelector<object, CalendarState> = createFeatureSelector<CalendarState>('calendar');
 
-export const selectDateArray: MemoizedSelector<object, any> = createSelector(selectCalendarState, dateArray);
+export const selectSelectedDay: MemoizedSelector<object, any> = createSelector(selectCalendarState, getSelectedDay);
 

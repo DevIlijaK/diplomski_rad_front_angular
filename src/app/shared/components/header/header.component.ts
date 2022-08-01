@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
     this.currentMontsNumber$.subscribe(currentMontsNumber => this.currentMontsNumber = dayjs(new Date(dayjs().year(),currentMontsNumber)).format("MMMM YYYY"))
 
+    this.cdr.detectChanges();
   }
 
 }

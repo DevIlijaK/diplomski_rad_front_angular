@@ -1,6 +1,9 @@
+import {Dayjs} from "dayjs";
+import * as dayjs from "dayjs";
+
 export interface CalendarState {
-  dateArray: Date[];
+  selectedDay: Dayjs;
 }
 export const INIT_CALENDAR_STATE: CalendarState = {
-  dateArray: [],
+  selectedDay: dayjs(),
 }

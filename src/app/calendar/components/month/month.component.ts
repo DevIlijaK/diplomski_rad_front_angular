@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Dayjs} from "dayjs";
 
 @Component({
   selector: 'app-month',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./month.component.scss']
 })
 export class MonthComponent implements OnInit {
+  @Input() currentMonth: Dayjs[][];
+
+  dayOfTheWeekArray: string[] = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
 
   constructor() { }
 

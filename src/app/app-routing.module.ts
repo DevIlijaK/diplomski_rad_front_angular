@@ -12,7 +12,7 @@ const routes: Routes = [
   //   canActivate: [MainPanelGuard],
   //   canActivateChild: [MainPanelGuard]
   // },
-  {path: '', component: CalendarComponent},
+  {path: '', component: AppComponent},
   {path: '**', redirectTo: ''},
 ];
 

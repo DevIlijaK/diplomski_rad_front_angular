@@ -1,1 +1,12 @@
-<p>month works!</p>
+
+<div class="month">
+  <ng-container *ngFor="let row of currentMonth, index as j">
+    <ng-container *ngFor="let day of row, index as i">
+<app-day
+  [day]="day"
+  [dayName]="dayOfTheWeekArray[i]"
+  [calendarRowIndex]="j"
+></app-day>
+    </ng-container>
+  </ng-container>
+</div>
