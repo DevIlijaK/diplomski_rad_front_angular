@@ -8,6 +8,8 @@ export interface SharedState {
   activeRoute: string;
   currentMonthNumber: number;
   currentMonth: Dayjs[][];
+  smallCalendarCurrentMonthNumber: number;
+  smallCalendarCurrentMonth: Dayjs[][];
 }
 
 export const INIT_SHARED_STATE: SharedState = {
@@ -15,4 +17,6 @@ export const INIT_SHARED_STATE: SharedState = {
   activeRoute: '',
   currentMonthNumber: dayjs().month(),
   currentMonth: null,
+  smallCalendarCurrentMonthNumber: dayjs().month(),
+  smallCalendarCurrentMonth: null,
  };

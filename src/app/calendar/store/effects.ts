@@ -4,12 +4,9 @@ import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../root-store/state";
 import {NgxSpinnerService} from "ngx-spinner";
-import {getCurrentMonth} from "../../shared/store/actions";
-import {switchMap, withLatestFrom} from "rxjs/operators";
-import {selectCurrentMonthNumber} from "../../shared/store/selectors";
-import {getMonth} from "../../shared/services/utils";
+import {switchMap} from "rxjs/operators";
 import {of} from "rxjs";
-import {changeSelectedDay, getCurrentMonthSucess} from "./actions";
+import {changeSelectedDay} from "./actions";
 import * as CalendarActions from '../store/actions';
 
 
@@ -25,7 +22,7 @@ export class CalendarEffects {
     switchMap((data) => {
       const selectedDay = data.selectedDay
       return of(
-        CalendarActions.getCurrentMonthSucess({selectedDay})
+        CalendarActions.changeSelectedDaySucess({selectedDay})
       )})
   ))
 

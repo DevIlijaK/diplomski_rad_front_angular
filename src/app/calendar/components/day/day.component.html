@@ -1,7 +1,7 @@
 <div class="day" [ngClass]="checkDayAfterOrBefore() ? 'day-background-color' : ''" (click)="changeSelectedDate()">
 <header class="day-header">
 <p *ngIf="calendarRowIndex === 0" class="text">{{dayName}}</p>
-  <div [ngClass]="(selectedDay$ | async) == day ? 'circle' : ''">
+  <div [ngClass]="checkedDay ? 'circle' : ''">
 <p class="day-header-date">{{day.format('DD')}}</p>
   </div>
 </header>

@@ -6,6 +6,7 @@ import {AppState} from "../../../root-store/state";
 import * as CalendarActions from '../../store/actions';
 import {Observable} from "rxjs";
 import {selectSelectedDay} from "../../store/selectors";
+import * as CommonActions from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-day',
@@ -20,6 +21,7 @@ export class DayComponent implements OnInit, AfterViewInit {
   @Input() calendarRowIndex: number;
 
   selectedDay$: Observable<Dayjs>;
+  checkedDay: boolean;
 
   constructor(
     private store$: Store<AppState>,
@@ -28,16 +30,14 @@ export class DayComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.selectedDay$ = this.store$.select(selectSelectedDay);
+    this.selectedDay$.subscribe((selectedDay) => {
+      this.checkedDay = dayjs(selectedDay).format('DD-MM-YY') === this.day.format('DD-MM-YY')
+    })
   }
 
   ngAfterViewInit() {
-    this.selectedDay$ = this.store$.select(selectSelectedDay);
-    this.selectedDay$.subscribe(value => console.log(value));
     this.cdr.detectChanges();
-  }
-
-  chackTodaysDate(): boolean {
-    return this.day.format('DD-MM-YY') === dayjs().format('DD-MM-YY')
   }
 
   checkDayAfterOrBefore(): boolean {
@@ -46,6 +46,9 @@ export class DayComponent implements OnInit, AfterViewInit {
 
   changeSelectedDate() {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: this.day}));
+    if(!(this.day.format('MM') === dayjs().format('MM'))){
+      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: this.day.month() }));
+    }
   }
 
 
