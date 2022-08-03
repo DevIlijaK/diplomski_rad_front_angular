@@ -48,6 +48,7 @@ export class DayComponent implements OnInit, AfterViewInit {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: this.day}));
     if(!(this.day.format('MM') === dayjs().format('MM'))){
       this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: this.day.month() }));
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.day.month() }));
     }
   }
 

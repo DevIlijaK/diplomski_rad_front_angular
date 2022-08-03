@@ -4,7 +4,12 @@ import {AppState} from "../../../root-store/state";
 import {changeSmallCalendarCurrentMonth, getCurrentMonth, getSmallCalendarCurrentMonth} from "../../store/actions";
 import {Dayjs} from "dayjs";
 import {Observable} from "rxjs";
-import {selectCurrentMonth, selectCurrentMonthNumber, selectSmallCalendarCurrentMonth} from "../../store/selectors";
+import {
+  selectCurrentMonth,
+  selectCurrentMonthNumber,
+  selectSmallCalendarCurrentMonth,
+  selectSmallCalendarCurrentMonthNumber
+} from "../../store/selectors";
 import * as SharedActions from '../../store/actions';
 import * as dayjs from "dayjs";
 import {selectSelectedDay} from "../../../calendar/store/selectors";
@@ -36,7 +41,7 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.currentMonth$ = this.store$.select(selectSmallCalendarCurrentMonth);
-    this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
+    this.currentMontsNumber$ = this.store$.select(selectSmallCalendarCurrentMonthNumber);
     this.selectedDay$ = this.store$.select(selectSelectedDay);
 
 
@@ -54,6 +59,8 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: day}));
     if(!(day.format('MM') === dayjs().format('MM'))){
       this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:
+          day.month() }));
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber:
           day.month() }));
     }
   }
