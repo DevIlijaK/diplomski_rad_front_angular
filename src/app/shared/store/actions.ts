@@ -27,23 +27,27 @@ export const closeSpinner = createAction(ESharedAction.CLOSE_SPINNER);
 
 export const setActiveRouteSuccess = createAction(ESharedAction.SET_ACTIVE_ROUTE_SUCCESS, props<{ route: string }>());
 
-export const getCurrentMonth = createAction(ESharedAction.GET_CURRENT_MONTH);
+export const getCurrentMonth = createAction(ESharedAction.GET_CURRENT_MONTH, props<{currentMonthNumber: number, currentYearNumber: number}>());
 export const getCurrentMonthSucess = createAction(ESharedAction.GET_CURRENT_MONTH_SUCESS, props<{ currentMonth: Dayjs[][] }>());
 
 export const getCurrentMonthNumber = createAction(ESharedAction.GET_CURRENT_MONTH_NUMBER);
 export const getCurrentMonthNumberSucess = createAction(ESharedAction.GET_CURRENT_MONTH_NUMBER_SUCESS, props<{ currentMonthNumber: number }>());
 
-export const changeCurrentMonth = createAction(ESharedAction.CHANGE_CURRENT_MONTH_NUMBER, props<{ monthNumber: number}>());
+export const getCurrentYearNumber = createAction(ESharedAction.GET_CURRENT_YEAR_NUMBER);
+export const getCurrentYearNumberSucess = createAction(ESharedAction.GET_CURRENT_YEAR_NUMBER_SUCESS, props<{ currentYearNumber: number }>());
+
+export const changeCurrentMonth = createAction(ESharedAction.CHANGE_CURRENT_MONTH_NUMBER, props<{ monthNumber: number, yearNumber: number}>());
 // export const changeCurrentMonthSucess = createAction(ESharedAction.CHANGE_CURRENT_MONTH_NUMBER_SUCESS, props<{ currentMonthNumber: number }>());
 
 
-export const getSmallCalendarCurrentMonth = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH);
+export const getSmallCalendarCurrentMonth = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH, props<{currentSmallCalendarMonthNumber: number, currentSmallCalendarYearNumber: number}>());
 export const getSmallCalendarCurrentMonthSucess = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH_SUCESS, props<{ smallCalendarCurrentMonth: Dayjs[][] }>());
+export const getSmallCalendarCurrentYearSucess = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_YEAR_SUCESS, props<{ smallCalendarCurrentYearNumber: number }>());
 
 export const getSmallCalendarCurrentMonthNumber = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER);
 export const getSmallCalendarCurrentMonthNumberSucess = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS, props<{ smallCalendarCurrentMonthNumber: number }>());
 
-export const changeSmallCalendarCurrentMonth = createAction(ESharedAction.CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER, props<{ monthNumber: number}>());
+export const changeSmallCalendarCurrentMonth = createAction(ESharedAction.CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER, props<{ monthNumber: number, yearNumber: number}>());
 
 const all = union({
   navigate,

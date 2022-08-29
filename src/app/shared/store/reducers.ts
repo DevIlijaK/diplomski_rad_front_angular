@@ -2,8 +2,8 @@ import {INIT_SHARED_STATE, SharedState} from "./state";
 import {createReducer, on} from "@ngrx/store";
 import {
   getCurrentMonthNumberSucess,
-  getCurrentMonthSucess, getSmallCalendarCurrentMonthNumberSucess,
-  getSmallCalendarCurrentMonthSucess,
+  getCurrentMonthSucess, getCurrentYearNumberSucess, getSmallCalendarCurrentMonthNumberSucess,
+  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess,
   setActiveRouteSuccess,
   SharedActions
 } from "./actions";
@@ -23,6 +23,10 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
     ...state,
     currentMonthNumber
   })),
+  on(getCurrentYearNumberSucess, (state, {currentYearNumber}) => ({
+    ...state,
+    currentYearNumber
+  })),
   on(getSmallCalendarCurrentMonthSucess, (state, {smallCalendarCurrentMonth}) => ({
     ...state,
     smallCalendarCurrentMonth
@@ -30,6 +34,10 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
   on(getSmallCalendarCurrentMonthNumberSucess, (state, {smallCalendarCurrentMonthNumber}) => ({
     ...state,
     smallCalendarCurrentMonthNumber
+  })),
+  on(getSmallCalendarCurrentYearSucess, (state, {smallCalendarCurrentYearNumber}) => ({
+    ...state,
+    smallCalendarCurrentYearNumber
   })),
 );
 

@@ -10,9 +10,9 @@ import {
   closeSpinner,
   errorMessages,
   getCurrentMonth,
-  getCurrentMonthNumber,
+  getCurrentMonthNumber, getCurrentYearNumberSucess,
   getSmallCalendarCurrentMonth, getSmallCalendarCurrentMonthNumber, getSmallCalendarCurrentMonthNumberSucess,
-  getSmallCalendarCurrentMonthSucess,
+  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess,
   navigate,
   openModal,
   openModalSuccess,
@@ -25,7 +25,7 @@ import {
   selectCurrentMonthNumber,
   selectLastModalRef,
   selectSmallCalendarCurrentMonth,
-  selectSmallCalendarCurrentMonthNumber
+  selectSmallCalendarCurrentMonthNumber, selectYearMonthNumber
 } from './selectors';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ROUTER_NAVIGATION, RouterNavigationAction} from '@ngrx/router-store';
@@ -123,11 +123,12 @@ export class SharedEffects {
   );
   getCurrentMonth$ = createEffect(() => this.action$.pipe(
     ofType(getCurrentMonth),
-    withLatestFrom(this.store$.select(selectCurrentMonthNumber)),
-    switchMap(([, currentMonthNumber]) => {
-      const currentMonth = getMonth(currentMonthNumber);
+    switchMap((data) => {
+      const currentMonth = getMonth(data.currentMonthNumber, data.currentYearNumber);
       return of(
-      SharedActions.getCurrentMonthSucess({currentMonth})
+      SharedActions.getCurrentMonthSucess({currentMonth}),
+      SharedActions.getCurrentYearNumberSucess({currentYearNumber: data.currentYearNumber}),
+      SharedActions.getCurrentMonthNumberSucess({currentMonthNumber: data.currentMonthNumber})
     )})
   ))
   getCurrentMonthNumber$ = createEffect(() => this.action$.pipe(
@@ -143,10 +144,11 @@ export class SharedEffects {
     return this.action$.pipe(
     ofType(changeCurrentMonth),
     switchMap((data) => {
-      const currentMonth = getMonth(data.monthNumber);
+      const currentMonth = getMonth(data.monthNumber, data.yearNumber);
       return of(
         SharedActions.closeSpinner(),
         SharedActions.getCurrentMonthNumberSucess({currentMonthNumber: data.monthNumber}),
+        SharedActions.getCurrentYearNumberSucess({currentYearNumber: data.yearNumber}),
         SharedActions.getCurrentMonthSucess({currentMonth})
       )})
   )})
@@ -154,11 +156,14 @@ export class SharedEffects {
 
   getSmallCalendarCurrentMonth$ = createEffect(() => this.action$.pipe(
     ofType(getSmallCalendarCurrentMonth),
-    withLatestFrom(this.store$.select(selectSmallCalendarCurrentMonthNumber)),
-    switchMap(([, currentSmallCalendarMonthNumber]) => {
-      const smallCalendarCurrentMonth = getMonth(currentSmallCalendarMonthNumber);
+    switchMap((data) => {
+      const smallCalendarCurrentMonth = getMonth(data.currentSmallCalendarMonthNumber, data.currentSmallCalendarYearNumber);
+      const currentMonthNumber = data.currentSmallCalendarMonthNumber;
+      const currentYearNumber = data.currentSmallCalendarYearNumber;
       return of(
-        SharedActions.getSmallCalendarCurrentMonthSucess({smallCalendarCurrentMonth})
+        SharedActions.getSmallCalendarCurrentMonthSucess({smallCalendarCurrentMonth}),
+        SharedActions.getSmallCalendarCurrentMonthNumberSucess({smallCalendarCurrentMonthNumber: currentMonthNumber}),
+        SharedActions.getSmallCalendarCurrentYearSucess({smallCalendarCurrentYearNumber: currentYearNumber})
       )})
   ))
   getSmallCalendarCurrentMonthNumber$ = createEffect(() => this.action$.pipe(
@@ -174,7 +179,7 @@ export class SharedEffects {
     return this.action$.pipe(
       ofType(changeSmallCalendarCurrentMonth),
       switchMap((data) => {
-        const smallCalendarCurrentMonth = getMonth(data.monthNumber);
+        const smallCalendarCurrentMonth = getMonth(data.monthNumber, data.yearNumber);
         return of(
           SharedActions.closeSpinner(),
           SharedActions.getSmallCalendarCurrentMonthNumberSucess({smallCalendarCurrentMonthNumber: data.monthNumber}),

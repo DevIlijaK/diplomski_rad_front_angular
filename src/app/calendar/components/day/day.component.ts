@@ -7,6 +7,7 @@ import * as CalendarActions from '../../store/actions';
 import {Observable} from "rxjs";
 import {selectSelectedDay} from "../../store/selectors";
 import * as CommonActions from "../../../shared/store/actions";
+import {selectCurrentMonthNumber} from "../../../shared/store/selectors";
 
 @Component({
   selector: 'app-day',
@@ -23,6 +24,7 @@ export class DayComponent implements OnInit, AfterViewInit {
   selectedDay$: Observable<Dayjs>;
   checkedDay: boolean;
   currentMontsNumber$: Observable<number>;
+  currentMontsNumber: Dayjs;
 
   constructor(
     private store$: Store<AppState>,
@@ -35,12 +37,12 @@ export class DayComponent implements OnInit, AfterViewInit {
     this.selectedDay$.subscribe((selectedDay) => {
       this.checkedDay = dayjs(selectedDay).format('DD-MM-YY') === this.day.format('DD-MM-YY')
     })
-    this.currentMontsNumber$ = this.store$.select(select);
+    this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
 
 
-    this.currentMontsNumber$.subscribe(currentMontsNumber => {
+    this.currentMontsNumber$.subscribe(currentMonthNumber => {
 
-      this.currentMontsNumber = dayjs(new Date(dayjs().year(),currentMontsNumber))
+      this.currentMontsNumber = dayjs(new Date(dayjs().year(), currentMonthNumber))
     })
   }
 
@@ -54,10 +56,8 @@ export class DayComponent implements OnInit, AfterViewInit {
 
   changeSelectedDate() {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: this.day}));
-    if(!(this.day.format('MM') === dayjs().format('MM'))){
-      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: this.day.month() }));
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.day.month() }));
-    }
+    this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.day.month(), yearNumber: this.day.year()}));
+    this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: this.day.month(), yearNumber: this.day.year()}));
   }
 
 

@@ -1,20 +1,18 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../root-store/state";
-import {changeSmallCalendarCurrentMonth, getCurrentMonth, getSmallCalendarCurrentMonth} from "../../store/actions";
+import * as SharedActions from "../../store/actions";
+import * as CommonActions from "../../store/actions";
+import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
 import {Observable} from "rxjs";
 import {
-  selectCurrentMonth,
-  selectCurrentMonthNumber,
   selectSmallCalendarCurrentMonth,
-  selectSmallCalendarCurrentMonthNumber
+  selectSmallCalendarCurrentMonthNumber,
+  selectSmallCalendarCurrentYearNumber
 } from "../../store/selectors";
-import * as SharedActions from '../../store/actions';
-import * as dayjs from "dayjs";
 import {selectSelectedDay} from "../../../calendar/store/selectors";
 import * as CalendarActions from '../../../calendar/store/actions';
-import * as CommonActions from "../../store/actions";
 
 
 @Component({
@@ -28,14 +26,14 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   currentMonth$: Observable<Dayjs[][]>;
   currentMontsNumber$: Observable<number>;
   currentMontsNumber: Dayjs;
+  currentYearNumber: number;
   selectedDay$: Observable<Dayjs>;
 
   constructor(
     private store$: Store<AppState>,
     private cdr: ChangeDetectorRef
   ) {
-    this.store$.dispatch(SharedActions.getSmallCalendarCurrentMonth());
-    this.store$.dispatch(SharedActions.getCurrentMonth());
+    this.store$.dispatch(SharedActions.getSmallCalendarCurrentMonth({currentSmallCalendarMonthNumber: dayjs().month(), currentSmallCalendarYearNumber: dayjs().year()}));
   }
 
   ngOnInit(): void {
@@ -46,29 +44,29 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
 
     this.currentMontsNumber$.subscribe(currentMontsNumber => {
 
-      this.currentMontsNumber = dayjs(new Date(dayjs().year(),currentMontsNumber))
+      this.currentMontsNumber = dayjs(new Date(dayjs().year(), currentMontsNumber))
     })
+    this.store$.select(selectSmallCalendarCurrentYearNumber).subscribe(value => this.currentYearNumber = value);
 
   }
+
   ngAfterViewInit() {
 
     this.cdr.detectChanges();
   }
+
   changeSelectedDate(day: Dayjs) {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: day}));
-    if(!(day.format('MM') === this.currentMontsNumber.format('MM'))){
-      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: day.month() }));
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: day.month() }));
-    }
+    this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: day.month(), yearNumber: day.year()}));
+    this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: day.month(), yearNumber: day.year()}));
+
   }
-  changeCurrentMonth(leftOrRight: number){
-    if(leftOrRight === 0){
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber.month() -1}));
-    }else if(leftOrRight === 1){
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber.month() + 1}));
-    }else {
-      this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: dayjs()}));
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: dayjs().month()}));
+
+  changeCurrentMonth(leftOrRight: number) {
+    if (leftOrRight === 0) {
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber.month() - 1, yearNumber: this.currentYearNumber}));
+    } else if (leftOrRight === 1) {
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber.month() + 1, yearNumber: this.currentYearNumber}));
     }
   }
 

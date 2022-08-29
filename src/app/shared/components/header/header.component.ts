@@ -1,9 +1,9 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {selectCurrentMonthNumber} from "../../store/selectors";
+import {selectCurrentMonthNumber, selectYearMonthNumber} from "../../store/selectors";
 import * as dayjs from "dayjs";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../root-store/state";
-import {Observable} from "rxjs";
+import {combineLatest, Observable, zip} from "rxjs";
 import * as CommonActions from '../../store/actions';
 import * as CalendarActions from '../../../calendar/store/actions';
 import {Dayjs} from "dayjs";
@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   currentMontsNumber$: Observable<number>;
   currentMontsNumberString: string;
   currentMontsNumberNumber: number;
+  currentYearNumberNumber: number;
 
   constructor(
     private store$: Store<AppState>,
@@ -27,25 +28,25 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
   ngAfterViewInit() {
-    this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
-    this.currentMontsNumber$.subscribe(currentMontsNumber => {
-      this.currentMontsNumberString = dayjs(new Date(dayjs().year(),currentMontsNumber)).format("MMMM YYYY")
-      this.currentMontsNumberNumber = currentMontsNumber;
-      console.log(this.currentMontsNumberNumber);
-    return null;
-    })
-
+    combineLatest(this.store$.select(selectCurrentMonthNumber), this.store$.select(selectYearMonthNumber)).subscribe((data) => {
+      console.log(data[0])
+      this.currentMontsNumberNumber = data[0];
+      this.currentYearNumberNumber = data[1];
+        this.currentMontsNumberString = dayjs(new Date(data[1], data[0])).format("MMMM YYYY")
+      }
+    )
     this.cdr.detectChanges();
   }
   changeCurrentMonth(leftOrRight: number){
     if(leftOrRight === 0){
-      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:this.currentMontsNumberNumber -1}));
+      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:this.currentMontsNumberNumber -1, yearNumber: this.currentYearNumberNumber}));
     }else if(leftOrRight === 1){
-      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:this.currentMontsNumberNumber + 1}));
+      console.log(this.currentMontsNumberNumber)
+      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:this.currentMontsNumberNumber + 1, yearNumber: this.currentYearNumberNumber}));
 
     }else {
       this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: dayjs()}));
-      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:dayjs().month()}));
+      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:dayjs().month(), yearNumber: dayjs().year()}));
     }
   }
 

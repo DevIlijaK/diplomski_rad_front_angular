@@ -16,9 +16,12 @@ export enum ESharedAction {
   CHANGE_CURRENT_MONTH_NUMBER = '[Shared] Change Current Month Number',
   CHANGE_CURRENT_MONTH_NUMBER_SUCESS = '[Shared] Change Current Month Number Sucess',
 
+  GET_CURRENT_YEAR_NUMBER = '[Shared] Get Current Year Number',
+  GET_CURRENT_YEAR_NUMBER_SUCESS = '[Shared] Get Current Year Number Sucess',
 
   GET_SMALL_CALENDAR_CURRENT_MONTH = '[Shared] Get Small Calendar Current Month',
   GET_SMALL_CALENDAR_CURRENT_MONTH_SUCESS = '[Shared] Get Small Calendar Current Month Sucess',
+  GET_SMALL_CALENDAR_CURRENT_YEAR_SUCESS = '[Shared] Get Small Calendar Current Year Sucess',
   GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER = '[Shared] Get Small Calendar Current Month Number',
   GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS = '[Shared] Get Small Calendar Current Month Number Sucess',
   CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER = '[Shared] Change Small Calendar Current Month Number',
