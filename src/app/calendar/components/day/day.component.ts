@@ -22,6 +22,7 @@ export class DayComponent implements OnInit, AfterViewInit {
 
   selectedDay$: Observable<Dayjs>;
   checkedDay: boolean;
+  currentMontsNumber$: Observable<number>;
 
   constructor(
     private store$: Store<AppState>,
@@ -33,6 +34,13 @@ export class DayComponent implements OnInit, AfterViewInit {
     this.selectedDay$ = this.store$.select(selectSelectedDay);
     this.selectedDay$.subscribe((selectedDay) => {
       this.checkedDay = dayjs(selectedDay).format('DD-MM-YY') === this.day.format('DD-MM-YY')
+    })
+    this.currentMontsNumber$ = this.store$.select(select);
+
+
+    this.currentMontsNumber$.subscribe(currentMontsNumber => {
+
+      this.currentMontsNumber = dayjs(new Date(dayjs().year(),currentMontsNumber))
     })
   }
 

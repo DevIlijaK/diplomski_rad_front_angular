@@ -29,7 +29,6 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   currentMontsNumber$: Observable<number>;
   currentMontsNumber: Dayjs;
   selectedDay$: Observable<Dayjs>;
-  checkedDay: boolean;
 
   constructor(
     private store$: Store<AppState>,
@@ -57,11 +56,9 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   }
   changeSelectedDate(day: Dayjs) {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: day}));
-    if(!(day.format('MM') === dayjs().format('MM'))){
-      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:
-          day.month() }));
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber:
-          day.month() }));
+    if(!(day.format('MM') === this.currentMontsNumber.format('MM'))){
+      this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: day.month() }));
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: day.month() }));
     }
   }
   changeCurrentMonth(leftOrRight: number){
