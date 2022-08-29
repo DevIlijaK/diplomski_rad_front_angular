@@ -5,11 +5,12 @@ import * as SharedActions from "../../store/actions";
 import * as CommonActions from "../../store/actions";
 import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
-import {Observable} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
 import {
+  selectCurrentMonthNumber,
   selectSmallCalendarCurrentMonth,
   selectSmallCalendarCurrentMonthNumber,
-  selectSmallCalendarCurrentYearNumber
+  selectSmallCalendarCurrentYearNumber, selectYearMonthNumber
 } from "../../store/selectors";
 import {selectSelectedDay} from "../../../calendar/store/selectors";
 import * as CalendarActions from '../../../calendar/store/actions';
@@ -25,9 +26,10 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   dayOfTHeWeek: string[] = ['pon', 'uto', 'sre', 'čet', 'pet', 'sub', 'ned'];
   currentMonth$: Observable<Dayjs[][]>;
   currentMontsNumber$: Observable<number>;
-  currentMontsNumber: Dayjs;
+  currentMontsNumber: number;
   currentYearNumber: number;
   selectedDay$: Observable<Dayjs>;
+  displayDate: Dayjs;
 
   constructor(
     private store$: Store<AppState>,
@@ -38,15 +40,14 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.currentMonth$ = this.store$.select(selectSmallCalendarCurrentMonth);
-    this.currentMontsNumber$ = this.store$.select(selectSmallCalendarCurrentMonthNumber);
     this.selectedDay$ = this.store$.select(selectSelectedDay);
 
-
-    this.currentMontsNumber$.subscribe(currentMontsNumber => {
-
-      this.currentMontsNumber = dayjs(new Date(dayjs().year(), currentMontsNumber))
-    })
-    this.store$.select(selectSmallCalendarCurrentYearNumber).subscribe(value => this.currentYearNumber = value);
+    combineLatest(this.store$.select(selectSmallCalendarCurrentMonthNumber), this.store$.select(selectSmallCalendarCurrentYearNumber)).subscribe((data) => {
+        this.currentMontsNumber = data[0];
+        this.currentYearNumber = data[1];
+      this.displayDate = dayjs(new Date(this.currentYearNumber, this.currentMontsNumber))
+      }
+    )
 
   }
 
@@ -64,9 +65,10 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
 
   changeCurrentMonth(leftOrRight: number) {
     if (leftOrRight === 0) {
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber.month() - 1, yearNumber: this.currentYearNumber}));
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber - 1, yearNumber: this.currentYearNumber}));
     } else if (leftOrRight === 1) {
-      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber.month() + 1, yearNumber: this.currentYearNumber}));
+      console.log(1);
+      this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber + 1, yearNumber: this.currentYearNumber}));
     }
   }
 

@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     combineLatest(this.store$.select(selectCurrentMonthNumber), this.store$.select(selectYearMonthNumber)).subscribe((data) => {
-      console.log(data[0])
       this.currentMontsNumberNumber = data[0];
       this.currentYearNumberNumber = data[1];
         this.currentMontsNumberString = dayjs(new Date(data[1], data[0])).format("MMMM YYYY")
@@ -41,7 +40,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if(leftOrRight === 0){
       this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:this.currentMontsNumberNumber -1, yearNumber: this.currentYearNumberNumber}));
     }else if(leftOrRight === 1){
-      console.log(this.currentMontsNumberNumber)
       this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:this.currentMontsNumberNumber + 1, yearNumber: this.currentYearNumberNumber}));
 
     }else {

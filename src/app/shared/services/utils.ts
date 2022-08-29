@@ -13,6 +13,5 @@ export function getMonth(month: number, selectedYear: number){
       return dayjs(new Date(year,month,currentMonthCounter))
     })
   })
-  console.log(year);
   return daysMatrix;
 }
