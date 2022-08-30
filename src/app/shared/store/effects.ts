@@ -6,37 +6,33 @@ import {of} from 'rxjs';
 import * as SharedActions from './actions';
 import {
   changeCurrentMonth,
-  changeSmallCalendarCurrentMonth,
+  changeSmallCalendarCurrentMonth, closeModal,
   closeSpinner,
-  errorMessages,
   getCurrentMonth,
-  getCurrentMonthNumber, getCurrentYearNumberSucess,
-  getSmallCalendarCurrentMonth, getSmallCalendarCurrentMonthNumber, getSmallCalendarCurrentMonthNumberSucess,
-  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess,
+  getCurrentMonthNumber,
+  getSmallCalendarCurrentMonth,
+  getSmallCalendarCurrentMonthNumber,
   navigate,
   openModal,
   openModalSuccess,
-  openSpinner,
-  successMessages
+  openSpinner
 } from './actions';
 import {AppState} from '../../root-store/state';
-import {select, Store} from '@ngrx/store';
-import {
-  selectCurrentMonthNumber,
-  selectLastModalRef,
-  selectSmallCalendarCurrentMonth,
-  selectSmallCalendarCurrentMonthNumber, selectYearMonthNumber
-} from './selectors';
+import {Store} from '@ngrx/store';
+import {selectLastModalRef} from './selectors';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ROUTER_NAVIGATION, RouterNavigationAction} from '@ngrx/router-store';
 import {getMonth} from "../services/utils";
 import * as dayjs from "dayjs";
+import {EventModalComponent} from "../components/event-modal/event-modal.component";
 
 
 @Injectable()
 export class SharedEffects {
-  constructor(private action$: Actions, private navigator: Router,
+  constructor(private action$: Actions,
+              private navigator: Router,
               private store$: Store<AppState>,
+              private detailsModal: EventModalComponent,
               private spinnerService: NgxSpinnerService,
   ) {
   }
@@ -72,25 +68,26 @@ export class SharedEffects {
   //   ), {dispatch: false},
   // );
 
-  // openDialog$ = createEffect(
-  //   () => this.action$.pipe(
-  //     ofType(openModal),
-  //     map((data) => {
-  //       this.dialog.open(data.component, data.config);
-  //       // return of(SharedActions.openModalSuccess({dialogRef}));
-  //     }),
-  //   ),
-  //   {dispatch: false});
+  openDialog$ = createEffect(
+    () => {
+      SharedActions.openSpinner();
+      return this.action$.pipe(
+        ofType(openModal),
+        switchMap((data) => {
+          return of(
+            SharedActions.openModalSuccess({open: true}),
+            SharedActions.closeSpinner(),
+            );
+        }),
+      )
+    },
+  );
 
   closeDialog$ = createEffect(
     () => this.action$.pipe(
-      ofType(openModalSuccess),
-      withLatestFrom(this.store$.select(selectLastModalRef)),
-      switchMap(([, lastDialogRef]) => {
-        if (lastDialogRef) {
-          lastDialogRef.close();
-        }
-        return of(SharedActions.closeModalSuccess());
+      ofType(closeModal),
+      switchMap((data) => {
+        return of(SharedActions.openModalSuccess({open: false}));
       }),
     ),
   );

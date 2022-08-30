@@ -12,6 +12,7 @@ export interface SharedState {
   smallCalendarCurrentMonthNumber: number;
   smallCalendarCurrentYearNumber: number;
   smallCalendarCurrentMonth: Dayjs[][];
+  openModal: boolean;
 }
 
 export const INIT_SHARED_STATE: SharedState = {
@@ -23,4 +24,5 @@ export const INIT_SHARED_STATE: SharedState = {
   smallCalendarCurrentMonthNumber: dayjs().month(),
   smallCalendarCurrentYearNumber: dayjs().year(),
   smallCalendarCurrentMonth: null,
+  openModal: false,
  };

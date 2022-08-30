@@ -1,0 +1,38 @@
+<div class="modal" *ngIf="openModal">
+  <form class="modal-forma">
+    <header class="modal-header">
+      <div   (click)="closeModal()" style="cursor:pointer;">
+        <span
+          class="material-icons-outlined"
+          style="color: #9CA3AF;"
+        >
+          close
+        </span>
+      </div>
+    </header>
+    <div class="modal-body">
+      <div></div>
+      <!--      <p>{selektovaniDan.format("dddd, MMMM DD")}</p>-->
+      <div style="display: flex; flex-direction: column; column-gap: 0.5rem; ">
+        <input
+          type=""
+          name="Naslov"
+          placeholder="nasov"
+          class="modal-input-field"
+        />
+        <input
+          type="text"
+          name="Naslov"
+          placeholder="nasov"
+          class="modal-input-field"
+        />
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <button type="submit" class="modal-button">
+        Save
+      </button>
+    </footer>
+
+  </form>
+</div>

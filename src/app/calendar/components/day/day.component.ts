@@ -59,6 +59,9 @@ export class DayComponent implements OnInit, AfterViewInit {
     this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.day.month(), yearNumber: this.day.year()}));
     this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: this.day.month(), yearNumber: this.day.year()}));
   }
+  openDetailsModel(){
+    this.store$.dispatch(CommonActions.openModal());
+  }
 
 
 }

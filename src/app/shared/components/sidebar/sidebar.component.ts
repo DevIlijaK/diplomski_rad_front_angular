@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../root-store/state";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store$: Store<AppState>
+  ) { }
 
   ngOnInit(): void {
   }

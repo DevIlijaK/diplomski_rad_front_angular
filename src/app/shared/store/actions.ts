@@ -12,9 +12,9 @@ export const successMessages = createAction(ESharedAction.SUCCESS_MESSAGES, prop
 export const errorMessages = createAction(ESharedAction.ERROR_MESSAGES, props<{ messagesKey: string, extraMessage?: string }>());
 
 
-export const openModal = createAction(ESharedAction.OPEN_DIALOG, props<{ component: any, config?: any }>());
+export const openModal = createAction(ESharedAction.OPEN_DIALOG);
 
-export const openModalSuccess = createAction(ESharedAction.OPEN_DIALOG_SUCCESS, props<{ dialogRef: MatDialogRef<any> }>());
+export const openModalSuccess = createAction(ESharedAction.OPEN_DIALOG_SUCCESS, props<{open: boolean}>());
 
 export const closeModal = createAction(ESharedAction.CLOSE_DIALOG);
 

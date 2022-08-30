@@ -19,6 +19,7 @@ import {SmallCalendarComponent} from "./components/small-calendar/small-calendar
 import {ESharedAction} from "./constants/constants";
 import {INIT_SHARED_STATE} from "./store/state";
 import {INIT_AUTH_STATE} from "../auth/store/state";
+import { EventModalComponent } from './components/event-modal/event-modal.component';
 
 const grantedActions = [
   ESharedAction.NAVIGATE,
@@ -55,6 +56,7 @@ export function getSharedConfig(
     SidebarComponent,
     SendMailButtonComponent,
     SmallCalendarComponent,
+    EventModalComponent,
   ]
   ,
   imports: [
@@ -83,6 +85,7 @@ export function getSharedConfig(
   entryComponents: [],
   providers: [
     SharedEffects,
+    EventModalComponent,
     {provide: SHARED_LOCAL_STORAGE_KEY, useValue: '__shared_storage__'},
     {provide: SHARED_STORAGE_KEYS, useValue: Object.keys(INIT_SHARED_STATE)},
     {

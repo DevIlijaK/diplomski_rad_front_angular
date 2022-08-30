@@ -3,7 +3,7 @@ import {createReducer, on} from "@ngrx/store";
 import {
   getCurrentMonthNumberSucess,
   getCurrentMonthSucess, getCurrentYearNumberSucess, getSmallCalendarCurrentMonthNumberSucess,
-  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess,
+  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess, openModalSuccess,
   setActiveRouteSuccess,
   SharedActions
 } from "./actions";
@@ -38,6 +38,10 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
   on(getSmallCalendarCurrentYearSucess, (state, {smallCalendarCurrentYearNumber}) => ({
     ...state,
     smallCalendarCurrentYearNumber
+  })),
+  on(openModalSuccess, (state, {open}) => ({
+    ...state,
+    openModal: open
   })),
 );
 

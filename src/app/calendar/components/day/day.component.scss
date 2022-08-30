@@ -25,3 +25,15 @@
 .day-background-color{
   background-color: #F3F4F6;
 }
+.day-events{
+  padding: 0.25rem;
+  margin-bottom: 0.25rem;
+  margin-right: 0.75rem;
+  background-color: #059669;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}

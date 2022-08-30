@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../root-store/state";
+import * as SharedActions from '../../store/actions';
 
 @Component({
   selector: 'app-send-mail-button',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SendMailButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store$: Store<AppState>) { }
 
   ngOnInit(): void {
   }
-
+  openModal() {
+    this.store$.dispatch(SharedActions.openModal());
+  }
 }
