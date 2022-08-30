@@ -18,9 +18,13 @@
   display: flex;
   padding: 0.5rem 1rem;
   background-color: #F3F4F6;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 }
+//.modal-body{
+//  display: grid;
+//  align-items: flex-end;
+//}
 .modal-input-field{
   padding-bottom: 0.5rem;
   padding-top: 0.75rem;

@@ -1,7 +1,11 @@
 <div class="modal" *ngIf="openModal">
   <form class="modal-forma">
     <header class="modal-header">
-      <div   (click)="closeModal()" style="cursor:pointer;">
+      <p style=" line-height: 1.25rem; font-weight: 700; color: #6B7280"
+      >
+        {{modalData.dayName + ' ' + modalData.day}}
+      </p>
+      <div (click)="closeModal()" style="cursor:pointer;">
         <span
           class="material-icons-outlined"
           style="color: #9CA3AF;"
@@ -12,7 +16,6 @@
     </header>
     <div class="modal-body">
       <div></div>
-      <!--      <p>{selektovaniDan.format("dddd, MMMM DD")}</p>-->
       <div style="display: flex; flex-direction: column; column-gap: 0.5rem; ">
         <input
           type=""

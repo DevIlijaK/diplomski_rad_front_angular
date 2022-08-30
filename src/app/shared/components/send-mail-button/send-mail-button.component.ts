@@ -15,6 +15,6 @@ export class SendMailButtonComponent implements OnInit {
   ngOnInit(): void {
   }
   openModal() {
-    this.store$.dispatch(SharedActions.openModal());
+    // this.store$.dispatch(SharedActions.openModal());
   }
 }

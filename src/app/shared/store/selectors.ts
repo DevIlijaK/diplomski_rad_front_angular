@@ -10,6 +10,8 @@ export const getSmallCalendarCurrentMonthNumber = (state: SharedState) => state.
 export const getSmallCalendarCurrentYearNumber = (state: SharedState) => state.smallCalendarCurrentYearNumber;
 export const getSmallCalendarCurrentMonth = (state: SharedState) => state.smallCalendarCurrentMonth;
 export const getOpenModalh = (state: SharedState) => state.openModal;
+export const getModalData = (state: SharedState) => state.modalData;
+export const getThesis = (state: SharedState) => state.thesis;
 
 
 export const selectSharedState: MemoizedSelector<object, SharedState> = createFeatureSelector<SharedState>('shared');
@@ -23,3 +25,5 @@ export const selectSmallCalendarCurrentMonthNumber: MemoizedSelector<object, any
 export const selectSmallCalendarCurrentYearNumber: MemoizedSelector<object, any> = createSelector(selectSharedState, getSmallCalendarCurrentYearNumber);
 export const selectSmallCalendarCurrentMonth: MemoizedSelector<object, any> = createSelector(selectSharedState, getSmallCalendarCurrentMonth);
 export const selectOpenModal: MemoizedSelector<object, any> = createSelector(selectSharedState, getOpenModalh);
+export const selectModalData: MemoizedSelector<object, any> = createSelector(selectSharedState, getModalData);
+export const selectThesis: MemoizedSelector<object, any> = createSelector(selectSharedState, getThesis);

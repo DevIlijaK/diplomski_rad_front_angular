@@ -3,6 +3,7 @@ import {createAction, props, union} from '@ngrx/store';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ESharedAction} from "../constants/constants";
 import {Dayjs} from "dayjs";
+import {ThesisModel} from "../models/thesis.model";
 
 
 export const navigate = createAction(ESharedAction.NAVIGATE, props<{ url: string[] }>());
@@ -12,9 +13,9 @@ export const successMessages = createAction(ESharedAction.SUCCESS_MESSAGES, prop
 export const errorMessages = createAction(ESharedAction.ERROR_MESSAGES, props<{ messagesKey: string, extraMessage?: string }>());
 
 
-export const openModal = createAction(ESharedAction.OPEN_DIALOG);
+export const openModal = createAction(ESharedAction.OPEN_DIALOG, props<{modalData: any}>());
 
-export const openModalSuccess = createAction(ESharedAction.OPEN_DIALOG_SUCCESS, props<{open: boolean}>());
+export const openModalSuccess = createAction(ESharedAction.OPEN_DIALOG_SUCCESS, props<{open: boolean, modalData: any}>());
 
 export const closeModal = createAction(ESharedAction.CLOSE_DIALOG);
 
@@ -48,6 +49,14 @@ export const getSmallCalendarCurrentMonthNumber = createAction(ESharedAction.GET
 export const getSmallCalendarCurrentMonthNumberSucess = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS, props<{ smallCalendarCurrentMonthNumber: number }>());
 
 export const changeSmallCalendarCurrentMonth = createAction(ESharedAction.CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER, props<{ monthNumber: number, yearNumber: number}>());
+
+
+/**
+ * @param Thesis actions
+ */
+export const getAllThesis = createAction(ESharedAction.GET_THESIS);
+export const getAllThesisSuccess = createAction(ESharedAction.GET_THESIS_SUCCESS, props<{thesis: ThesisModel[]}>());
+
 
 const all = union({
   navigate,

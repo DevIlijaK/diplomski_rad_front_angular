@@ -24,6 +24,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.store$.dispatch(SharedActions.getCurrentMonth({currentMonthNumber: dayjs().month(), currentYearNumber: dayjs().year()}));
+    this.store$.dispatch(SharedActions.getAllThesis());
   }
   ngAfterViewInit() {
     this.currentMonth$ = this.store$.select(selectCurrentMonth);

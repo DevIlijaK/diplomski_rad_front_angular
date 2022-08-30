@@ -7,7 +7,8 @@ import * as CalendarActions from '../../store/actions';
 import {Observable} from "rxjs";
 import {selectSelectedDay} from "../../store/selectors";
 import * as CommonActions from "../../../shared/store/actions";
-import {selectCurrentMonthNumber} from "../../../shared/store/selectors";
+import {selectCurrentMonthNumber, selectThesis} from "../../../shared/store/selectors";
+import {ThesisModel} from "../../../shared/models/thesis.model";
 
 @Component({
   selector: 'app-day',
@@ -25,6 +26,7 @@ export class DayComponent implements OnInit, AfterViewInit {
   checkedDay: boolean;
   currentMontsNumber$: Observable<number>;
   currentMontsNumber: Dayjs;
+  thesis: ThesisModel;
 
   constructor(
     private store$: Store<AppState>,
@@ -44,6 +46,9 @@ export class DayComponent implements OnInit, AfterViewInit {
 
       this.currentMontsNumber = dayjs(new Date(dayjs().year(), currentMonthNumber))
     })
+    this.store$.select(selectThesis).subscribe(value =>{
+      console.log(value);
+      this.thesis = value});
   }
 
   ngAfterViewInit() {
@@ -56,11 +61,23 @@ export class DayComponent implements OnInit, AfterViewInit {
 
   changeSelectedDate() {
     this.store$.dispatch(CalendarActions.changeSelectedDay({selectedDay: this.day}));
-    this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.day.month(), yearNumber: this.day.year()}));
-    this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber: this.day.month(), yearNumber: this.day.year()}));
+    this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({
+      monthNumber: this.day.month(),
+      yearNumber: this.day.year()
+    }));
+    this.store$.dispatch(CommonActions.changeCurrentMonth({
+      monthNumber: this.day.month(),
+      yearNumber: this.day.year()
+    }));
   }
-  openDetailsModel(){
-    this.store$.dispatch(CommonActions.openModal());
+
+  openDetailsModel() {
+    this.store$.dispatch(CommonActions.openModal({
+      modalData: {
+        day: this.day.format('DD-MM-YYYY'),
+        dayName: this.dayName
+      }
+    }));
   }
 
 

@@ -1,6 +1,7 @@
 import {INIT_SHARED_STATE, SharedState} from "./state";
 import {createReducer, on} from "@ngrx/store";
 import {
+  getAllThesisSuccess,
   getCurrentMonthNumberSucess,
   getCurrentMonthSucess, getCurrentYearNumberSucess, getSmallCalendarCurrentMonthNumberSucess,
   getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess, openModalSuccess,
@@ -39,9 +40,14 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
     ...state,
     smallCalendarCurrentYearNumber
   })),
-  on(openModalSuccess, (state, {open}) => ({
+  on(openModalSuccess, (state, {open, modalData}) => ({
     ...state,
-    openModal: open
+    openModal: open,
+    modalData
+  })),
+  on(getAllThesisSuccess, (state, {thesis}) => ({
+    ...state,
+    thesis
   })),
 );
 

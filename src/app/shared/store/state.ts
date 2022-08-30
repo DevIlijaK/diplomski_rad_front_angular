@@ -1,6 +1,7 @@
 import {MatDialogRef} from "@angular/material/dialog";
 import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
+import {ThesisModel} from "../models/thesis.model";
 
 
 export interface SharedState {
@@ -13,6 +14,8 @@ export interface SharedState {
   smallCalendarCurrentYearNumber: number;
   smallCalendarCurrentMonth: Dayjs[][];
   openModal: boolean;
+  modalData: any;
+  thesis: ThesisModel[];
 }
 
 export const INIT_SHARED_STATE: SharedState = {
@@ -25,4 +28,6 @@ export const INIT_SHARED_STATE: SharedState = {
   smallCalendarCurrentYearNumber: dayjs().year(),
   smallCalendarCurrentMonth: null,
   openModal: false,
+  modalData: null,
+  thesis: null,
  };

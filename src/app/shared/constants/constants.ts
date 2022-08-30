@@ -25,4 +25,9 @@ export enum ESharedAction {
   GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER = '[Shared] Get Small Calendar Current Month Number',
   GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS = '[Shared] Get Small Calendar Current Month Number Sucess',
   CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER = '[Shared] Change Small Calendar Current Month Number',
+
+
+
+  GET_THESIS = '[Shared] Get Thesis',
+  GET_THESIS_SUCCESS = '[Shared] Get Thesis Success',
 }

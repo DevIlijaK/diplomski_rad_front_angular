@@ -20,6 +20,7 @@ import {ESharedAction} from "./constants/constants";
 import {INIT_SHARED_STATE} from "./store/state";
 import {INIT_AUTH_STATE} from "../auth/store/state";
 import { EventModalComponent } from './components/event-modal/event-modal.component';
+import {ThesisApiService} from "./api/thesis-api.service";
 
 const grantedActions = [
   ESharedAction.NAVIGATE,
@@ -86,6 +87,7 @@ export function getSharedConfig(
   providers: [
     SharedEffects,
     EventModalComponent,
+    ThesisApiService,
     {provide: SHARED_LOCAL_STORAGE_KEY, useValue: '__shared_storage__'},
     {provide: SHARED_STORAGE_KEYS, useValue: Object.keys(INIT_SHARED_STATE)},
     {
