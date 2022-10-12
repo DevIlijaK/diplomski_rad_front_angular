@@ -25,7 +25,6 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
 
   dayOfTHeWeek: string[] = ['pon', 'uto', 'sre', 'čet', 'pet', 'sub', 'ned'];
   currentMonth$: Observable<Dayjs[][]>;
-  currentMontsNumber$: Observable<number>;
   currentMontsNumber: number;
   currentYearNumber: number;
   selectedDay$: Observable<Dayjs>;
@@ -67,7 +66,6 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
     if (leftOrRight === 0) {
       this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber - 1, yearNumber: this.currentYearNumber}));
     } else if (leftOrRight === 1) {
-      console.log(1);
       this.store$.dispatch(CommonActions.changeSmallCalendarCurrentMonth({monthNumber: this.currentMontsNumber + 1, yearNumber: this.currentYearNumber}));
     }
   }

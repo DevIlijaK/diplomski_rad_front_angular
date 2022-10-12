@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from "@angular/forms";
 import {StoreModule} from "@ngrx/store";
 import {authReducers} from "./store/reducers";
@@ -11,10 +11,13 @@ import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
 import {EAuthActions} from "./constants/constants";
+import {LoginComponent} from './components/login/login.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
+import {MatInputModule} from '@angular/material/input';
 
-const grantedActions = [
-
-];
+const grantedActions = [];
 
 
 export function getAuthConfig(
@@ -28,14 +31,21 @@ export function getAuthConfig(
     ],
   };
 }
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoginComponent
+  ],
   imports: [
     CommonModule,
     CommonModule,
+    MatInputModule,
     ReactiveFormsModule,
     StoreModule.forFeature('auth', authReducers),
     EffectsModule.forFeature([AuthEffects]),
+    MatFormFieldModule,
+    MatIconModule,
+    MatCardModule,
   ],
   providers: [
     AuthEffects,

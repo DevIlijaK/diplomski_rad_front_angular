@@ -47,7 +47,6 @@ export class DayComponent implements OnInit, AfterViewInit {
       this.currentMontsNumber = dayjs(new Date(dayjs().year(), currentMonthNumber))
     })
     this.store$.select(selectThesis).subscribe(value =>{
-      console.log(value);
       this.thesis = value});
   }
 

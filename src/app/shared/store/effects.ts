@@ -185,7 +185,6 @@ export class SharedEffects {
       ofType(changeSmallCalendarCurrentMonth),
       switchMap((data) => {
         const smallCalendarCurrentMonth = getMonth(data.monthNumber, data.yearNumber);
-        console.log(data.monthNumber);
         return of(
           SharedActions.closeSpinner(),
           SharedActions.getSmallCalendarCurrentMonthNumberSucess({smallCalendarCurrentMonthNumber: data.monthNumber}),

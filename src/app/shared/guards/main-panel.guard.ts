@@ -16,9 +16,11 @@ export class MainPanelGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+    console.log(123);
     return this.store$.select(selectUserTicket).pipe(
       first(),
       map(ticket => {
+        console.log(ticket);
         if (!ticket) {
           this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
         }
@@ -27,6 +29,7 @@ export class MainPanelGuard implements CanActivate, CanActivateChild {
     );
   }
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+    console.log(this.canActivate(childRoute, state));
     return this.canActivate(childRoute, state);
   }
 }

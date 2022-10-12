@@ -13,3 +13,7 @@ export const AUTH_LOCAL_STORAGE_KEY = new InjectionToken<string[]>(
 export const AUTH_CONFIG_TOKEN = new InjectionToken<
   StoreConfig<AppState, AuthActions>
   >('AuthConfigToken');
+export class AuthModuleConfig {
+  baseUrl: string;
+  loginCompanyLogoName?: string;
+}

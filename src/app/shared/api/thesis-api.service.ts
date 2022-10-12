@@ -63,7 +63,6 @@ export class ThesisApiService {
   //   return this.http.post<string>(url, formData);
   // }
   // getNumberOfDocumentForMonitoring(searchRequest: SearchRequest) {
-  //   console.log(searchRequest);
   //   const url = `${this.TASK_API}/task-status/count`;
   //   return this.http.post(url, searchRequest);
   // }

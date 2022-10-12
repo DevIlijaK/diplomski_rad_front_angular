@@ -28,30 +28,30 @@ import {environment} from "../environments/environment";
   declarations: [
     AppComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        AuthModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        StoreModule.forRoot(reducers, {
-            runtimeChecks: {
-                strictStateImmutability: false,
-                strictActionImmutability: false,
-            },
-        }),
-        StoreDevtoolsModule.instrument({
-            maxAge: 20, // Retains last 10 states
-            logOnly: environment.production, // Restrict extension to log-only mode
-        }),
-        EffectsModule.forRoot([]),
-        NgxSpinnerModule,
-        StoreRouterConnectingModule.forRoot(),
-        SharedModule,
-        CalendarModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    AuthModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 20, // Retains last 10 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    EffectsModule.forRoot([]),
+    NgxSpinnerModule,
+    StoreRouterConnectingModule.forRoot(),
+    SharedModule,
+    CalendarModule,
+  ],
   providers: [
     {provide: ROOT_STORAGE_KEYS, useValue: ['app']},
     {provide: ROOT_LOCAL_STORAGE_KEY, useValue: '__app_storage__'},
@@ -80,4 +80,5 @@ import {environment} from "../environments/environment";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
