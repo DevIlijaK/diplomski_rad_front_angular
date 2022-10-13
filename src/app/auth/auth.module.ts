@@ -10,8 +10,6 @@ import {INIT_AUTH_STATE} from "./store/state";
 import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
-import {EAuthActions} from "./constants/constants";
-import {LoginComponent} from './components/login/login.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
@@ -34,7 +32,6 @@ export function getAuthConfig(
 
 @NgModule({
   declarations: [
-    LoginComponent
   ],
   imports: [
     CommonModule,
