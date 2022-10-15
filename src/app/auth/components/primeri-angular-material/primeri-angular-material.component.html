@@ -1,0 +1,247 @@
+<div>
+  <div style="margin: 40px">
+    <mat-button-toggle #toggleBtn checked disableRipple>Toggle</mat-button-toggle>
+    {{toggleBtn.checked}}
+  </div>
+  <div style="margin: 40px">
+    <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
+      <mat-button-toggle color="primary" value="angular">Angular</mat-button-toggle>
+      <mat-button-toggle color="primary" value="react">Reach</mat-button-toggle>
+      <mat-button-toggle color="primary" value="vue">Vue</mat-button-toggle>
+    </mat-button-toggle-group>
+    {{toggleGroup.value}}
+  </div>
+  <div style="margin: 40px">
+    <mat-icon color="primary">arrow_forward</mat-icon>
+  </div>
+  <div style="margin: 40px">
+    <span matBadge="5" matBadgePosition="above after">Notification</span>
+  </div>
+  <div style="margin: 40px">
+    <span matBadge="5" matBadgePosition="below before">Notification</span>
+  </div>
+  <div style="margin: 40px">
+    <span matBadge="5" matBadgePosition="below after">Notification</span>
+  </div>
+
+  <!--<div>-->
+  <!--  <mat-spinner></mat-spinner>-->
+  <!--</div>-->
+
+
+  <mat-toolbar color="primary" style="margin-top: 40px; margin-bottom: 40px" class="navbar">
+    <div>Codeevelution</div>
+    <div>
+      <span>Home</span>
+      <span>Shit</span>
+      <span>Piss</span>
+    </div>
+  </mat-toolbar>
+</div>
+
+<!-- postoje 3 razlicita moda za side nav over push i side opet prelazi preko sadrzaja kada se otvara, push gurne sadrzaj u desnu stranu i side smanji sadrzaj -->
+
+<!--<mat-sidenav-container>-->
+<!--  <mat-sidenav #sidenav (opened)="log('2')" (closed)="log('1')" mode="push" [(opened)]="opened">Sidenav</mat-sidenav>-->
+<!--  <mat-sidenav-content>Main-->
+<!--  <button (click)="opened=!opened">Toggle Opened</button>-->
+<!--  <button (click)="sidenav.toggle()">Toggle</button>-->
+<!--  </mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->
+<div style="margin-top: 40px; margin-bottom: 40px">
+  <mat-menu #appMenu xPosition="after" yPosition="above">
+    <button mat-menu-item [mat-menu-trigger-for]="subMenu">FrontEnd</button>
+    <button mat-menu-item>BackEnd</button>
+  </mat-menu>
+  <button mat-flat-button [mat-menu-trigger-for]="appMenu">Menu</button>
+
+  <mat-menu #subMenu>
+    <button mat-menu-item>Angular</button>
+    <button mat-menu-item>React</button>
+    <button mat-menu-item>Vue</button>
+  </mat-menu>
+
+  <mat-menu #lazyMenu="matMenu">
+    <ng-template matMenuContent let-name="name" let-hobby="hobby">
+      <button mat-menu-item>Nesto</button>
+      <button mat-menu-item>Hobby is {{hobby}}</button>
+      <button mat-menu-item>Svasta {{name}}</button>
+    </ng-template>
+  </mat-menu>
+
+  <button mat-raised-button [matMenuTriggerData]="{name: 'Nesto', hobby: 'football'}" [matMenuTriggerFor]="lazyMenu">
+    Vishwas
+  </button>
+  <button mat-raised-button [matMenuTriggerData]="{name: 'Svasta', hobby: 'teaching'}" [matMenuTriggerFor]="lazyMenu">
+    CodeEvolution
+  </button>
+</div>
+<div style="background-color: #0c2529">
+  <mat-list dense>
+    <mat-list-item>Item 1</mat-list-item>
+    <mat-list-item>item 2</mat-list-item>
+    <mat-list-item>item 3</mat-list-item>
+  </mat-list>
+  <!-- koristi se za side nav -->
+  <mat-nav-list>
+    <a mat-list-item href="#">Home</a>
+    <a mat-list-item href="#">Shit</a>
+    <a mat-list-item href="#">Piss</a>
+  </mat-nav-list>
+  <!-- ovako nekako bi izgledalo u pravom svetu -->
+  <mat-list>
+    <mat-list-item>
+      <mat-icon matListIcon>home</mat-icon>
+      <h3 matLine>Heading</h3>
+      <p matLine>Line</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon matListIcon>folder</mat-icon>
+      <h3 matLine>Heading 2</h3>
+      <p matLine>Line 2</p>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<div>
+
+  <!-- row height moze da se postavi i sa pikselima 100px a moze i proporcionalno u odnosu na sirinu 2 : 1,
+  a moze i fit to je da se prilagodi kontejneru u kome se nalazi. gutterSize je razmak izmedju redova i kolona -->
+  <mat-grid-list cols="2" rowHeight="fit" style="height: 200px" gutterSize="5px">
+    <mat-grid-tile colspan="2">Title 1</mat-grid-tile>
+    <mat-grid-tile colspan="2">Title 2</mat-grid-tile>
+    <mat-grid-tile rowspan="2">Title 3</mat-grid-tile>
+    <mat-grid-tile rowspan="2">Title 4</mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!-- Ukoliko zelimo da oba budu otvorena u isto vreme samo postavilo atribut multi na true
+mozemo i da hideToggle openClose panel i da znamo kada je expanded i kada nije-->
+<div style="margin: 40px 0 40px 0">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Angular Fundamentals</mat-panel-title>
+        <mat-panel-description>Total Duration</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>This is the panel content</p>
+      <mat-action-row>
+        <button mat-button>Enroll</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Angular Material</mat-panel-title>
+        <mat-panel-description>Total Duration 2</mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>This is the panel content</p>
+      <mat-action-row>
+        <button mat-button>Enroll</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<!-- moze da se koristi za login za profil korisnika itd -->
+<div style="margin: 40px 0 40px 0">
+  <mat-card>
+    <mat-card-title>
+      Card title
+    </mat-card-title>
+    <mat-card-content>
+      This is content
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-flat-button>Login</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!--Ovo moze na HBISU da se iskoristi -->
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+  <mat-tab-group #tabRef (selectedTabChange)="log(tabRef)">
+    <mat-tab label="Angular">Angular Content</mat-tab>
+    <mat-tab label="React">React Content</mat-tab>
+    <mat-tab label="Vue">Vue Content</mat-tab>
+  </mat-tab-group>
+</div>
+
+<!-- moze i horizontalni i vertikalni -->
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+  <mat-horizontal-stepper linear>
+    <mat-step label="Shipping Adress" completed="true">
+      <p>Shipping Address Details</p>
+    </mat-step>
+    <mat-step label="Billing Adress" completed="false" optional>
+      <p>Billing Adress Details</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Shipping Adress" completed="false">
+      <p>Shipping Adress Details</p>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+  <mat-form-field floatLabel="auto" appearance="legacy">
+    <mat-label>Name</mat-label>
+    <input matInput required>
+    <mat-hint>Min 5 characters</mat-hint>
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" appearance="standard">
+    <mat-label>Name</mat-label>
+    <input matInput required>
+    <mat-hint>Min 5 characters</mat-hint>
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput required>
+    <mat-hint>Min 5 characters</mat-hint>
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput required>
+    <mat-hint>Min 5 characters</mat-hint>
+  </mat-form-field>
+</div>
+
+
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+  <mat-form-field appearance="outline" floatLabel="never">
+    <mat-label>Topic</mat-label>
+    <mat-select #matSelect multiple>
+      <mat-option>None</mat-option>
+      <mat-optgroup label="Web">
+        <mat-option value="angular">Angular</mat-option>
+        <mat-option value="react">React</mat-option>
+        <mat-option value="vue">Vue</mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Mobile">
+        <mat-option value="ionic">React</mat-option>
+        <mat-option value="reactive">Vue</mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+  {{matSelect.value}}
+</div>
+
+
+<div style="margin: 40px 0 40px 0; background-color: #9CA3AF">
+  <form>
+    <mat-form-field>
+      <input type="text" matInput [matAutocomplete]="auto"/>
+      <mat-autocomplete #auto [displayWith]="displayFn">
+        <mat-option *ngFor="let option of objectOptions" [value]="options">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>
+
+

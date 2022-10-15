@@ -10,12 +10,9 @@ import {INIT_AUTH_STATE} from "./store/state";
 import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
-import {EAuthActions} from "./constants/constants";
 import {LoginComponent} from './components/login/login.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatIconModule} from "@angular/material/icon";
-import {MatCardModule} from "@angular/material/card";
-import {MatInputModule} from '@angular/material/input';
+import {AngularMaterialModule} from "../angular-material/angular-material.module";
+import { PrimeriAngularMaterialComponent } from './components/primeri-angular-material/primeri-angular-material.component';
 
 const grantedActions = [];
 
@@ -34,18 +31,15 @@ export function getAuthConfig(
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    PrimeriAngularMaterialComponent
   ],
   imports: [
     CommonModule,
-    CommonModule,
-    MatInputModule,
     ReactiveFormsModule,
     StoreModule.forFeature('auth', authReducers),
     EffectsModule.forFeature([AuthEffects]),
-    MatFormFieldModule,
-    MatIconModule,
-    MatCardModule,
+    AngularMaterialModule,
   ],
   providers: [
     AuthEffects,
