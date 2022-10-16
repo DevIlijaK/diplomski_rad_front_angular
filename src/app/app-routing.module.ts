@@ -7,6 +7,7 @@ import {AuthGuard} from "./shared/guards/auth.guard";
 import {
   PrimeriAngularMaterialComponent
 } from "./auth/components/primeri-angular-material/primeri-angular-material.component";
+import {LoginCustomComponent} from "./auth/components/login-custom/login-custom.component";
 
 const routes: Routes = [
   // {
@@ -16,7 +17,8 @@ const routes: Routes = [
   //   canActivateChild: [MainPanelGuard]
   // },
   {path: 'primer-angular-material', component: PrimeriAngularMaterialComponent},
-  {path: '**', redirectTo: 'primer-angular-material'},
+  {path: 'login', component: LoginCustomComponent},
+  {path: '**', redirectTo: 'login'},
 ];
 
 @NgModule({

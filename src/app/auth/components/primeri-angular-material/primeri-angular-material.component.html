@@ -230,18 +230,69 @@ mozemo i da hideToggle openClose panel i da znamo kada je expanded i kada nije--
   {{matSelect.value}}
 </div>
 
-
+<!-- autocomplete -->
 <div style="margin: 40px 0 40px 0; background-color: #9CA3AF">
   <form>
     <mat-form-field>
-      <input type="text" matInput [matAutocomplete]="auto"/>
-      <mat-autocomplete #auto [displayWith]="displayFn">
-        <mat-option *ngFor="let option of objectOptions" [value]="options">
+      <input type="text" matInput [matAutocomplete]="auto" [formControl]="myControl"/>
+      <mat-autocomplete #auto>
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
           {{option.name}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </form>
 </div>
+
+
+<div style="margin: 40px 0 40px 0; background-color: #9CA3AF">
+  <mat-checkbox>
+    Subscribe
+  </mat-checkbox>
+  <br>
+  <mat-checkbox labelPosition="before">
+    Subscribe
+  </mat-checkbox>
+  <mat-checkbox labelPosition="before" color="primary">
+    Subscribe
+  </mat-checkbox>
+  <mat-checkbox labelPosition="before" color="accent">
+    Subscribe
+  </mat-checkbox>
+</div>
+
+
+<div style="margin: 40px 0 40px 0; background-color: #9CA3AF">
+  <mat-radio-group>
+    <mat-radio-button value="angular">React</mat-radio-button>
+    <mat-radio-button value="angular">Angular</mat-radio-button>
+    <mat-radio-button value="angular">Vue</mat-radio-button>
+  </mat-radio-group>
+</div>
+
+
+<!--startView="month" koristi se za podesavanje iyzgleda modala pocetnog
+[min]="minDate" [max]="maxDate"-->
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatePicker" [matDatepickerFilter]="dateFilter">
+  <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
+  <mat-datepicker #myDatePicker ></mat-datepicker>
+</mat-form-field>
+</div>
+
+<!-- moze da se postavi i delay matTooltipShowDelay -->
+
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+  <button mat-raised-button matTooltip="Welcome to Codeevolution" matTooltipPosition="after" matTooltipShowDelay="2000">Hello</button>
+</div>
+
+<div style="margin: 40px 0 40px 0; background-color: #0c2529">
+  <button mat-button (click)="openSnackBar('item deleted', 'Undo')">Delete</button>
+</div>
+
+<!--<div style="margin: 40px 0 40px 0; background-color: #0c2529">-->
+<!--  <button mat-button (click)="openDialog('item deleted', 'Undo')">Delete</button>-->
+<!--</div>-->
 
 
