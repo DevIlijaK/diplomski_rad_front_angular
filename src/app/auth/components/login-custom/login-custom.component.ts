@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {Observable, startWith} from "rxjs";
-import {map} from "rxjs/operators";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Store} from "@ngrx/store";
+import {login} from "../../store/actions";
+import {LoginRequest} from "../../model/login-request";
+
 
 @Component({
   selector: 'app-login-custom',
@@ -10,28 +12,29 @@ import {map} from "rxjs/operators";
 })
 export class LoginCustomComponent implements OnInit {
 
-  myControl = new FormControl;
-  filteredOptions: Observable<any[]>;
-  objectOptions = [
-    {name: 'Angular'},
-    {name: 'Angular Material'},
-    {name: 'React'},
-    {name: 'Vue'}
-  ];
+  form: FormGroup;
   hide = true;
-  constructor() { }
+
+  constructor(private store$: Store,
+              private formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    )
-  }
-  private _filter(value: string): any[] {
-    console.log(value)
-    const filterValue = value.toLowerCase()
-    return this.objectOptions.filter(option =>
-      option.name.toLowerCase().includes(filterValue))
+    this.initForm();
   }
 
+  initForm(): void {
+    this.form = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  login() {
+    const loginRequest = {
+      username: this.form.value.username,
+      password: this.form.value.password
+    } as LoginRequest;
+    this.store$.dispatch(login({loginRequest}));
+  }
 }

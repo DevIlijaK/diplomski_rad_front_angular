@@ -21,7 +21,7 @@ import {reducers} from "./root-store/reducers";
 import {AuthModule} from "./auth/auth.module";
 import {CalendarModule} from "./calendar/calendar.module";
 import {SharedModule} from "./shared/shared.module";
-import {environment} from "../environments/environment";
+import {environment} from "../environments/environment.prod";
 
 
 @NgModule({
@@ -61,11 +61,11 @@ import {environment} from "../environments/environment";
       useFactory: storageMetaReducerFactory,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true,
+    // },
     // {
     //   provide: DateAdapter,
     //   useClass: MomentDateAdapter,

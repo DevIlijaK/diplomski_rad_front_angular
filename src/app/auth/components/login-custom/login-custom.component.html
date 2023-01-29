@@ -1,22 +1,24 @@
+<div class="center">
 <div style="margin: 40px 0 40px 0">
   <mat-card>
     <mat-card-title>
-      Card title
+      Unesite korisničko ime i Šifru
     </mat-card-title>
     <mat-card-content>
-      <form class="login-form">
-        <mat-form-field class="login-field" appearance="outline">
+      <form class="login-form" [formGroup]="form">
+        <mat-form-field class="login-field" appearance="outline" color="primary">
           <mat-label>Korisničko ime</mat-label>
-          <input type="text" matInput class="form-control"  [matAutocomplete]="auto" [formControl]="myControl"/>
-          <mat-autocomplete #auto>
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
-              {{option.name}}
-            </mat-option>
-          </mat-autocomplete>
+          <input type="text" matInput class="form-control" formControlName="username"/>
+<!--          [matAutocomplete]="auto"-->
+<!--          <mat-autocomplete #auto>-->
+<!--            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">-->
+<!--              {{option.name}}-->
+<!--            </mat-option>-->
+<!--          </mat-autocomplete>-->
         </mat-form-field>
         <mat-form-field appearance="outline" class="login-field">
           <mat-label>Šifra</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Sakri šifru'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -24,7 +26,8 @@
       </form>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-flat-button>Login</button>
+      <button mat-raised-button class="big-button" (click)="login()">Login</button>
     </mat-card-actions>
   </mat-card>
+</div>
 </div>

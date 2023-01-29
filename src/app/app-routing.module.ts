@@ -10,15 +10,15 @@ import {
 import {LoginCustomComponent} from "./auth/components/login-custom/login-custom.component";
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: AppComponent,
-  //   canActivate: [MainPanelGuard],
-  //   canActivateChild: [MainPanelGuard]
-  // },
-  {path: 'primer-angular-material', component: PrimeriAngularMaterialComponent},
+  {
+    path: '',
+    component: LoginCustomComponent,
+    canActivate: [MainPanelGuard],
+    canActivateChild: [MainPanelGuard]
+  },
+  // {path: 'primer-angular-material', component: PrimeriAngularMaterialComponent},
   {path: 'login', component: LoginCustomComponent},
-  {path: '**', redirectTo: 'login'},
+  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({

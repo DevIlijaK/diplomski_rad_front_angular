@@ -149,7 +149,7 @@ $my-app-yellow:    mat-palette($mat-yellow);
 
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
-$primaryColor: map-get($my-app-primary, 600);
+$primaryColor: map-get($my-app-primary, 100);
 $primaryColorLight: map-get($my-app-primary, 300);
 
 $accentColorBase: map-get($my-app-accent, A200);
