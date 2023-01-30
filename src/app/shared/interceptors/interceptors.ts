@@ -7,7 +7,8 @@ import {catchError, first, switchMap} from 'rxjs/operators';
 import * as AuthActions from '../../auth/store/actions';
 import * as SharedActions from '../store/actions';
 import {AppState} from "../../root-store/state";
-import {selectUserTicket} from "../../auth/store/selectors";
+import {selectLoggedInUser} from "../../auth/store/selectors";
+import {User} from "../../auth/model/user";
 
 
 @Injectable()
@@ -16,14 +17,17 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.store$.pipe(select(selectUserTicket)).pipe(
+    return this.store$.pipe(select(selectLoggedInUser)).pipe(
       first(),
-      switchMap((ticket) => {
-        const authRequest = ticket ? req.clone({
+      switchMap((loggedInUser: User) => {
+        const authRequest = loggedInUser ? req.clone({
           setHeaders: {
-            Authorization: `Basic ${btoa(ticket)}`,
+            Authorization: `Bearer ${btoa(loggedInUser.accessToken)}`,
           },
         }) : req;
+        /**
+         * Ovde treba da se odradi logika za refresh token
+         */
         return next.handle(authRequest).pipe(
           catchError((err => {
             const error = err.error ? err.error.message : '';

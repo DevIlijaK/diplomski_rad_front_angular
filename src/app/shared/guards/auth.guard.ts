@@ -5,25 +5,26 @@ import {AppState} from '../../root-store/state';
 import {Store} from '@ngrx/store';
 import {first, map} from 'rxjs/operators';
 import * as SharedActions from '../store/actions';
-import {selectUserTicket} from "../../auth/store/selectors";
+import {selectLoggedInUser} from "../../auth/store/selectors";
+import {User} from "../../auth/model/user";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
-  constructor(private store$: Store<AppState>) {
-  }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
-    return this.store$.select(selectUserTicket).pipe(
-      first(),
-      map(ticket => {
-        if (ticket) {
-          this.store$.dispatch(SharedActions.navigate({url: ['/']}));
-        }
-        return !ticket;
-      })
-    );
-  }
-
-}
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class AuthGuard implements CanActivate {
+//   constructor(private store$: Store<AppState>) {
+//   }
+//
+//   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+//     return this.store$.select(selectLoggedInUser).pipe(
+//       first(),
+//       map((loggedInUser: User) => {
+//         if (loggedInUser) {
+//           this.store$.dispatch(SharedActions.navigate({url: ['/']}));
+//         }
+//         return !ticket;
+//       })
+//     );
+//   }
+//
+// }

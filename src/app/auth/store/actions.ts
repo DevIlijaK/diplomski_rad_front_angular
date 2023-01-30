@@ -4,7 +4,7 @@ import {User} from "../model/user";
 import {LoginRequest} from "../model/login-request";
 
 export const login = createAction(EAuthActions.LOGIN, props<{ loginRequest: LoginRequest }>());
-export const loginSuccess = createAction(EAuthActions.LOGIN_SUCCESS, props<{ ticket: any }>());
+export const loginSuccess = createAction(EAuthActions.LOGIN_SUCCESS, props<{ loggedInUser: User }>());
 export const loginFailure = createAction(EAuthActions.LOGIN_FAIL, props<{ ticket: any }>());
 export const getUser = createAction(EAuthActions.GET_USER, props<{ userId: string }>());
 export const getUserSuccess = createAction(EAuthActions.GET_USER_SUCCESS, props<{ user: User }>());

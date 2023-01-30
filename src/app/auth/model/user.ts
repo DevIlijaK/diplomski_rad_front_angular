@@ -1,11 +1,11 @@
 export interface User {
-  id?: string;
-  userId?: string;
   firstName: string;
   lastName: string;
   username: string;
   password: string;
   email: string;
+  accessToken: string;
+  refreshToken: string;
 }
 export interface ChangePasswordRequest {
   oldPassword: string;
