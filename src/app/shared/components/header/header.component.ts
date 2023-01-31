@@ -7,6 +7,8 @@ import {combineLatest, Observable, zip} from "rxjs";
 import * as CommonActions from '../../store/actions';
 import * as CalendarActions from '../../../calendar/store/actions';
 import {Dayjs} from "dayjs";
+import {logout} from "../../../auth/store/actions";
+import {openSpinner} from "../../store/actions";
 
 @Component({
   selector: 'app-header',
@@ -47,5 +49,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.store$.dispatch(CommonActions.changeCurrentMonth({monthNumber:dayjs().month(), yearNumber: dayjs().year()}));
     }
   }
-
+logout(){
+    this.store$.dispatch(openSpinner());
+    this.store$.dispatch(logout());
+}
 }

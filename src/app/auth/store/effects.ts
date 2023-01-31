@@ -26,4 +26,17 @@ export class AuthEffects {
       )
     })
   ));
+  logout$ = createEffect(() => this.action$.pipe(
+    ofType(AuthActions.logout),
+    switchMap((data) => {
+      return this.authApi.logout().pipe(
+        switchMap(response => of(
+          AuthActions.logoutSuccess({loggedInUser: null}),
+          closeSpinner(),
+          navigate({url: ['/login']})
+        )),
+        // catchError(error => of(loginFailure({ticket: error})))
+      )
+    })
+  ));
 }

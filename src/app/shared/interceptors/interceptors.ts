@@ -33,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
             switch (err.status) {
               case 401:
-                this.store$.dispatch(AuthActions.logoutSuccess());
+                // this.store$.dispatch(AuthActions.logoutSuccess());
                 this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
                 this.store$.dispatch(SharedActions.errorMessages({messagesKey: 'error-401'}));
                 break;

@@ -1,10 +1,14 @@
 import {createReducer, on} from "@ngrx/store";
 import {AuthState, INIT_AUTH_STATE} from "./state";
-import {AuthActions, loginSuccess} from "./actions";
+import {AuthActions, loginSuccess, logoutSuccess} from "./actions";
 
 const reducer = createReducer(
   INIT_AUTH_STATE,
   on(loginSuccess, (state, {loggedInUser}) => ({
+    ...state,
+    loggedInUser
+  })),
+  on(logoutSuccess, (state, {loggedInUser}) => ({
     ...state,
     loggedInUser
   })),
