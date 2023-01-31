@@ -4,6 +4,7 @@ import {switchMap, tap} from "rxjs/operators";
 import {AuthApiService} from "../api/auth-api";
 import {of} from "rxjs";
 import * as AuthActions from './actions';
+import {closeSpinner, navigate} from "../../shared/store/actions";
 
 @Injectable()
 export class AuthEffects {
@@ -16,7 +17,11 @@ export class AuthEffects {
     ofType(AuthActions.login),
     switchMap((data) => {
       return this.authApi.login(data.loginRequest).pipe(
-        switchMap(response => of(AuthActions.loginSuccess({loggedInUser: response}))),
+        switchMap(response => of(
+          AuthActions.loginSuccess({loggedInUser: response['appUser']}),
+          closeSpinner(),
+          navigate({url: ['']})
+        )),
         // catchError(error => of(loginFailure({ticket: error})))
       )
     })

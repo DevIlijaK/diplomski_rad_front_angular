@@ -6,7 +6,7 @@ import {LoginCustomComponent} from "./auth/components/login-custom/login-custom.
 const routes: Routes = [
   {
     path: '',
-    component: LoginCustomComponent,
+    loadChildren: () => import('./core/core.module').then(module => module.CoreModule),
     canActivate: [MainPanelGuard],
     canActivateChild: [MainPanelGuard]
   },

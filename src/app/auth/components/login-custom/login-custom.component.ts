@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {login} from "../../store/actions";
 import {LoginRequest} from "../../model/login-request";
+import {openSpinner} from "../../../shared/store/actions";
 
 
 @Component({
@@ -35,6 +36,7 @@ export class LoginCustomComponent implements OnInit {
       username: this.form.value.username,
       password: this.form.value.password
     } as LoginRequest;
+    this.store$.dispatch(openSpinner());
     this.store$.dispatch(login({loginRequest}));
   }
 }

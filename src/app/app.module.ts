@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {META_REDUCERS, StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {EffectsModule} from "@ngrx/effects";
@@ -21,6 +21,7 @@ import {AuthModule} from "./auth/auth.module";
 import {CalendarModule} from "./calendar/calendar.module";
 import {SharedModule} from "./shared/shared.module";
 import {environment} from "../environments/environment.prod";
+import {AuthInterceptor} from "./shared/interceptors/interceptors";
 
 
 @NgModule({
@@ -60,11 +61,11 @@ import {environment} from "../environments/environment.prod";
       useFactory: storageMetaReducerFactory,
       multi: true,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     // {
     //   provide: DateAdapter,
     //   useClass: MomentDateAdapter,

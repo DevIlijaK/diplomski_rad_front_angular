@@ -14,7 +14,6 @@ import {LoginComponent} from './components/login/login.component';
 import {AngularMaterialModule} from "../angular-material/angular-material.module";
 import { PrimeriAngularMaterialComponent } from './components/primeri-angular-material/primeri-angular-material.component';
 import { LoginCustomComponent } from './components/login-custom/login-custom.component';
-import {MatCardModule} from "@angular/material/card";
 
 const grantedActions = [];
 
