@@ -24,4 +24,7 @@ export class AuthApiService {
   logout(): Observable<any> {
     return this.http.get(this.USER_API + '/logout');
   }
+  refreshAccessToken(refreshToken: string): Observable<any> {
+    return this.http.post(this.USER_API + '/token/refresh', refreshToken);
+  }
 }

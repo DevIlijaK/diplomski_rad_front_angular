@@ -10,12 +10,17 @@ import {INIT_AUTH_STATE} from "./store/state";
 import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
-import {LoginComponent} from './components/login/login.component';
 import {AngularMaterialModule} from "../angular-material/angular-material.module";
-import { PrimeriAngularMaterialComponent } from './components/primeri-angular-material/primeri-angular-material.component';
-import { LoginCustomComponent } from './components/login-custom/login-custom.component';
+import {
+  PrimeriAngularMaterialComponent
+} from './components/primeri-angular-material/primeri-angular-material.component';
+import {LoginCustomComponent} from './components/login-custom/login-custom.component';
+import {EAuthActions} from "./constants/constants";
 
-const grantedActions = [];
+const grantedActions = [
+  EAuthActions.LOGIN_SUCCESS,
+  EAuthActions.LOGOUT_SUCCESS
+];
 
 
 export function getAuthConfig(
@@ -32,14 +37,13 @@ export function getAuthConfig(
 
 @NgModule({
   declarations: [
-    LoginComponent,
     PrimeriAngularMaterialComponent,
     LoginCustomComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('auth', authReducers),
+    StoreModule.forFeature('auth', authReducers, AUTH_CONFIG_TOKEN),
     EffectsModule.forFeature([AuthEffects]),
     AngularMaterialModule,
   ],

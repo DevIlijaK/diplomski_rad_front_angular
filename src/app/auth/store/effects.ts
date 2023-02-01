@@ -39,4 +39,17 @@ export class AuthEffects {
       )
     })
   ));
+  refreshAccessToken$ = createEffect(() => this.action$.pipe(
+    ofType(AuthActions.refreshAccessToken),
+    switchMap((data) => {
+      return this.authApi.refreshAccessToken(data.refreshToken).pipe(
+        switchMap(response => of(
+          AuthActions.refreshAccessTokenSuccess({accessToken: response['access_token']}),
+          closeSpinner(),
+          navigate({url: ['/login']})
+        )),
+        // catchError(error => of(loginFailure({ticket: error})))
+      )
+    })
+  ));
 }

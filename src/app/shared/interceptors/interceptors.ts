@@ -9,6 +9,7 @@ import * as SharedActions from '../store/actions';
 import {AppState} from "../../root-store/state";
 import {selectLoggedInUser} from "../../auth/store/selectors";
 import {User} from "../../auth/model/user";
+import {refreshAccessToken} from "../../auth/store/actions";
 
 
 @Injectable()
@@ -33,14 +34,32 @@ export class AuthInterceptor implements HttpInterceptor {
 
             switch (err.status) {
               case 401:
-                // this.store$.dispatch(AuthActions.logoutSuccess());
+                this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
                 this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
-                this.store$.dispatch(SharedActions.errorMessages({messagesKey: 'error-401'}));
+                // this.store$.dispatch(SharedActions.errorMessages({messagesKey: 'error-401'}));
                 break;
               case 403:
-                this.store$.dispatch(SharedActions.errorMessages({messagesKey: err.error.error.errorKey}));
+                console.log();
+                console.log(err.error.error_message);
+                console.log(err.error.token_type === 'Access Token');
+                console.log(err.error.token_type === 'Refresh Token');
+                console.log(err.error.error_message.startsWith('The Token has expired on'));
+                if (err.error.error_message.startsWith('The Token has expired on') &&
+                  err.error.token_type === 'Access Token'
+                ) {
+                  this.store$.dispatch(refreshAccessToken({refreshToken: loggedInUser.refreshToken}))
+                }else if (err.error.error_message.startsWith('The Token has expired on') &&
+                  err.error.token_type === 'Refresh Token'){
+                  this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
+                  this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
+                }else {
+
+                }
                 break;
               default:
+                /**
+                 * Treba da se implementira
+                 */
                 this.store$.dispatch(SharedActions.errorMessages({messagesKey: error}));
                 break;
             }

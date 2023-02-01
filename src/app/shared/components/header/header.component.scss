@@ -8,6 +8,8 @@
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid #01cdcd;
+  gap: 30px;
+  flex: 1 1 auto
 }
 .header-logo {
   margin-right: 0.5rem;
@@ -15,11 +17,11 @@
   height: 3rem;
 }
 .header-title{
-  margin-right: 2.5rem;
   color: #6B7280;
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 700;
+  margin: 10px 0 10px 0 !important;
 }
 .button-one{
   padding-top: 0.5rem;
@@ -51,9 +53,15 @@
   background-color: transparent;
 }
 .header-date-text{
-  margin-left: 1rem;
   color: #6B7280;
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 700;
+  margin: 10px 0 10px 0 !important;
+}
+.flex-row-center{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  width: auto;
 }

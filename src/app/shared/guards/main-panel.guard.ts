@@ -21,12 +21,16 @@ export class MainPanelGuard implements CanActivate, CanActivateChild {
       map(loggedInUser => {
         console.log(loggedInUser);
         if (!loggedInUser) {
+          console.log(loggedInUser);
+          console.log('Uslo u if');
           this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
         }
+        console.log('Nije uslo u if');
         return !!loggedInUser;
       })
     );
   }
+
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return this.canActivate(childRoute, state);
   }

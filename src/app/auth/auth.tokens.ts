@@ -10,10 +10,7 @@ export const AUTH_STORAGE_KEYS = new InjectionToken<keyof AuthState[]>(
 export const AUTH_LOCAL_STORAGE_KEY = new InjectionToken<string[]>(
   'AuthStorage',
 );
-export const AUTH_CONFIG_TOKEN = new InjectionToken<
-  StoreConfig<AppState, AuthActions>
-  >('AuthConfigToken');
-export class AuthModuleConfig {
-  baseUrl: string;
-  loginCompanyLogoName?: string;
-}
+export const AUTH_CONFIG_TOKEN = new InjectionToken<StoreConfig<AppState, AuthActions>>(
+  'AuthConfigToken'
+);
+
