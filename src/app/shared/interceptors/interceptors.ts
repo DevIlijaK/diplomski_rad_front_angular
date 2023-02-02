@@ -22,8 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
       select(selectLoggedInUser),
       first(),
       switchMap((loggedInUser: User) => {
-        console.log(loggedInUser?.accessToken);
-        console.log(loggedInUser);
         const authRequest = loggedInUser
           ? req.clone({setHeaders: {Authorization: `Bearer ${loggedInUser.accessToken}`}})
           : req;
@@ -34,26 +32,36 @@ export class AuthInterceptor implements HttpInterceptor {
 
             switch (err.status) {
               case 401:
+                console.log(3)
                 this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
                 this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
                 // this.store$.dispatch(SharedActions.errorMessages({messagesKey: 'error-401'}));
                 break;
               case 403:
-                console.log();
-                console.log(err.error.error_message);
-                console.log(err.error.token_type === 'Access Token');
-                console.log(err.error.token_type === 'Refresh Token');
-                console.log(err.error.error_message.startsWith('The Token has expired on'));
                 if (err.error.error_message.startsWith('The Token has expired on') &&
-                  err.error.token_type === 'Access Token'
+                  err.error.token_type === 'Access Token' && !err.url.endsWith('/api/user/logout')
                 ) {
-                  this.store$.dispatch(refreshAccessToken({refreshToken: loggedInUser.refreshToken}))
-                }else if (err.error.error_message.startsWith('The Token has expired on') &&
-                  err.error.token_type === 'Refresh Token'){
+                  this.store$.dispatch(refreshAccessToken({refreshToken: 'Bearer ' + loggedInUser.refreshToken}))
+                  // this.store$.pipe(
+                  //   select(selectLoggedInUser),
+                  //   first(),
+                  //   switchMap((user: User) => {
+                  //     const authRequest = user
+                  //       ? req.clone({setHeaders: {Authorization: `Bearer ${user.accessToken}`}})
+                  //       : req;
+                  //    return next.handle(authRequest);
+                  //   }))
+                  /**
+                   * Mozda bude trebalo
+                   */
+                  // }else if (err.error.error_message.startsWith('The Token has expired on') &&
+                  //   err.error.token_type === 'Refresh Token'){
+                  //   this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
+                  //   this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
+                } else {
+                  console.log(1);
                   this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
                   this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
-                }else {
-
                 }
                 break;
               default:

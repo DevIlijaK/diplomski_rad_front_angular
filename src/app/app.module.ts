@@ -22,6 +22,7 @@ import {CalendarModule} from "./calendar/calendar.module";
 import {SharedModule} from "./shared/shared.module";
 import {environment} from "../environments/environment.prod";
 import {AuthInterceptor} from "./shared/interceptors/interceptors";
+import {AngularMaterialModule} from "./angular-material/angular-material.module";
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {AuthInterceptor} from "./shared/interceptors/interceptors";
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
     CalendarModule,
+    AngularMaterialModule
   ],
   providers: [
     {provide: ROOT_STORAGE_KEYS, useValue: ['app']},

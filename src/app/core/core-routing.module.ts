@@ -8,8 +8,8 @@ const routes: Routes = [
     component: MainPageComponent,
     children: [
       // {path: '', component: MainPageComponent},
+      {path: '', loadChildren: () => import('../shared/shared.module').then(module => module.SharedModule)},
       {path: 'auth', loadChildren: () => import('../auth/auth.module').then(module => module.AuthModule)},
-      {path: 'shared', loadChildren: () => import('../shared/shared.module').then(module => module.SharedModule)},
       {path: 'calendar', loadChildren: () => import('../calendar/calendar.module').then(module => module.CalendarModule)},
     ]
   }

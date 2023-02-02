@@ -19,7 +19,8 @@ import {EAuthActions} from "./constants/constants";
 
 const grantedActions = [
   EAuthActions.LOGIN_SUCCESS,
-  EAuthActions.LOGOUT_SUCCESS
+  EAuthActions.LOGOUT_SUCCESS,
+  EAuthActions.REFRESH_ACCESS_TOKEN_SUCCESS
 ];
 
 

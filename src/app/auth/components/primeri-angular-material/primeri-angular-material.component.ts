@@ -37,17 +37,11 @@ export class PrimeriAngularMaterialComponent implements OnInit {
     )
 
   }
-
-  log(event: any) {
-    console.log(event)
-  }
-
   displayFn(subject) {
     return subject ? subject.name : undefined;
   }
 
   private _filter(value: string): any[] {
-    console.log(value)
     const filterValue = value.toLowerCase()
     return this.objectOptions.filter(option =>
     option.name.toLowerCase().includes(filterValue))
@@ -61,12 +55,6 @@ export class PrimeriAngularMaterialComponent implements OnInit {
   }
   openSnackBar(message, action) {
     let snackBarRef = this.snackBar.open(message, action, {duration: 2000});
-    snackBarRef.afterDismissed().subscribe(value =>
-    console.log('nesto')
-    )
-    snackBarRef.onAction().subscribe(value =>
-      console.log('nesto123')
-    )
   }
 
 }

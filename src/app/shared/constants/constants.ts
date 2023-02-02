@@ -25,6 +25,7 @@ export enum ESharedAction {
   GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER = '[Shared] Get Small Calendar Current Month Number',
   GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS = '[Shared] Get Small Calendar Current Month Number Sucess',
   CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER = '[Shared] Change Small Calendar Current Month Number',
+  SAVE_LAST_DISPATCHED_ACTION = '[Shared] Save Last Dispatched Action',
 
 
 

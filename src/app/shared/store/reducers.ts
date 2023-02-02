@@ -4,7 +4,7 @@ import {
   getAllThesisSuccess,
   getCurrentMonthNumberSucess,
   getCurrentMonthSucess, getCurrentYearNumberSucess, getSmallCalendarCurrentMonthNumberSucess,
-  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess, openModalSuccess,
+  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess, openModalSuccess, saveLastDispatchedAction,
   setActiveRouteSuccess,
   SharedActions
 } from "./actions";
@@ -48,6 +48,10 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
   on(getAllThesisSuccess, (state, {thesis}) => ({
     ...state,
     thesis
+  })),
+  on(saveLastDispatchedAction, (state, {lastDispatchedAction}) => ({
+    ...state,
+    lastDispatchedAction
   })),
 );
 

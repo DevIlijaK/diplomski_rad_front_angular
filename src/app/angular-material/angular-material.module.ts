@@ -34,7 +34,6 @@ const material = [
   MatButtonToggleModule,
   MatBadgeModule,
   MatProgressSpinnerModule,
-  BrowserAnimationsModule,
   MatToolbarModule,
   MatSidenavModule,
   MatMenuModule,

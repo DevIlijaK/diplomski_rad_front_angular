@@ -18,7 +18,6 @@ export class AuthApiService {
 
 
   login(logiRequest: LoginRequest): Observable<any> {
-    console.log(`${environment.baseApi}/api/user`);
     return this.http.post(this.USER_API + '/login', logiRequest);
   }
   logout(): Observable<any> {

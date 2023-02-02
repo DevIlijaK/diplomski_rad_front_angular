@@ -1,4 +1,4 @@
-import {createAction, props, union} from '@ngrx/store';
+import {Action, createAction, props, union} from '@ngrx/store';
 
 import {MatDialogRef} from '@angular/material/dialog';
 import {ESharedAction} from "../constants/constants";
@@ -49,6 +49,7 @@ export const getSmallCalendarCurrentMonthNumber = createAction(ESharedAction.GET
 export const getSmallCalendarCurrentMonthNumberSucess = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS, props<{ smallCalendarCurrentMonthNumber: number }>());
 
 export const changeSmallCalendarCurrentMonth = createAction(ESharedAction.CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER, props<{ monthNumber: number, yearNumber: number}>());
+export const saveLastDispatchedAction = createAction(ESharedAction.SAVE_LAST_DISPATCHED_ACTION, props<{ lastDispatchedAction: Action}>());
 
 
 /**

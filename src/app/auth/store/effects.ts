@@ -46,7 +46,6 @@ export class AuthEffects {
         switchMap(response => of(
           AuthActions.refreshAccessTokenSuccess({accessToken: response['access_token']}),
           closeSpinner(),
-          navigate({url: ['/login']})
         )),
         // catchError(error => of(loginFailure({ticket: error})))
       )

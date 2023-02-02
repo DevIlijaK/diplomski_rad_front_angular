@@ -2,6 +2,8 @@ import {MatDialogRef} from "@angular/material/dialog";
 import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
 import {ThesisModel} from "../models/thesis.model";
+import {Action} from "@ngrx/store";
+import {getLastDispatchedAction} from "./selectors";
 
 
 export interface SharedState {
@@ -16,6 +18,7 @@ export interface SharedState {
   openModal: boolean;
   modalData: any;
   thesis: ThesisModel[];
+  lastDispatchedAction: Action;
 }
 
 export const INIT_SHARED_STATE: SharedState = {
@@ -30,4 +33,5 @@ export const INIT_SHARED_STATE: SharedState = {
   openModal: false,
   modalData: null,
   thesis: null,
+  lastDispatchedAction: null
  };

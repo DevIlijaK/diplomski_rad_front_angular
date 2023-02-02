@@ -12,16 +12,21 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {ToastrModule} from "ngx-toastr";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "./services/storage.metareducer";
-import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SendMailButtonComponent } from './components/send-mail-button/send-mail-button.component';
+import {HeaderComponent} from './components/header/header.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
+import {SendMailButtonComponent} from './components/send-mail-button/send-mail-button.component';
 import {SmallCalendarComponent} from "./components/small-calendar/small-calendar.component";
 import {ESharedAction} from "./constants/constants";
 import {INIT_SHARED_STATE} from "./store/state";
 import {INIT_AUTH_STATE} from "../auth/store/state";
-import { EventModalComponent } from './components/event-modal/event-modal.component';
+import {EventModalComponent} from './components/event-modal/event-modal.component';
 import {ThesisApiService} from "./api/thesis-api.service";
+import {AngularMaterialModule} from "../angular-material/angular-material.module";
+import {AppModule} from "../app.module";
 
+/**
+ * Ovde mora revizija akcija
+ */
 const grantedActions = [
   ESharedAction.NAVIGATE,
   ESharedAction.SUCCESS_MESSAGES,
@@ -76,7 +81,7 @@ export function getSharedConfig(
     }),
     ReactiveFormsModule,
     RouterModule,
-
+    AngularMaterialModule
   ],
   exports: [
     HeaderComponent,
