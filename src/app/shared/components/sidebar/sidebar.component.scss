@@ -2,3 +2,20 @@
   padding: 1.25rem;
   width: 16rem;
 }
+.side-nav-link{
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  border-radius: 9999px;
+  border-width: 1px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-style: solid;
+  background-color: transparent;
+  border-color: #b0b6be;
+  height: 40px;
+  margin-top: 37px;
+}
+.side-nav-link:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+

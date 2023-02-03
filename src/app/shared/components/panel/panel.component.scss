@@ -1,0 +1,29 @@
+@import "src/lib/variables";
+
+.ngo-panel {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.no-container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.ngo-panel__title {
+  margin-top: 14px;
+}
+
+::ng-deep .mat-card-header-text {
+  display: flex;
+  align-items: center;
+}
+
+.ngo-panel__fab {
+  margin-right: 22px!important;
+  outline: none;
+  transition: all .3s ease;
+  &:hover {
+    background-color: lighten($primaryColor, 15);
+  }
+}

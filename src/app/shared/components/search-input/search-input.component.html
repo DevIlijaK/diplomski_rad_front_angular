@@ -1,0 +1,7 @@
+<div class="ngo-search">
+  <mat-form-field [appearance]="appearance">
+    <input [formControl]="searchFormControl" matInput placeholder="Pretraži" (keyup)="searchEvent()">
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-icon matSuffix class="clear-button" (click)="clearSearch()">clear</mat-icon>
+  </mat-form-field>
+</div>
