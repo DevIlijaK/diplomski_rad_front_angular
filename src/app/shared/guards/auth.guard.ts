@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import {first, map} from 'rxjs/operators';
 import * as SharedActions from '../store/actions';
 import {selectLoggedInUser} from "../../auth/store/selectors";
-import {User} from "../../auth/model/user";
+import {LoggedInUser} from "../../auth/model/loggedInUser";
 
 // @Injectable({
 //   providedIn: 'root'
@@ -18,7 +18,7 @@ import {User} from "../../auth/model/user";
 //   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
 //     return this.store$.select(selectLoggedInUser).pipe(
 //       first(),
-//       map((loggedInUser: User) => {
+//       map((loggedInUser: LoggedInUser) => {
 //         if (loggedInUser) {
 //           this.store$.dispatch(SharedActions.navigate({url: ['/']}));
 //         }

@@ -8,7 +8,7 @@ import * as AuthActions from '../../auth/store/actions';
 import * as SharedActions from '../store/actions';
 import {AppState} from "../../root-store/state";
 import {selectLoggedInUser} from "../../auth/store/selectors";
-import {User} from "../../auth/model/user";
+import {LoggedInUser} from "../../auth/model/loggedInUser";
 import {refreshAccessToken} from "../../auth/store/actions";
 
 
@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.store$.pipe(
       select(selectLoggedInUser),
       first(),
-      switchMap((loggedInUser: User) => {
+      switchMap((loggedInUser: LoggedInUser) => {
         const authRequest = loggedInUser
           ? req.clone({setHeaders: {Authorization: `Bearer ${loggedInUser.accessToken}`}})
           : req;
@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
                   // this.store$.pipe(
                   //   select(selectLoggedInUser),
                   //   first(),
-                  //   switchMap((user: User) => {
+                  //   switchMap((user: LoggedInUser) => {
                   //     const authRequest = user
                   //       ? req.clone({setHeaders: {Authorization: `Bearer ${user.accessToken}`}})
                   //       : req;

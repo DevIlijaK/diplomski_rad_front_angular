@@ -1,12 +1,13 @@
 import {createAction, props, union} from "@ngrx/store";
-import {ESharedAction} from "../../shared/constants/constants";
-import {Dayjs} from "dayjs";
-import {EDatatableCalendarAction} from "../constants/constants";
+import {EAdminActions} from "../constants/constants";
+import {AppUser} from "../constants/appUser";
+import {GetAppUsersRequest} from "../model/get-app-users-request";
+import {GetAppUsersResponse} from "../model/get-app-users-response";
 
-export const changeSelectedDay = createAction(EDatatableCalendarAction.CHANGE_SELECTED_DAY, props<{ selectedDay: Dayjs }>());
-export const changeSelectedDaySucess = createAction(EDatatableCalendarAction.CHANGE_SELECTED_DAY_SUCESS, props<{ selectedDay: Dayjs }>());
+export const getAppUsers = createAction(EAdminActions.GET_APP_USERS, props<{getAppUsersRequest: GetAppUsersRequest}>());
+export const getAppUsersSuccess = createAction(EAdminActions.GET_APP_USERS_SUCCESS, props<{ getAppUsersResponse: GetAppUsersResponse }>());
 
 const all = union({
 
 })
-export type CalendarActions = typeof all;
+export type AdminActions = typeof all;

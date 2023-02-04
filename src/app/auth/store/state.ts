@@ -1,8 +1,8 @@
-import {User} from "../model/user";
+import {LoggedInUser} from "../model/loggedInUser";
 
 
 export interface AuthState {
-  loggedInUser: User;
+  loggedInUser: LoggedInUser;
 }
 export const INIT_AUTH_STATE: AuthState = {
   loggedInUser: null

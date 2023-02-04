@@ -1,15 +1,16 @@
 import {createReducer, on} from "@ngrx/store";
-import {CalendarState, INIT_CALENDAR_STATE} from "./state";
-import {CalendarActions, changeSelectedDaySucess} from "./actions";
+import {AdminState, INIT_ADMIN_STATE} from "./state";
+import {AdminActions, getAppUsersSuccess} from "./actions";
 
 
 const reducer = createReducer(
-  INIT_CALENDAR_STATE,
-  on(changeSelectedDaySucess, (state, {selectedDay}) => ({
+  INIT_ADMIN_STATE,
+  on(getAppUsersSuccess, (state, {getAppUsersResponse}) => ({
     ...state,
-    selectedDay
+    appUsers: getAppUsersResponse.appUsers,
+    totalUsers: getAppUsersResponse.total
   })),
 );
-export function calendarReducers(state: CalendarState | undefined, action: CalendarActions): CalendarState {
+export function adminReducers(state: AdminState | undefined, action: AdminActions): AdminState {
   return reducer(state, action);
 }

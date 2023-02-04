@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+}
+mat-card{
+  width: 85%;
+  margin: 2.5%;
+}
+.header-align-right{
+  display: flex;
+  padding: 20px 0;
+  justify-content: flex-end;
+}
+
+mat-chip {
+  color: yellow;
+}

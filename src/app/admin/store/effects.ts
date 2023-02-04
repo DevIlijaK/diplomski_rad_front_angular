@@ -1,29 +1,28 @@
 import {Injectable} from "@angular/core";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
+import {Actions, ofType} from "@ngrx/effects";
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {AppState} from "../../root-store/state";
-import {NgxSpinnerService} from "ngx-spinner";
-import {switchMap} from "rxjs/operators";
-import {of} from "rxjs";
-import {changeSelectedDay} from "./actions";
-import * as CalendarActions from '../store/actions';
+import {getAppUsers, getAppUsersSuccess} from "./actions";
+import {of, switchMap} from "rxjs";
+import {AadminApiService} from "../api/admin-api";
 
 
 @Injectable()
-export class CalendarEffects {
+export class AdminEffects {
   constructor(private action$: Actions, private navigator: Router,
-              private store$: Store<AppState>,
-              private spinnerService: NgxSpinnerService,
+              private store$: Store,
+              private adminApi: AadminApiService
   ) {
   }
-  changeSelectedDay$ = createEffect(() => this.action$.pipe(
-    ofType(changeSelectedDay),
-    switchMap((data) => {
-      const selectedDay = data.selectedDay
-      return of(
-        CalendarActions.changeSelectedDaySucess({selectedDay})
-      )})
-  ))
+  getAppUsers$ = this.action$.pipe(
+    ofType(getAppUsers),
+    switchMap(data => this.adminApi.getAppUsers(data.getAppUsersRequest).pipe(
+      switchMap(data => {
+        return of(
+          getAppUsersSuccess({getAppUsersResponse: data})
+        )
+      })
+    ))
+  )
 
 }

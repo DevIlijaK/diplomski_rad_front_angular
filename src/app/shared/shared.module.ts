@@ -18,11 +18,11 @@ import {SendMailButtonComponent} from './components/send-mail-button/send-mail-b
 import {SmallCalendarComponent} from "./components/small-calendar/small-calendar.component";
 import {ESharedAction} from "./constants/constants";
 import {INIT_SHARED_STATE} from "./store/state";
-import {INIT_AUTH_STATE} from "../auth/store/state";
 import {EventModalComponent} from './components/event-modal/event-modal.component';
 import {ThesisApiService} from "./api/thesis-api.service";
 import {AngularMaterialModule} from "../angular-material/angular-material.module";
-import {AppModule} from "../app.module";
+import {PanelComponent} from './components/panel/panel.component';
+import {SearchInputComponent} from './components/search-input/search-input.component';
 
 /**
  * Ovde mora revizija akcija
@@ -42,6 +42,8 @@ const grantedActions = [
   ESharedAction.GET_CURRENT_MONTH_SUCESS,
   ESharedAction.GET_CURRENT_MONTH_NUMBER,
   ESharedAction.GET_CURRENT_MONTH_NUMBER_SUCESS,
+  ESharedAction.RESET_DATATABLES_CONFIG,
+  ESharedAction.SAVE_DATABLE_CONFIG,
 ];
 
 export function getSharedConfig(
@@ -63,6 +65,8 @@ export function getSharedConfig(
     SendMailButtonComponent,
     SmallCalendarComponent,
     EventModalComponent,
+    PanelComponent,
+    SearchInputComponent,
   ]
   ,
   imports: [
@@ -86,7 +90,9 @@ export function getSharedConfig(
   exports: [
     HeaderComponent,
     SidebarComponent,
-    SmallCalendarComponent
+    SmallCalendarComponent,
+    PanelComponent,
+    SearchInputComponent
   ],
   entryComponents: [],
   providers: [

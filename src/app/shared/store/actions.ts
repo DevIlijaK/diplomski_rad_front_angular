@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {ESharedAction} from "../constants/constants";
 import {Dayjs} from "dayjs";
 import {ThesisModel} from "../models/thesis.model";
+import {DatatableConfigurationModel} from "../models/datatable-configuration.model";
 
 
 export const navigate = createAction(ESharedAction.NAVIGATE, props<{ url: string[] }>());
@@ -57,6 +58,12 @@ export const saveLastDispatchedAction = createAction(ESharedAction.SAVE_LAST_DIS
  */
 export const getAllThesis = createAction(ESharedAction.GET_THESIS);
 export const getAllThesisSuccess = createAction(ESharedAction.GET_THESIS_SUCCESS, props<{thesis: ThesisModel[]}>());
+
+/**
+ * Datatable config actions
+ */
+export const saveDatatableConfig = createAction(ESharedAction.SAVE_DATABLE_CONFIG, props<{ datatableConfigurationModel: DatatableConfigurationModel }>());
+export const resetDatatablesConfig = createAction(ESharedAction.RESET_DATATABLES_CONFIG);
 
 
 const all = union({

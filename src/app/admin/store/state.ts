@@ -1,9 +1,11 @@
-import {Dayjs} from "dayjs";
-import * as dayjs from "dayjs";
+import {AppUser} from "../constants/appUser";
 
-export interface CalendarState {
-  selectedDay: Dayjs;
+export interface AdminState {
+  appUsers: AppUser[];
+  totalAppUsers: number;
 }
-export const INIT_CALENDAR_STATE: CalendarState = {
-  selectedDay: dayjs(),
+
+export const INIT_ADMIN_STATE: AdminState = {
+  appUsers: null,
+  totalAppUsers: null
 }

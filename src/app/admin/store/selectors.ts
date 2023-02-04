@@ -1,10 +1,12 @@
 import {createFeatureSelector, createSelector, MemoizedSelector} from "@ngrx/store";
-import {CalendarState} from "./state";
+import {AdminState} from "./state";
 
 
-export const getSelectedDay = (state: CalendarState) => state.selectedDay;
+export const getAppUsers = (state: AdminState) => state.appUsers;
+export const getTotalAppUsers = (state: AdminState) => state.totalAppUsers;
 
-export const selectCalendarState: MemoizedSelector<object, CalendarState> = createFeatureSelector<CalendarState>('calendar');
+export const selectAdminState: MemoizedSelector<object, AdminState> = createFeatureSelector<AdminState>('admin');
 
-export const selectSelectedDay: MemoizedSelector<object, any> = createSelector(selectCalendarState, getSelectedDay);
+export const selectAppUsers: MemoizedSelector<object, any> = createSelector(selectAdminState, getAppUsers);
+export const selectTotalAppUsers: MemoizedSelector<object, any> = createSelector(selectAdminState, getTotalAppUsers);
 

@@ -28,7 +28,9 @@ export enum ESharedAction {
   SAVE_LAST_DISPATCHED_ACTION = '[Shared] Save Last Dispatched Action',
 
 
-
   GET_THESIS = '[Shared] Get Thesis',
   GET_THESIS_SUCCESS = '[Shared] Get Thesis Success',
+
+  SAVE_DATABLE_CONFIG = '[Shared] Save Datable Config',
+  RESET_DATATABLES_CONFIG = '[Shared] Reset Datable Config'
 }

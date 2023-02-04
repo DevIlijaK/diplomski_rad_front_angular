@@ -1,0 +1,57 @@
+<app-panel [isContainer]="false"
+           [title]="'Korisnici aplikacije'"
+           [actions]="null">
+<!--  <div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--      <app-search-input-->
+<!--        [appearance]="'outline'"-->
+<!--        [searchFormControl]="searchForm.controls.query"></app-search-input>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="ngo-table">
+<!--    <table mat-table [dataSource]="dataSource" matSort>-->
+<!--      <ng-container matColumnDef="id">-->
+<!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Korisničko ime</th>-->
+<!--        <td mat-cell *matCellDef="let element">{{element.username}}</td>-->
+<!--      </ng-container>-->
+<!--      <ng-container matColumnDef="firstName">-->
+<!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ime</th>-->
+<!--        <td mat-cell *matCellDef="let element">{{element.firstName}}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+<!--      <ng-container matColumnDef="lastName">-->
+<!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Prezime</th>-->
+<!--        <td mat-cell *matCellDef="let element">{{element.lastName}}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+<!--      <ng-container matColumnDef="email">-->
+<!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>-->
+<!--        <td mat-cell *matCellDef="let element">{{element.email}}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+<!--      <ng-container matColumnDef="duties">-->
+<!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Zaduženja</th>-->
+<!--        <td mat-cell *matCellDef="let element">-->
+<!--          <mat-chip-list>-->
+<!--            <mat-chip *ngFor="let dutyScope" style=" background-color: #ccff90; color: #2c2467">-->
+<!--              {{dutyScope}}-->
+<!--            </mat-chip>-->
+<!--          </mat-chip-list>-->
+<!--        </td>-->
+<!--      </ng-container>-->
+<!--      <ng-container matColumnDef="actions">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="header-align-right">Akcije</th>-->
+<!--        <td mat-cell *matCellDef="let element" align="right">-->
+<!--          <button mat-icon-button color="primary" (click)="editUser(element)">-->
+<!--            <mat-icon>edit</mat-icon>-->
+<!--          </button>-->
+<!--        </td>-->
+<!--      </ng-container>-->
+<!--      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+
+<!--    </table>-->
+  </div>
+  <mat-paginator class="ngo-paginator" [length]="totalNumberOfAppUsers" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" (page)="onPaginate()"
+                 showFirstLastButtons></mat-paginator>
+</app-panel>

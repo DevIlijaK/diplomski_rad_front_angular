@@ -3,11 +3,18 @@ import {createReducer, on} from "@ngrx/store";
 import {
   getAllThesisSuccess,
   getCurrentMonthNumberSucess,
-  getCurrentMonthSucess, getCurrentYearNumberSucess, getSmallCalendarCurrentMonthNumberSucess,
-  getSmallCalendarCurrentMonthSucess, getSmallCalendarCurrentYearSucess, openModalSuccess, saveLastDispatchedAction,
+  getCurrentMonthSucess,
+  getCurrentYearNumberSucess,
+  getSmallCalendarCurrentMonthNumberSucess,
+  getSmallCalendarCurrentMonthSucess,
+  getSmallCalendarCurrentYearSucess,
+  openModalSuccess, resetDatatablesConfig,
+  saveDatatableConfig,
+  saveLastDispatchedAction,
   setActiveRouteSuccess,
   SharedActions
 } from "./actions";
+import {addDatatableConfig} from "../services/datatable-config.service";
 
 
 const reducer = createReducer(
@@ -53,6 +60,16 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
     ...state,
     lastDispatchedAction
   })),
+  on(saveDatatableConfig, ((state, {datatableConfigurationModel}) => {
+    console.log(state);
+    return ({
+    ...state,
+    datatablesConfig: addDatatableConfig(state.datatablesConfiguration, datatableConfigurationModel)
+  })})),
+  on(resetDatatablesConfig, (state) => ({
+    ...state,
+    datatablesConfig: []
+  }))
 );
 
 export function sharedReducers(state: SharedState, action: SharedActions): SharedState {

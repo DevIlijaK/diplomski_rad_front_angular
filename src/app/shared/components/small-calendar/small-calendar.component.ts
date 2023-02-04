@@ -51,7 +51,6 @@ export class SmallCalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     this.cdr.detectChanges();
   }
 
