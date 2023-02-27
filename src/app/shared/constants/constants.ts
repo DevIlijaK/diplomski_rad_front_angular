@@ -32,5 +32,5 @@ export enum ESharedAction {
   GET_THESIS_SUCCESS = '[Shared] Get Thesis Success',
 
   SAVE_DATABLE_CONFIG = '[Shared] Save Datable Config',
-  RESET_DATATABLES_CONFIG = '[Shared] Reset Datable Config'
+  RESET_DATATABLES_CONFIG = '[Shared] Reset Datable Config',
 }

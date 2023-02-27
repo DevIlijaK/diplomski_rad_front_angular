@@ -1,14 +1,19 @@
 import {createReducer, on} from "@ngrx/store";
 import {AdminState, INIT_ADMIN_STATE} from "./state";
-import {AdminActions, getAppUsersSuccess} from "./actions";
+import {AdminActions, getAllAppUserRolesSuccess, getAppUsersSuccess} from "./actions";
 
 
 const reducer = createReducer(
   INIT_ADMIN_STATE,
-  on(getAppUsersSuccess, (state, {getAppUsersResponse}) => ({
+  on(getAppUsersSuccess, (state, {getAppUsersResponse, lastAppUsersSearchRequest}) => ({
     ...state,
     appUsers: getAppUsersResponse.appUsers,
-    totalUsers: getAppUsersResponse.total
+    totalAppUsers: getAppUsersResponse.total,
+    lastAppUsersSearchRequest
+  })),
+  on(getAllAppUserRolesSuccess, (state, {appUserRoles}) => ({
+    ...state,
+    appUserRoles
   })),
 );
 export function adminReducers(state: AdminState | undefined, action: AdminActions): AdminState {

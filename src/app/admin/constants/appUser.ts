@@ -1,7 +1,9 @@
+import {AppUserRole} from "./appUserRole";
+
 export interface AppUser {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   username: string;
-  password: string;
   email: string;
+  roles: AppUserRole[];
 }

@@ -15,6 +15,9 @@ import {AngularMaterialModule} from "../angular-material/angular-material.module
 import {SharedModule} from "../shared/shared.module";
 import {adminReducers} from "./store/reducers";
 import {MatTableModule} from "@angular/material/table";
+import { EditUserModalComponent } from './modals/edit-user-modal/edit-user-modal.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {RolePipe} from "./pipes/role.pipe";
 
 const grantedActions = [];
 
@@ -32,17 +35,19 @@ export function getSharedConfig(
 
 @NgModule({
   declarations: [
-    UsersTableComponent
+    UsersTableComponent,
+    EditUserModalComponent,
+    RolePipe
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    StoreModule.forFeature('admin', adminReducers, ADMIN_CONFIG_TOKEN),
-    EffectsModule.forFeature([AdminEffects]),
-    AngularMaterialModule,
-    SharedModule,
-
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        StoreModule.forFeature('admin', adminReducers, ADMIN_CONFIG_TOKEN),
+        EffectsModule.forFeature([AdminEffects]),
+        AngularMaterialModule,
+        SharedModule,
+        ReactiveFormsModule,
+    ],
   providers: [
     {provide: ADMIN_LOCAL_STORAGE_KEY, useValue: '__admin_storage__'},
     {provide: ADMIN_STORAGE_KEYS, useValue: Object.keys(INIT_ADMIN_STATE)},
@@ -51,6 +56,10 @@ export function getSharedConfig(
       deps: [ADMIN_STORAGE_KEYS, ADMIN_LOCAL_STORAGE_KEY, LocalStorageService],
       useFactory: getSharedConfig,
     },
+    RolePipe
+  ],
+  exports: [
+    RolePipe
   ]
 })
 export class AdminModule {

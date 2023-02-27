@@ -4,6 +4,7 @@ import {Dayjs} from "dayjs";
 import {ThesisModel} from "../models/thesis.model";
 import {Action} from "@ngrx/store";
 import {DatatableConfigurationModel} from "../models/datatable-configuration.model";
+import {ActionModel} from "../models/action.model";
 
 
 export interface SharedState {
@@ -18,7 +19,7 @@ export interface SharedState {
   openModal: boolean;
   modalData: any;
   thesis: ThesisModel[];
-  lastDispatchedAction: Action;
+  lastDispatchedActionData: any;
   datatablesConfiguration: DatatableConfigurationModel[];
 }
 
@@ -34,6 +35,6 @@ export const INIT_SHARED_STATE: SharedState = {
   openModal: false,
   modalData: null,
   thesis: null,
-  lastDispatchedAction: null,
+  lastDispatchedActionData: null,
   datatablesConfiguration: [],
  };

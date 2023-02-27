@@ -12,7 +12,7 @@ export const getSmallCalendarCurrentMonth = (state: SharedState) => state.smallC
 export const getOpenModalh = (state: SharedState) => state.openModal;
 export const getModalData = (state: SharedState) => state.modalData;
 export const getThesis = (state: SharedState) => state.thesis;
-export const getLastDispatchedAction = (state: SharedState) => state.lastDispatchedAction;
+export const getLastDispatchedActionData = (state: SharedState) => state.lastDispatchedActionData;
 export const getDatatableConfiguration = (state: SharedState) => state.datatablesConfiguration;
 
 
@@ -29,5 +29,5 @@ export const selectSmallCalendarCurrentMonth: MemoizedSelector<object, any> = cr
 export const selectOpenModal: MemoizedSelector<object, any> = createSelector(selectSharedState, getOpenModalh);
 export const selectModalData: MemoizedSelector<object, any> = createSelector(selectSharedState, getModalData);
 export const selectThesis: MemoizedSelector<object, any> = createSelector(selectSharedState, getThesis);
-export const selectLastDispatchedAction: MemoizedSelector<object, any> = createSelector(selectSharedState, getLastDispatchedAction);
+export const selectLastDispatchedActionData: MemoizedSelector<object, any> = createSelector(selectSharedState, getLastDispatchedActionData);
 export const selectDatatableConfiguration: MemoizedSelector<object, any> = createSelector(selectSharedState, getDatatableConfiguration);

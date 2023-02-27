@@ -29,6 +29,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 const material = [
   MatFormFieldModule,
@@ -65,6 +66,7 @@ const material = [
   MatChipsModule,
   MatPaginatorModule,
   MatTableModule,
+  MatSortModule
 ]
 
 

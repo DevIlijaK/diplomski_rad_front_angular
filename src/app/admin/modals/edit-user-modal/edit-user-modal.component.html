@@ -1,0 +1,40 @@
+<mat-dialog-content>
+  <div style="display: flex; flex-direction: column;">
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;  margin-bottom: 20px">
+      <h2 style="margin: 0;">{{data.appUser ? 'Izmeni podatke o korisniku' : 'Dodaj novog korisnika'}}</h2>
+      <button mat-icon-button color="warn" (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <mat-form-field class="form-field">
+      <mat-label>Korisničko ime</mat-label>
+      <input matInput [formControl]="form.controls.username" readonly>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Ime</mat-label>
+      <input matInput [formControl]="form.controls.firstname">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Prezime</mat-label>
+      <input matInput [formControl]="form.controls.lastname">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="form.controls.email">
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>User Roles</mat-label>
+      <mat-select [formControl]="form.controls.roles" multiple>
+        <mat-option *ngFor="let item of data.appUserRoles" [value]="item">
+          {{item.name | role}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="callbackFunc()">{{data.appUser ? 'Sačuvaj izmene' : 'Dodaj novog korisnika'}}</button>
+</mat-dialog-actions>

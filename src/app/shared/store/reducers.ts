@@ -8,7 +8,8 @@ import {
   getSmallCalendarCurrentMonthNumberSucess,
   getSmallCalendarCurrentMonthSucess,
   getSmallCalendarCurrentYearSucess,
-  openModalSuccess, resetDatatablesConfig,
+  openModalSuccess,
+  resetDatatablesConfig,
   saveDatatableConfig,
   saveLastDispatchedAction,
   setActiveRouteSuccess,
@@ -23,10 +24,10 @@ const reducer = createReducer(
     ...state,
     activeRoute: route
   })),
-on(getCurrentMonthSucess, (state, {currentMonth}) => ({
-  ...state,
-  currentMonth
-})),
+  on(getCurrentMonthSucess, (state, {currentMonth}) => ({
+    ...state,
+    currentMonth
+  })),
   on(getCurrentMonthNumberSucess, (state, {currentMonthNumber}) => ({
     ...state,
     currentMonthNumber
@@ -47,28 +48,25 @@ on(getCurrentMonthSucess, (state, {currentMonth}) => ({
     ...state,
     smallCalendarCurrentYearNumber
   })),
-  on(openModalSuccess, (state, {open, modalData}) => ({
-    ...state,
-    openModal: open,
-    modalData
-  })),
   on(getAllThesisSuccess, (state, {thesis}) => ({
     ...state,
     thesis
   })),
-  on(saveLastDispatchedAction, (state, {lastDispatchedAction}) => ({
-    ...state,
-    lastDispatchedAction
-  })),
-  on(saveDatatableConfig, ((state, {datatableConfigurationModel}) => {
-    console.log(state);
+  on(saveLastDispatchedAction, (state, {lastDispatchedActionData}) => {
     return ({
-    ...state,
-    datatablesConfig: addDatatableConfig(state.datatablesConfiguration, datatableConfigurationModel)
-  })})),
+      ...state,
+      lastDispatchedActionData
+    })
+  }),
+  on(saveDatatableConfig, ((state, {datatableConfigurationModel}) => {
+    return ({
+      ...state,
+      datatablesConfiguration: addDatatableConfig(state.datatablesConfiguration, datatableConfigurationModel)
+    })
+  })),
   on(resetDatatablesConfig, (state) => ({
     ...state,
-    datatablesConfig: []
+    datatablesConfiguration: []
   }))
 );
 

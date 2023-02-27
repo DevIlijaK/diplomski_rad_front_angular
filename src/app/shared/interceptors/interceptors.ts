@@ -32,7 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
             switch (err.status) {
               case 401:
-                console.log(3)
                 this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
                 this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
                 // this.store$.dispatch(SharedActions.errorMessages({messagesKey: 'error-401'}));
@@ -59,7 +58,6 @@ export class AuthInterceptor implements HttpInterceptor {
                   //   this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
                   //   this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
                 } else {
-                  console.log(1);
                   this.store$.dispatch(AuthActions.logoutSuccess({loggedInUser: null}));
                   this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
                 }
@@ -68,7 +66,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 /**
                  * Treba da se implementira
                  */
-                this.store$.dispatch(SharedActions.errorMessages({messagesKey: error}));
+                console.log(err)
+                this.store$.dispatch(SharedActions.errorMessages({messagesKey: error.message}));
                 break;
             }
 

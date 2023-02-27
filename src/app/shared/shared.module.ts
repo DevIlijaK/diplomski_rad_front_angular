@@ -44,6 +44,7 @@ const grantedActions = [
   ESharedAction.GET_CURRENT_MONTH_NUMBER_SUCESS,
   ESharedAction.RESET_DATATABLES_CONFIG,
   ESharedAction.SAVE_DATABLE_CONFIG,
+  ESharedAction.SAVE_LAST_DISPATCHED_ACTION
 ];
 
 export function getSharedConfig(

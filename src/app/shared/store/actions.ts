@@ -5,6 +5,7 @@ import {ESharedAction} from "../constants/constants";
 import {Dayjs} from "dayjs";
 import {ThesisModel} from "../models/thesis.model";
 import {DatatableConfigurationModel} from "../models/datatable-configuration.model";
+import {ActionModel} from "../models/action.model";
 
 
 export const navigate = createAction(ESharedAction.NAVIGATE, props<{ url: string[] }>());
@@ -14,9 +15,9 @@ export const successMessages = createAction(ESharedAction.SUCCESS_MESSAGES, prop
 export const errorMessages = createAction(ESharedAction.ERROR_MESSAGES, props<{ messagesKey: string, extraMessage?: string }>());
 
 
-export const openModal = createAction(ESharedAction.OPEN_DIALOG, props<{modalData: any}>());
+export const openModal = createAction(ESharedAction.OPEN_DIALOG, props<{ component: any, config?: any, afterClosed?: any }>());
 
-export const openModalSuccess = createAction(ESharedAction.OPEN_DIALOG_SUCCESS, props<{open: boolean, modalData: any}>());
+export const openModalSuccess = createAction(ESharedAction.OPEN_DIALOG_SUCCESS);
 
 export const closeModal = createAction(ESharedAction.CLOSE_DIALOG);
 
@@ -50,7 +51,6 @@ export const getSmallCalendarCurrentMonthNumber = createAction(ESharedAction.GET
 export const getSmallCalendarCurrentMonthNumberSucess = createAction(ESharedAction.GET_SMALL_CALENDAR_CURRENT_MONTH_NUMBER_SUCESS, props<{ smallCalendarCurrentMonthNumber: number }>());
 
 export const changeSmallCalendarCurrentMonth = createAction(ESharedAction.CHANGE_SMALL_CALENDAR_CURRENT_MONTH_NUMBER, props<{ monthNumber: number, yearNumber: number}>());
-export const saveLastDispatchedAction = createAction(ESharedAction.SAVE_LAST_DISPATCHED_ACTION, props<{ lastDispatchedAction: Action}>());
 
 
 /**
@@ -64,7 +64,10 @@ export const getAllThesisSuccess = createAction(ESharedAction.GET_THESIS_SUCCESS
  */
 export const saveDatatableConfig = createAction(ESharedAction.SAVE_DATABLE_CONFIG, props<{ datatableConfigurationModel: DatatableConfigurationModel }>());
 export const resetDatatablesConfig = createAction(ESharedAction.RESET_DATATABLES_CONFIG);
-
+/**
+ * Save actions actions
+ */
+export const saveLastDispatchedAction = createAction(ESharedAction.SAVE_LAST_DISPATCHED_ACTION, props<{ lastDispatchedActionData: any}>());
 
 const all = union({
   navigate,

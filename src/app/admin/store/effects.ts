@@ -1,10 +1,13 @@
 import {Injectable} from "@angular/core";
-import {Actions, ofType} from "@ngrx/effects";
+import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {getAppUsers, getAppUsersSuccess} from "./actions";
-import {of, switchMap} from "rxjs";
+import {getAllAppUserRoles, getAllAppUserRolesSuccess, getAppUsers, getAppUsersSuccess, updateAppUser} from "./actions";
+import {of, switchMap, tap} from "rxjs";
 import {AadminApiService} from "../api/admin-api";
+import {closeSpinner, openSpinner, saveLastDispatchedAction, successMessages} from "../../shared/store/actions";
+import {withLatestFrom} from "rxjs/operators";
+import {selectLastAppUsersSearchRequest} from "./selectors";
 
 
 @Injectable()
@@ -14,15 +17,44 @@ export class AdminEffects {
               private adminApi: AadminApiService
   ) {
   }
-  getAppUsers$ = this.action$.pipe(
+
+  getAppUsers$ = createEffect(() => this.action$.pipe(
     ofType(getAppUsers),
-    switchMap(data => this.adminApi.getAppUsers(data.getAppUsersRequest).pipe(
-      switchMap(data => {
+    switchMap(data => {
+      return this.adminApi.getAppUsers(data.getAppUsersRequest).pipe(
+      switchMap(response => {
         return of(
-          getAppUsersSuccess({getAppUsersResponse: data})
+          saveLastDispatchedAction({lastDispatchedActionData: data}),
+          getAppUsersSuccess({getAppUsersResponse: response, lastAppUsersSearchRequest: data.getAppUsersRequest}),
         )
       })
+    )})
+  ))
+  updateAppUser$ = createEffect(() => this.action$.pipe(
+    ofType(updateAppUser),
+    tap(() => {
+      this.store$.dispatch(openSpinner());
+    }),
+    switchMap((data) => this.adminApi.updateAppUser(data.appUser).pipe(
+      withLatestFrom(this.store$.select(selectLastAppUsersSearchRequest)),
+      switchMap(([response, lastAppUsersSearchRequest]) => {
+        return of(
+          saveLastDispatchedAction({lastDispatchedActionData: data}),
+          getAppUsers({getAppUsersRequest: lastAppUsersSearchRequest}),
+          closeSpinner(),
+          successMessages({messagesKey: 'Uspešno izmenjen korisnik!'}),
+        );
+      })
     ))
-  )
+  ));
+  getAllAppUserRoles$ = createEffect(() => this.action$.pipe(
+    ofType(getAllAppUserRoles),
+    switchMap(data => this.adminApi.getAllAppUserRoles().pipe(
+      switchMap(response => of(
+        saveLastDispatchedAction({lastDispatchedActionData: data}),
+        getAllAppUserRolesSuccess({appUserRoles: response}),
+      ))
+    ))
+  ))
 
 }

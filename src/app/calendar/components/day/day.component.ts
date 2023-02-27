@@ -71,13 +71,11 @@ export class DayComponent implements OnInit, AfterViewInit {
   }
 
   openDetailsModel() {
-    this.store$.dispatch(CommonActions.openModal({
-      modalData: {
-        day: this.day.format('DD-MM-YYYY'),
-        dayName: this.dayName
-      }
-    }));
+  //   this.store$.dispatch(CommonActions.openModal({
+  //     modalData: {
+  //       day: this.day.format('DD-MM-YYYY'),
+  //       dayName: this.dayName
+  //     }
+  //   }));
   }
-
-
 }

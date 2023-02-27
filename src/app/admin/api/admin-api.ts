@@ -4,6 +4,8 @@ import {Injectable} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {GetAppUsersRequest} from "../model/get-app-users-request";
 import {GetAppUsersResponse} from "../model/get-app-users-response";
+import {AppUser} from "../constants/appUser";
+import {AppUserRole} from "../constants/appUserRole";
 
 
 @Injectable({
@@ -18,5 +20,12 @@ export class AadminApiService {
 
   getAppUsers(getAppUsersRequest: GetAppUsersRequest): Observable<GetAppUsersResponse> {
     return this.http.post<GetAppUsersResponse>(this.USER_API + '/get-users', getAppUsersRequest);
+  }
+  updateAppUser(appUser: AppUser): Observable<string> {
+    console.log('uslo');
+    return this.http.put<string>(this.USER_API + '/update-user', appUser);
+  }
+  getAllAppUserRoles(): Observable<AppUserRole[]> {
+    return this.http.get<AppUserRole[]>(this.USER_API + '/get-roles');
   }
 }

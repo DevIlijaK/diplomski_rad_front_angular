@@ -1,19 +1,20 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {combineLatestWith, merge, Subject, Subscription, takeUntil} from "rxjs";
+import {merge, Subject, Subscription, takeUntil, tap} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {tap} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
-import {getAppUsers} from "../../store/actions";
+import {getAllAppUserRoles, getAppUsers, updateAppUser} from "../../store/actions";
 import {AppUser} from "../../constants/appUser";
-import {selectAppUsers, selectTotalAppUsers} from "../../store/selectors";
+import {selectAppUserRoles, selectAppUsers, selectTotalAppUsers} from "../../store/selectors";
 import {GetAppUsersRequest} from "../../model/get-app-users-request";
 import {DatatableConfigurationModel} from "../../../shared/models/datatable-configuration.model";
 import {saveDatatableConfig} from "../../../shared/store/actions";
 import {selectDatatableConfiguration} from "../../../shared/store/selectors";
+import {MatSort} from "@angular/material/sort";
+import {AdminModalService} from "../../services/admin-modal-service";
+import {AppUserRole} from "../../constants/appUserRole";
 
 @Component({
   selector: 'app-users-table',
@@ -22,12 +23,13 @@ import {selectDatatableConfiguration} from "../../../shared/store/selectors";
 })
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  displayedColumns = ['id', 'firstName', 'lastName', 'email', 'department', 'managers', 'duties', 'actions'];
+  displayedColumns = ['username', 'firstName', 'lastName', 'email', 'actions'];
 
   dataSource: MatTableDataSource<AppUser> = new MatTableDataSource<AppUser>([]);
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  // @ViewChild(MatSort, {static: false}) sort: MatSort;
+  appUserRoles: AppUserRole[];
   private subscription: Subscription = new Subscription();
   public totalNumberOfAppUsers: number;
   searchForm: FormGroup;
@@ -40,6 +42,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private store$: Store,
               private router: Router,
               private route: ActivatedRoute,
+              private adminModalService: AdminModalService,
               private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef) {
     this.dispatch();
@@ -75,6 +78,17 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.initDatatableConfig();
     }
     this.getAppUsers();
+    // if(this.sort){
+    //   this.dataSource.sort = this.sort;
+    //   console.log(this.dataSource.sort);
+    // }
+    const sort$ = this.sort.sortChange.pipe(tap((sort) => {
+      console.log(sort)
+      return this.paginator.pageIndex = 0
+    }));
+    this.subscription.add(merge(sort$, this.paginator.page).pipe(
+      tap(() => this.getAppUsers())
+    ).subscribe());
     this.cdr.detectChanges();
   }
 
@@ -83,10 +97,11 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       datatableConfigurationModel: {
         tableId: this.tableId,
         pageNumber: 0,
-        pageSize: 5,
+        pageSize: 10,
         pageSort: 'username'
       }
     }));
+    this.store$.dispatch(getAllAppUserRoles());
 
   }
 
@@ -94,18 +109,19 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store$.pipe(takeUntil(this.ngUnsubscribe), select(selectAppUsers))
       .subscribe(appUsers => this.dataSource.connect().next(appUsers));
     this.store$.pipe(takeUntil(this.ngUnsubscribe), select(selectTotalAppUsers))
-      .subscribe(totalNumberOfAppUsers => this.totalNumberOfAppUsers = totalNumberOfAppUsers)
+      .subscribe(totalNumberOfAppUsers => this.totalNumberOfAppUsers = totalNumberOfAppUsers);
     this.store$.pipe(takeUntil(this.ngUnsubscribe), select(selectDatatableConfiguration))
       .subscribe((dataTableConfiguration) => this.datatablesConfig = dataTableConfiguration);
+    this.store$.pipe(takeUntil(this.ngUnsubscribe), select(selectAppUserRoles))
+      .subscribe((appUserRoles) => this.appUserRoles = appUserRoles);
   }
 
   getAppUsers() {
-    console.log('uslo ovde');
     this.store$.dispatch(getAppUsers({
       getAppUsersRequest: {
         page: this.paginator.pageIndex,
         size: this.paginator.pageSize,
-        sort: 'firstname'
+        sort: 'username'
       } as GetAppUsersRequest
     }));
   }
@@ -114,8 +130,11 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate(['add'], {relativeTo: this.route});
   }
 
-  editUser(user) {
-    this.router.navigate(['edit/' + user.userId], {relativeTo: this.route});
+  editUser(appUser: AppUser) {
+    this.adminModalService.openAppUserModal(
+      appUser, (appUser) => this.store$.dispatch(updateAppUser({appUser})),
+      this.appUserRoles
+    )
   }
 
   // importUsers() {
@@ -146,9 +165,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   initDatatableConfig() {
-    console.log(1);
     const datatableConfig = this.datatablesConfig.find(value => value.tableId === this.tableId);
-    this.paginator.pageSize = datatableConfig ? datatableConfig.pageSize : 5;
+    this.paginator.pageSize = datatableConfig ? datatableConfig.pageSize : 10;
     this.paginator.pageIndex = datatableConfig ? datatableConfig.pageNumber : 0;
     // this.sort = datatableConfig ? datatableConfig.pageNumber : 0;
   }

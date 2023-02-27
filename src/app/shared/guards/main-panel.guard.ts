@@ -20,7 +20,6 @@ export class MainPanelGuard implements CanActivate, CanActivateChild {
       first(),
       map(loggedInUser => {
         if (!loggedInUser) {
-          console.log(2);
           this.store$.dispatch(SharedActions.navigate({url: ['/login']}));
         }
         return !!loggedInUser;

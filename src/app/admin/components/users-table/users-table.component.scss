@@ -1,16 +1,11 @@
-table {
+*{
   width: 100%;
 }
-mat-card{
-  width: 85%;
-  margin: 2.5%;
-}
-.header-align-right{
-  display: flex;
-  padding: 20px 0;
-  justify-content: flex-end;
+table {
+  width: 100%;
+  table-layout: fixed;
 }
 
-mat-chip {
-  color: yellow;
+th, td {
+  width: 20%; /* or any other value that you want */
 }
