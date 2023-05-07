@@ -8,7 +8,11 @@
     </div>
     <mat-form-field class="form-field">
       <mat-label>Korisničko ime</mat-label>
-      <input matInput [formControl]="form.controls.username" readonly>
+      <input matInput [formControl]="form.controls.username">
+    </mat-form-field>
+    <mat-form-field class="form-field" *ngIf="data.appUser === null">
+      <mat-label>Šifra</mat-label>
+      <input matInput [formControl]="form.controls.password">
     </mat-form-field>
 
     <mat-form-field class="form-field">
@@ -36,5 +40,5 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button color="primary" (click)="callbackFunc()">{{data.appUser ? 'Sačuvaj izmene' : 'Dodaj novog korisnika'}}</button>
+  <button mat-button color="primary" [disabled]="!form.valid" (click)="callbackFunc()">{{data.appUser ? 'Sačuvaj izmene' : 'Dodaj novog korisnika'}}</button>
 </mat-dialog-actions>

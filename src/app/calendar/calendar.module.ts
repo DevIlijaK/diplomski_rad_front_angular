@@ -10,13 +10,11 @@ import {LocalStorageService} from "../shared/services/local-storage.service";
 import {MetaReducer} from "@ngrx/store/src/models";
 import {storageMetaReducerFactory} from "../shared/services/storage.metareducer";
 import {SharedModule} from "../shared/shared.module";
-import {SmallCalendarComponent} from '../shared/components/small-calendar/small-calendar.component';
 import {MonthComponent} from './components/month/month.component';
 import {DayComponent} from './components/day/day.component';
-import {SHARED_LOCAL_STORAGE_KEY, SHARED_STORAGE_KEYS} from "../shared/shared.tokens";
-import {INIT_SHARED_STATE} from "../shared/store/state";
 import {INIT_CALENDAR_STATE} from "./store/state";
 import {EDatatableCalendarAction} from "./constants/constants";
+import {CalendarRoutingModule} from "./calendar-routing.module";
 
 
 const grantedActions = [
@@ -41,6 +39,7 @@ export function getCalendarConfig(saveKeys: string[],
     StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),
     EffectsModule.forFeature([CalendarEffects]),
     SharedModule,
+    CalendarRoutingModule
   ],
     exports: [
         CalendarComponent

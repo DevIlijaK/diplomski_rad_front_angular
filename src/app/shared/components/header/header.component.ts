@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 logout(){
-    this.store$.dispatch(openSpinner());
     this.store$.dispatch(logout());
 }
 }

@@ -5,7 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
-import {getAllAppUserRoles, getAppUsers, updateAppUser} from "../../store/actions";
+import {createAppUser, getAllAppUserRoles, getAppUsers, updateAppUser} from "../../store/actions";
 import {AppUser} from "../../constants/appUser";
 import {selectAppUserRoles, selectAppUsers, selectTotalAppUsers} from "../../store/selectors";
 import {GetAppUsersRequest} from "../../model/get-app-users-request";
@@ -15,6 +15,7 @@ import {selectDatatableConfiguration} from "../../../shared/store/selectors";
 import {MatSort} from "@angular/material/sort";
 import {AdminModalService} from "../../services/admin-modal-service";
 import {AppUserRole} from "../../constants/appUserRole";
+import {ActionConfig} from "../../../shared/components/panel/panel.component";
 
 @Component({
   selector: 'app-users-table',
@@ -26,9 +27,10 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  displayedColumns = ['username', 'firstName', 'lastName', 'email', 'actions'];
+  displayedColumns = ['username', 'firstName', 'lastName', 'email', 'roles', 'actions'];
 
   dataSource: MatTableDataSource<AppUser> = new MatTableDataSource<AppUser>([]);
+  appUserHeaderActions: ActionConfig[];
   appUserRoles: AppUserRole[];
   private subscription: Subscription = new Subscription();
   public totalNumberOfAppUsers: number;
@@ -49,21 +51,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.appUserHeaderActions = this.getAppUserHeaderActions()
     this.subscribe();
-    // this.store$.pipe(select(AuthSelectors.selectSearchUsers)).pipe(takeUntil(this.ngUnsubscribe)).subscribe(value => {
-    //   this.searchResponse = value;
-    //   this.dataSource.connect().next(value.data.filter(user => user.username !== 'guest'));
-    // });
-    // this.initActions();
-    // this.initSearchForm();
-    // this.searchForm.valueChanges.pipe(debounceTime(300)).subscribe(value => {
-    //   this.paginator.pageIndex = 0;
-    //   this.onPaginate(null);
-    //   this.searchUsers();
-// ?    });
-    // this.store$.pipe(select(selectAdminDatatablesConfig)).pipe(takeUntil(this.ngUnsubscribe)).subscribe(value => {
-    //   this.datatablesConfig = value;
-    // });
   }
 
   ngOnDestroy(): void {
@@ -102,7 +91,6 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }));
     this.store$.dispatch(getAllAppUserRoles());
-
   }
 
   private subscribe(): void {
@@ -136,32 +124,24 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.appUserRoles
     )
   }
+  getAppUserHeaderActions(): ActionConfig[] {
+    const defaultDocumentHeaderActions = [];
+    defaultDocumentHeaderActions.push({
+      fabIcon: 'add',
+      tooltip: 'Kreiraj novog korisnika',
+      onClick: () => this.adminModalService.openAppUserModal(
+        null,
+        (appUser) => this.store$.dispatch(createAppUser({appUser})),
+        this.appUserRoles
+      )
+    });
+    return defaultDocumentHeaderActions;
 
-  // importUsers() {
-  //   this.modalService.openImportUsersModal();
-  // }
-
+  }
   private initSearchForm() {
     this.searchForm = this.formBuilder.group({
       query: ['']
     });
-  }
-
-  private initActions() {
-    // this.actions.push({
-    //   fabIcon: 'cloud_upload',
-    //   tooltip: 'tooltip.user.import',
-    //   onClick: () => {
-    //     this.importUsers();
-    //   }
-    // } as ActionConfig);
-    // this.actions.push({
-    //   fabIcon: 'person_add',
-    //   tooltip: 'tooltip.user.add',
-    //   onClick: () => {
-    //     this.addUser();
-    //   }
-    // } as ActionConfig);
   }
 
   initDatatableConfig() {

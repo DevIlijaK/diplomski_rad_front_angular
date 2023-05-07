@@ -9,6 +9,7 @@ export const getAppUsers = createAction(EAdminActions.GET_APP_USERS, props<{getA
 export const getAppUsersSuccess = createAction(EAdminActions.GET_APP_USERS_SUCCESS,
   props<{ getAppUsersResponse: GetAppUsersResponse, lastAppUsersSearchRequest: GetAppUsersRequest }>());
 export const updateAppUser = createAction(EAdminActions.UPDATE_APP_USER, props<{ appUser: AppUser }>());
+export const createAppUser = createAction(EAdminActions.CREATE_APP_USER, props<{ appUser: AppUser }>());
 export const getAllAppUserRoles = createAction(EAdminActions.GET_ALL_APP_USER_ROLES);
 export const getAllAppUserRolesSuccess = createAction(EAdminActions.GET_ALL_APP_USER_ROLES_SUCCESS, props<{ appUserRoles: AppUserRole[] }>());
 

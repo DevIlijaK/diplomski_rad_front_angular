@@ -66,7 +66,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 /**
                  * Treba da se implementira
                  */
-                console.log(err)
+                console.log('ovde ispisuje error', err);
                 this.store$.dispatch(SharedActions.errorMessages({messagesKey: error.message}));
                 break;
             }

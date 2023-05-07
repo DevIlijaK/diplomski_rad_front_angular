@@ -10,17 +10,13 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: '', loadChildren: () => import('./shared/shared.module').then(module => module.SharedModule)},
-      {path: '', loadChildren: () => import('./calendar/calendar.module').then(module => module.CalendarModule)},
+      {path: '', loadChildren: () => import('./core/core.module').then(module => module.CoreModule)},
       {path: '', loadChildren: () => import('./auth/auth.module').then(module => module.AuthModule)},
-      {path: '', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule)},
     ],
     canActivate: [MainPanelGuard],
     canActivateChild: [MainPanelGuard]
   },
-  // {path: 'primer-angular-material', component: PrimeriAngularMaterialComponent},
   {path: 'login', component: LoginCustomComponent},
-  {path: 'primeri', component: PrimeriAngularMaterialComponent},
   {path: '**', redirectTo: ''},
 ];
 

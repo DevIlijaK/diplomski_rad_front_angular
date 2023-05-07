@@ -2,7 +2,14 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {getAllAppUserRoles, getAllAppUserRolesSuccess, getAppUsers, getAppUsersSuccess, updateAppUser} from "./actions";
+import {
+  createAppUser,
+  getAllAppUserRoles,
+  getAllAppUserRolesSuccess,
+  getAppUsers,
+  getAppUsersSuccess,
+  updateAppUser
+} from "./actions";
 import {of, switchMap, tap} from "rxjs";
 import {AadminApiService} from "../api/admin-api";
 import {closeSpinner, openSpinner, saveLastDispatchedAction, successMessages} from "../../shared/store/actions";
@@ -20,12 +27,16 @@ export class AdminEffects {
 
   getAppUsers$ = createEffect(() => this.action$.pipe(
     ofType(getAppUsers),
+    tap(() => {
+      this.store$.dispatch(openSpinner());
+    }),
     switchMap(data => {
       return this.adminApi.getAppUsers(data.getAppUsersRequest).pipe(
       switchMap(response => {
         return of(
           saveLastDispatchedAction({lastDispatchedActionData: data}),
           getAppUsersSuccess({getAppUsersResponse: response, lastAppUsersSearchRequest: data.getAppUsersRequest}),
+          closeSpinner(),
         )
       })
     )})
@@ -43,6 +54,24 @@ export class AdminEffects {
           getAppUsers({getAppUsersRequest: lastAppUsersSearchRequest}),
           closeSpinner(),
           successMessages({messagesKey: 'Uspešno izmenjen korisnik!'}),
+        );
+      })
+    ))
+  ));
+  createAppUser$ = createEffect(() => this.action$.pipe(
+    ofType(createAppUser),
+    tap(() => {
+      this.store$.dispatch(openSpinner());
+    }),
+    switchMap(data => this.adminApi.createAppUser(data.appUser).pipe(
+      withLatestFrom(this.store$.select(selectLastAppUsersSearchRequest)),
+      switchMap(([response, lastAppUsersSearchRequest]) => {
+        console.log('uslo ovde', response);
+        return of(
+          saveLastDispatchedAction({lastDispatchedActionData: data}),
+          getAppUsers({getAppUsersRequest: lastAppUsersSearchRequest}),
+          closeSpinner(),
+          successMessages({messagesKey: 'Uspešno kreiran korisnik!'}),
         );
       })
     ))

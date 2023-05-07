@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {META_REDUCERS, StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {EffectsModule} from "@ngrx/effects";
@@ -34,7 +34,6 @@ import {AngularMaterialModule} from "./angular-material/angular-material.module"
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    AuthModule,
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {
@@ -48,10 +47,7 @@ import {AngularMaterialModule} from "./angular-material/angular-material.module"
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([]),
-    NgxSpinnerModule,
     StoreRouterConnectingModule.forRoot(),
-    SharedModule,
-    CalendarModule,
     AngularMaterialModule
   ],
   providers: [

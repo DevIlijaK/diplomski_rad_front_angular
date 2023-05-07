@@ -5,7 +5,8 @@ table {
   width: 100%;
   table-layout: fixed;
 }
-
-th, td {
-  width: 20%; /* or any other value that you want */
+mat-chip {
+  height: fit-content;
+  padding: 7px;
+  margin-right: 4px;
 }

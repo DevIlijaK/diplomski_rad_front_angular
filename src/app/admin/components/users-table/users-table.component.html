@@ -1,6 +1,6 @@
 <app-panel [isContainer]="false"
            [title]="'Korisnici aplikacije'"
-           [actions]="null">
+           [actions]="appUserHeaderActions">
   <!--  <div class="row">-->
   <!--    <div class="col-md-12">-->
   <!--      <app-search-input-->
@@ -30,26 +30,25 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="roles" style="width: 300px">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Uloge korisnika</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-chip-list>
+            <mat-chip *ngFor="let role of element.roles" style="width: auto; background-color: #ccff90; color: #2c2467">
+              {{role.name | role}}
+            </mat-chip>
+          </mat-chip-list>
+        </td>
+      </ng-container>
 
-      <!--      <ng-container matColumnDef="duties">-->
-      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Zaduženja</th>-->
-      <!--        <td mat-cell *matCellDef="let element">-->
-      <!--          <mat-chip-list>-->
-      <!--            <mat-chip *ngFor="let dutyScope" style=" background-color: #ccff90; color: #2c2467">-->
-      <!--              {{dutyScope}}-->
-      <!--            </mat-chip>-->
-      <!--          </mat-chip-list>-->
-      <!--        </td>-->
-      <!--      </ng-container>-->
-
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef>Akcije</th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="primary" (click)="editUser(element)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-              </td>
-            </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Akcije</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="editUser(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
