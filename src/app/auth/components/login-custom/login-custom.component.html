@@ -1,40 +1,37 @@
-<div class="center">
-<div style="margin: 40px 0 40px 0">
+<div class="container">
   <mat-card>
     <mat-card-title>
-      Unesite korisničko ime i Šifru
+      <h1 class="title-header">Ulogujte se</h1>
+      <p class="subheader">Dobrodošli</p>
+      <p class="subheader">Molim Vas unesite svoje podatke.</p>
     </mat-card-title>
-    <mat-card-content>
-      <form class="login-form" [formGroup]="form">
-        <mat-form-field class="login-field" appearance="outline" color="primary">
-          <mat-label>Korisničko ime</mat-label>
-          <input type="text" matInput class="form-control" formControlName="username"/>
-          <mat-error *ngIf="form.controls.username.errors" class="invalid-feedback">
-            <span *ngIf="form.controls.username.errors.required">{{'Korisničko ime je obavezno polje!'}}</span>
-          </mat-error>
-<!--          [matAutocomplete]="auto"-->
-<!--          <mat-autocomplete #auto>-->
-<!--            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">-->
-<!--              {{option.name}}-->
-<!--            </mat-option>-->
-<!--          </mat-autocomplete>-->
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="login-field">
-          <mat-label>Šifra</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Sakri šifru'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-error *ngIf="form.controls.password.errors" class="invalid-feedback">
-            <span *ngIf="form.controls.password.errors.required">{{"Polje šifra je obavezno polje"}}</span>
-            <span *ngIf="form.controls.password.errors.unauthorized">{{"login.error"}}</span>
-          </mat-error>
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions align="end">
-      <button mat-raised-button class="big-button" (click)="login()">Login</button>
-    </mat-card-actions>
+    <div>
+      <mat-card-content>
+        <form [formGroup]="form">
+          <mat-form-field appearance="outline">
+            <mat-label>Korisničko ime</mat-label>
+            <input type="text" matInput formControlName="username"/>
+            <mat-error *ngIf="form.controls.username.errors">
+              <span *ngIf="form.controls.username.errors.required">{{'Korisničko ime je obavezno polje!'}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Šifra</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Sakri šifru'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.controls.password.errors">
+              <span *ngIf="form.controls.password.errors.required">{{"Polje šifra je obavezno polje"}}</span>
+              <span *ngIf="form.controls.password.errors.unauthorized">{{"login.error"}}</span>
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="login()">Ulogujte se</button>
+      </mat-card-actions>
+    </div>
   </mat-card>
-</div>
 </div>

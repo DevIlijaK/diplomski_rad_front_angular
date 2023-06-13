@@ -1,54 +1,104 @@
 @import "src/variables";
-.form-control {
-  &:focus {
-    border: none;
-    box-shadow: none;
-  }
-}
-.login-form {
+
+.container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
-/* Adjust the width of the form fields to take up a smaller percentage of the screen on smaller screens */
-@media (max-width: 600px) {
-  .login-field {
-    width: 80%;
-  }
-}
-.center {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url('https://i.pinimg.com/736x/38/85/d4/3885d4217f37fe9bfbb5865096ad1961--hd-wallpaper-wallpapers.jpg');
-  background-size: cover;
-}
-.login-field {
-  width: 100%;
-  margin-bottom: 10px;
-}
-mat-card-title {
-  margin-bottom: 16px;
-}
-mat-card-content {
-  padding-top: 16px;
-}
-.big-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  margin-right: 10px !important;
-}
 mat-card {
-  background-color: rgba(93, 88, 88, 0.8);
-  height: 300px;
-  width: 500px;
+  max-width: 400px;
+  background: transparent;
+  height: 500px;
+  margin-left: auto; /* Push the card to the right side */
+  margin-right: calc(25% - 200px); /* Set the right margin to be 3/4 of the available space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
-::ng-deep .invalid-feedback {
-  color: $alterWarnColorBase;
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
+}
+
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0;
+}
+
+form {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 5px;
+}
+.mat-form-field:last-child {
+  margin-bottom: 0;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.mat-card-actions:last-child {
+  margin-bottom: 0 !important;
+}
+
+button.mat-button {
+  flex-grow: 1;
+  background-color: lightskyblue;
+}
+.title-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.subheader {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.mat-card-title {
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  color: $main-font-color;
+}
+
+@media screen and (max-width: 991px) {
+  .container {
+    display: flex;
+    justify-content: center; /* Horizontally center the card */
+    align-items: center; /* Vertically center the card */
+    height: 100vh;
+  }
+
+  mat-card {
+    margin-left: auto; /* Push the card to the right side */
+    margin-right: auto; /* Push the card to the left side */
+    font-size: 14px;
+  }
+
+  .title-header {
+    /* Existing styles */
+
+    /* Additional styles */
+    font-size: 20px;
+  }
+
+  .subheader {
+    /* Existing styles */
+
+    /* Additional styles */
+    font-size: 12px;
+  }
 }
 
 

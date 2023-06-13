@@ -1,41 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
 * {
 
   font-family: 'Open Sans';
 }
-body{
-  margin: 0;
-  padding: 0;
-}
-.toast-top-center {
-  //top: 8% !important;
-  width: 100%;
-  top: 10px!important;
-}
-
-.toast-container .ngx-toastr {
-  min-width: 30%;
-  height: 80px;
-  opacity: 0.95 !important;
-  text-align: center;
-}
-.button-global-style{
-  border-style: none !important;
-  background-color: transparent !important;
-}
-.text {
-  margin-top: 0.25rem !important;
-  font-size: 0.875rem  !important;
-  line-height: 1.25rem  !important;
-  text-align: center  !important;
-  font-weight: 700  !important;
-  color: #6B7280 !important;
-}
-.circle{
-  border-radius: 50%;
-  border: 1px solid #01cdcd;
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+//body{
+//  margin: 0;
+//  padding: 0;
+//}
+//.toast-top-center {
+//  //top: 8% !important;
+//  width: 100%;
+//  top: 10px!important;
+//}
+//
+//.toast-container .ngx-toastr {
+//  min-width: 30%;
+//  height: 80px;
+//  opacity: 0.95 !important;
+//  text-align: center;
+//}
+//.button-global-style{
+//  border-style: none !important;
+//  background-color: transparent !important;
+//}
+//.text {
+//  margin-top: 0.25rem !important;
+//  font-size: 0.875rem  !important;
+//  line-height: 1.25rem  !important;
+//  text-align: center  !important;
+//  font-weight: 700  !important;
+//  color: #6B7280 !important;
+//}
+//.circle{
+//  border-radius: 50%;
+//  border: 1px solid #01cdcd;
+//}
+//
+//html, body { height: 100%; }
+//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
