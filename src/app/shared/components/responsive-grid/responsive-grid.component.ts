@@ -1,5 +1,11 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { Store } from '@ngrx/store';
+import { Dayjs } from "dayjs";
+import { Observable } from 'rxjs';
+import { selectCurrentMonth } from '../../store/selectors';
+import * as dayjs from 'dayjs';
+import * as SharedActions from '../../../shared/store/actions';
 
 
 interface CalendarDay {
@@ -14,52 +20,30 @@ interface CalendarDay {
 })
 export class ResponsiveGridComponent implements OnInit {
 
-  calendarDays: CalendarDay[] = [];
   isSmallScreen = false;
-  daysOfWeek: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  daysOfWeek: string[] = ['Nedelja', 'Ponedeljak', 'Utorak', 'Sreda', 'četvrtak', 'Petak', 'Subota'];
+  currentMonth$: Observable<Dayjs[][]>;
 
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private cdr: ChangeDetectorRef,
+    private store$: Store) {
   }
 
   ngOnInit() {
-    this.generateCalendar();
+    this.store$.dispatch(SharedActions.getCurrentMonth({ currentMonthNumber: dayjs().month(), currentYearNumber: dayjs().year() }));
     this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
         console.log(result);
         this.isSmallScreen = result.matches;
       });
+
   }
-
-  generateCalendar() {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const firstDayOfMonth = new Date(year, month, 1);
-    const lastDayOfMonth = new Date(year, month + 1, 0);
-    const numDaysInMonth = lastDayOfMonth.getDate();
-
-    const firstDayOfWeek = firstDayOfMonth.getDay();
-    const numWeeks = Math.ceil((numDaysInMonth + firstDayOfWeek) / 7);
-
-    let dayCounter = 1;
-
-    for (let week = 0; week < numWeeks; week++) {
-      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        const date = new Date(year, month, dayCounter);
-        const calendarDay: CalendarDay = {
-          date,
-          day: dayCounter
-        };
-        this.calendarDays.push(calendarDay);
-
-        dayCounter++;
-
-        if (dayCounter > numDaysInMonth) {
-          break;
-        }
-      }
-    }
+  ngAfterViewInit() {
+    this.currentMonth$ = this.store$.select(selectCurrentMonth);
+    this.currentMonth$.subscribe((value) => console.log(value));
+    this.cdr.detectChanges();
   }
 }

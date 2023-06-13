@@ -1,19 +1,30 @@
-<mat-grid-list cols="7" rowHeight="200px" gutterSize="10px">
-  <mat-grid-tile [colspan]="isSmallScreen ? 7 : 1">
-    <div class="day-labels">
-      <div *ngFor="let day of daysOfWeek" class="day-label">{{ day }}</div>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile *ngFor="let element of calendarDays" [colspan]="isSmallScreen ? 7 : 1">
+<mat-grid-list cols="7" rowHeight="50px" gutterSize="10px" *ngIf="!isSmallScreen">
+  <mat-grid-tile *ngFor="let element of daysOfWeek" [colspan]="1">
     <mat-card class="grid-card">
       <!-- Content for each element -->
-      <mat-card-content>
+      <mat-card-content class="centered-content">
         <!-- Add content here -->
-        <h3>{{ element.date }}</h3>
-        <p>{{ element.day }}</p>
+        <h3>{{ element }}</h3>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
+<mat-grid-list cols="7" rowHeight="150px" gutterSize="10px">
+  <ng-container *ngFor="let row of currentMonth$ | async">
+    <ng-container *ngFor="let element of row">
+      <mat-grid-tile [colspan]="isSmallScreen ? 7 : 1">
+        <mat-card class="grid-card">
+          <!-- Content for each element -->
+          <mat-card-content>
+            <!-- Add content here -->
+            <h3>{{ element }}</h3>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </ng-container>
+  </ng-container>
+</mat-grid-list>
+
+
 
 
