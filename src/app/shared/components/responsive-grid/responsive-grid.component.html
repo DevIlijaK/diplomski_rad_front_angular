@@ -1,0 +1,19 @@
+<mat-grid-list cols="7" rowHeight="200px" gutterSize="10px">
+  <mat-grid-tile [colspan]="isSmallScreen ? 7 : 1">
+    <div class="day-labels">
+      <div *ngFor="let day of daysOfWeek" class="day-label">{{ day }}</div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile *ngFor="let element of calendarDays" [colspan]="isSmallScreen ? 7 : 1">
+    <mat-card class="grid-card">
+      <!-- Content for each element -->
+      <mat-card-content>
+        <!-- Add content here -->
+        <h3>{{ element.date }}</h3>
+        <p>{{ element.day }}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+

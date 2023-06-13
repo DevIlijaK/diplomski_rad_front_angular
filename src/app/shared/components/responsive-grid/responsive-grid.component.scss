@@ -1,0 +1,15 @@
+.grid-card {
+  width: 100%;
+  height: 100%;
+}
+.day-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.day-labels > div {
+  flex-basis: calc(100% / 7);
+  text-align: center;
+}

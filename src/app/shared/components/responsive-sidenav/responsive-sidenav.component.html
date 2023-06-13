@@ -1,5 +1,5 @@
 <mat-sidenav-container class="container">
-  <mat-sidenav mode="over" opened="false" #sidenav>
+  <mat-sidenav mode="over" opened="false" #sidenav class="custom-sidenav">
     <!-- Content for your side navigation -->
     <mat-nav-list>
       <div class="section">
@@ -43,6 +43,8 @@
       <span class="spacer"></span>
       <span>Your App Name</span>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div class="content-container">
+    <app-responsive-grid></app-responsive-grid>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
