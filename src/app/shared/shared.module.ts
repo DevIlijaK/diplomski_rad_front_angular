@@ -23,6 +23,7 @@ import {ThesisApiService} from "./api/thesis-api.service";
 import {AngularMaterialModule} from "../angular-material/angular-material.module";
 import {PanelComponent} from './components/panel/panel.component';
 import {SearchInputComponent} from './components/search-input/search-input.component';
+import { ResponsiveSidenavComponent } from './components/responsive-sidenav/responsive-sidenav.component';
 
 /**
  * Ovde mora revizija akcija
@@ -68,6 +69,7 @@ export function getSharedConfig(
     EventModalComponent,
     PanelComponent,
     SearchInputComponent,
+    ResponsiveSidenavComponent,
   ]
   ,
   imports: [
@@ -93,7 +95,8 @@ export function getSharedConfig(
     SidebarComponent,
     SmallCalendarComponent,
     PanelComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    ResponsiveSidenavComponent
   ],
   entryComponents: [],
   providers: [

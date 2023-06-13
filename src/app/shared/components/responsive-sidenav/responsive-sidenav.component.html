@@ -1,0 +1,48 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav mode="over" opened="false" #sidenav>
+    <!-- Content for your side navigation -->
+    <mat-nav-list>
+      <div class="section">
+        <span class="section-title">Section 1</span>
+        <a mat-list-item href="#">
+          <mat-icon class="nav-icon">home</mat-icon>
+          <span class="nav-text">Link 1</span>
+        </a>
+        <a mat-list-item href="#">
+          <mat-icon class="nav-icon">settings</mat-icon>
+          <span class="nav-text">Link 2</span>
+        </a>
+        <a mat-list-item href="#">
+          <mat-icon class="nav-icon">info</mat-icon>
+          <span class="nav-text">Link 3</span>
+        </a>
+      </div>
+      <div class="section">
+        <span class="section-title">Section 2</span>
+        <a mat-list-item href="#">
+          <mat-icon class="nav-icon">folder</mat-icon>
+          <span class="nav-text">Link 4</span>
+        </a>
+        <a mat-list-item href="#">
+          <mat-icon class="nav-icon">notifications</mat-icon>
+          <span class="nav-text">Link 5</span>
+        </a>
+        <a mat-list-item href="#">
+          <mat-icon class="nav-icon">email</mat-icon>
+          <span class="nav-text">Link 6</span>
+        </a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Your main content -->
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <span>Your App Name</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -16,6 +16,7 @@ import {
 } from './components/primeri-angular-material/primeri-angular-material.component';
 import {LoginCustomComponent} from './components/login-custom/login-custom.component';
 import {EAuthActions} from "./constants/constants";
+import {SharedModule} from "../shared/shared.module";
 
 const grantedActions = [
   EAuthActions.LOGIN_SUCCESS,
@@ -43,6 +44,7 @@ export function getAuthConfig(
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     StoreModule.forFeature('auth', authReducers, AUTH_CONFIG_TOKEN),
     EffectsModule.forFeature([AuthEffects]),
