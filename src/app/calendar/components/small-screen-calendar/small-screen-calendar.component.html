@@ -1,22 +1,28 @@
-<div style="display: flex; justify-content: space-between;">
-  <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(0)">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <button mat-icon-button class="custom-button" (click)="changeCurrentDay(0)">
     <mat-icon>chevron_left</mat-icon>
   </button>
-  <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(1)">
+
+
+  <!--  <mat-form-field style="width: 170px" class="custom-form-field">-->
+  <!--    <mat-label>Izabrani Datum</mat-label>-->
+  <!--    <input matInput [matDatepicker]="picker" [(ngModel)]="date">-->
+  <!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+  <!--    <mat-datepicker #picker></mat-datepicker>-->
+  <!--  </mat-form-field>-->
+
+
+  <mat-form-field style="width: 170px">
+    <mat-label>Izabrani Datum</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+  </mat-form-field>
+
+
+  <button mat-icon-button class="custom-button" (click)="changeCurrentDay(1)">
     <mat-icon>chevron_right</mat-icon>
   </button>
 </div>
 <app-days-of-the-week-grid></app-days-of-the-week-grid>
-<div class="grid-container">
-    <mat-grid-list cols="7" [rowHeight]="'calc(80vh - 20px)'" gutterSize="10px">
-          <mat-grid-tile colspan="7">
-            <mat-card class="grid-card">
-              <!-- Content for each element -->
-              <mat-card-content>
-                <!-- Add content here -->
-                <h3>{{ currentDay }}</h3>
-              </mat-card-content>
-            </mat-card>
-          </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+<app-responsive-day-card></app-responsive-day-card>

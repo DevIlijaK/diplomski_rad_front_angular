@@ -1,8 +1,8 @@
-<div style="display: flex; justify-content: space-between;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
   <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(0)">
     <mat-icon>chevron_left</mat-icon>
   </button>
-  <p>{{currentMontsNumberString}}</p>
+  <p>{{ currentMonthsNumberString }}</p>
   <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(1)">
     <mat-icon>chevron_right</mat-icon>
   </button>
@@ -17,6 +17,7 @@
           <mat-card-content>
             <!-- Add content here -->
             <h3>{{ element }}</h3>
+            <app-responsive-day-card></app-responsive-day-card>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

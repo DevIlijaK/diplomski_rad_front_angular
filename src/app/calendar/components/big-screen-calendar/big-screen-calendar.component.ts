@@ -15,9 +15,9 @@ import * as SharedActions from '../../../shared/store/actions';
 })
 export class BigScreenCalendarComponent implements OnInit, AfterViewInit {
   currentMonth$: Observable<Dayjs[][]>;
-  currentMontsNumberNumber: number;
+  currentMonthsNumberNumber: number;
   currentYearNumberNumber: number;
-  currentMontsNumberString: string;
+  currentMonthsNumberString: string;
 
 
   constructor(
@@ -37,9 +37,9 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit {
     this.currentMonth$ = this.store$.select(selectCurrentMonth);
     this.currentMonth$.subscribe((value) => console.log(value));
     combineLatest(this.store$.select(selectCurrentMonthNumber), this.store$.select(selectYearMonthNumber)).subscribe((data) => {
-      this.currentMontsNumberNumber = data[0];
+      this.currentMonthsNumberNumber = data[0];
       this.currentYearNumberNumber = data[1];
-      this.currentMontsNumberString = dayjs(new Date(data[1], data[0])).format("MMMM YYYY");
+      this.currentMonthsNumberString = dayjs(new Date(data[1], data[0])).format("MMMM YYYY");
     })
 
     this.cdr.detectChanges();
@@ -48,12 +48,12 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit {
   changeCurrentMonth(leftOrRight: number) {
     if (leftOrRight === 0) {
       this.store$.dispatch(CommonActions.changeCurrentMonth({
-        monthNumber: this.currentMontsNumberNumber - 1,
+        monthNumber: this.currentMonthsNumberNumber - 1,
         yearNumber: this.currentYearNumberNumber
       }));
     } else if (leftOrRight === 1) {
       this.store$.dispatch(CommonActions.changeCurrentMonth({
-        monthNumber: this.currentMontsNumberNumber + 1,
+        monthNumber: this.currentMonthsNumberNumber + 1,
         yearNumber: this.currentYearNumberNumber
       }));
     } else {

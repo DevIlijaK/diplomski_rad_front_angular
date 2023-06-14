@@ -23,6 +23,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {DaysOfTheWeekGridComponent} from './components/days-of-the-week-grid/days-of-the-week-grid.component';
 import {ResponsiveGridComponent} from "./components/responsive-grid/responsive-grid.component";
+import {AngularMaterialModule} from "../angular-material/angular-material.module";
+import {FormsModule} from "@angular/forms";
+import { ResponsiveDayCardComponent } from './components/responsive-day-card/responsive-day-card.component';
 
 
 const grantedActions = [
@@ -41,7 +44,7 @@ export function getCalendarConfig(saveKeys: string[],
 }
 
 @NgModule({
-  declarations: [CalendarComponent, MonthComponent, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent],
+  declarations: [CalendarComponent, MonthComponent, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent, ResponsiveDayCardComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),
@@ -51,7 +54,9 @@ export function getCalendarConfig(saveKeys: string[],
     MatCardModule,
     MatGridListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    AngularMaterialModule,
+    FormsModule
   ],
   exports: [
     CalendarComponent,
