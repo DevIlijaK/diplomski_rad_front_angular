@@ -1,0 +1,22 @@
+<div style="display: flex; justify-content: space-between;">
+  <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(0)">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(1)">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
+<app-days-of-the-week-grid></app-days-of-the-week-grid>
+<div class="grid-container">
+    <mat-grid-list cols="7" [rowHeight]="'calc(80vh - 20px)'" gutterSize="10px">
+          <mat-grid-tile colspan="7">
+            <mat-card class="grid-card">
+              <!-- Content for each element -->
+              <mat-card-content>
+                <!-- Add content here -->
+                <h3>{{ currentDay }}</h3>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+    </mat-grid-list>
+  </div>

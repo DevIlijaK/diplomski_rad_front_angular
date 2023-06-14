@@ -1,11 +1,3 @@
-.container {
-  height: 100vh;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
 .nav-icon {
   margin-right: 12px;
 }
@@ -14,24 +6,24 @@
   margin-left: 12px;
   margin-right: 8px; /* Add a right margin of 8px */
 }
+
 .custom-sidenav {
   width: 280px; /* Set the width to your desired value */
   padding: 20px;
 }
+
 .content-container {
   padding: 20px;
 }
+
 .mat-toolbar {
   display: flex;
   align-items: center;
   padding: 0 16px;
 }
+
 .menu-button {
   margin-right: 16px;
-}
-
-.button-icon {
-  color: white;
 }
 
 .spacer {
@@ -53,6 +45,25 @@
   font-size: 18px;
   margin: 0;
 }
+
+.custom-button {
+  background-color: transparent;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.button-text {
+  margin-right: 4px;
+}
+
+.logout-icon {
+  margin-left: 4px;
+}
+.flex-1{
+  flex: 1;
+}
+
 @media screen and (max-width: 991px) {
   .custom-sidenav {
     width: 180px; /* Set the width to your desired value */
@@ -61,14 +72,29 @@
   .custom-sidenav .nav-text {
     font-size: 14px; /* Set the font size to your desired value */
   }
- 
-  .header-logo {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 8px;
+  .mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  
+
+  .header-logo {
+    width: 20px;
+    height: 20px;
+    order: -1;
+  }
+  .flex-row-center {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .header-title {
-    font-size: 16px;
+    font-size: 10px;
+  }
+  .logout-icon {
+    font-size: 25px;
+  }
+  .custom-button.mat-raised-button {
+    display: none;
   }
 }

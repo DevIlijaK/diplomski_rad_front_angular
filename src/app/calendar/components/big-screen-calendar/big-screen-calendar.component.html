@@ -1,18 +1,17 @@
-<mat-grid-list cols="7" rowHeight="50px" gutterSize="10px" *ngIf="!isSmallScreen">
-  <mat-grid-tile *ngFor="let element of daysOfWeek" [colspan]="1">
-    <mat-card class="grid-card">
-      <!-- Content for each element -->
-      <mat-card-content class="centered-content">
-        <!-- Add content here -->
-        <h3>{{ element }}</h3>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<div style="display: flex; justify-content: space-between;">
+  <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(0)">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <p>{{currentMontsNumberString}}</p>
+  <button mat-icon-button class="custom-button" (click)="changeCurrentMonth(1)">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
+<app-days-of-the-week-grid></app-days-of-the-week-grid>
 <mat-grid-list cols="7" rowHeight="150px" gutterSize="10px">
   <ng-container *ngFor="let row of currentMonth$ | async">
     <ng-container *ngFor="let element of row">
-      <mat-grid-tile [colspan]="isSmallScreen ? 7 : 1">
+      <mat-grid-tile colspan="1">
         <mat-card class="grid-card">
           <!-- Content for each element -->
           <mat-card-content>
@@ -24,7 +23,3 @@
     </ng-container>
   </ng-container>
 </mat-grid-list>
-
-
-
-

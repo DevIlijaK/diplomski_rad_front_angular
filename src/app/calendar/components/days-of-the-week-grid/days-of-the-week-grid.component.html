@@ -1,0 +1,11 @@
+<mat-grid-list cols="7" rowHeight="50px" gutterSize="10px" *ngIf="!isSmallScreen">
+  <mat-grid-tile *ngFor="let element of daysOfWeek" [colspan]="1">
+    <mat-card class="grid-card">
+      <!-- Content for each element -->
+      <mat-card-content class="centered-content">
+        <!-- Add content here -->
+        <h3>{{ element }}</h3>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

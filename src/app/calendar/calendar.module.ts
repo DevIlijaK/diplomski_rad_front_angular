@@ -15,6 +15,14 @@ import {DayComponent} from './components/day/day.component';
 import {INIT_CALENDAR_STATE} from "./store/state";
 import {EDatatableCalendarAction} from "./constants/constants";
 import {CalendarRoutingModule} from "./calendar-routing.module";
+import {BigScreenCalendarComponent} from './components/big-screen-calendar/big-screen-calendar.component';
+import {SmallScreenCalendarComponent} from './components/small-screen-calendar/small-screen-calendar.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {DaysOfTheWeekGridComponent} from './components/days-of-the-week-grid/days-of-the-week-grid.component';
+import {ResponsiveGridComponent} from "./components/responsive-grid/responsive-grid.component";
 
 
 const grantedActions = [
@@ -33,17 +41,22 @@ export function getCalendarConfig(saveKeys: string[],
 }
 
 @NgModule({
-  declarations: [CalendarComponent, MonthComponent, DayComponent],
+  declarations: [CalendarComponent, MonthComponent, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),
     EffectsModule.forFeature([CalendarEffects]),
     SharedModule,
-    CalendarRoutingModule
+    CalendarRoutingModule,
+    MatCardModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatIconModule
   ],
-    exports: [
-        CalendarComponent
-    ],
+  exports: [
+    CalendarComponent,
+    ResponsiveGridComponent
+  ],
   providers: [
     CalendarEffects,
     {provide: CALENDAR_LOCAL_STORAGE_KEY, useValue: '__calendar_storage__'},

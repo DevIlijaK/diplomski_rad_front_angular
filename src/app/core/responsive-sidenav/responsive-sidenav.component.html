@@ -44,9 +44,16 @@
         <img src='../../../../assets/pictures/fon-logo.png' alt="Calendar" class="header-logo">
         <h1 class="header-title">Evidencija diplomskih radova</h1>
       </div>
+      <div style="display: flex; justify-content: flex-end;" [class]="isSmallScreen ? '' : 'flex-1'">
+        <button class="custom-button" [class]="isSmallScreen ? 'mat-button' : 'mat-raised-button'" (click)="logout()">
+<!--          nisam siguran zasto ovo nece-->
+          <span *ngIf="!isSmallScreen" class="button-text">Izloguj se</span>
+          <mat-icon class="logout-icon">exit_to_app</mat-icon>
+        </button>
+      </div>
     </mat-toolbar>
     <div class="content-container">
-    <app-responsive-grid></app-responsive-grid>
+      <app-responsive-grid></app-responsive-grid>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

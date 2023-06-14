@@ -29,6 +29,7 @@ import {AuthModule} from "../auth/auth.module";
 import {SharedModule} from "../shared/shared.module";
 import {CalendarModule} from "../calendar/calendar.module";
 import {NgxSpinnerModule} from "ngx-spinner";
+import {ResponsiveSidenavComponent} from "./responsive-sidenav/responsive-sidenav.component";
 
 const grantedActions = [
   ESharedAction.NAVIGATE,
@@ -64,7 +65,8 @@ const grantedActions = [
 
 @NgModule({
   declarations: [
-    CoreViewComponent
+    CoreViewComponent,
+    ResponsiveSidenavComponent
   ]
   ,
   imports: [
