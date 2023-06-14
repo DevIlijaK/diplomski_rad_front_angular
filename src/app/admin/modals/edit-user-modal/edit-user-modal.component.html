@@ -1,45 +1,45 @@
-  <mat-dialog-content class="modal-dialog-content">
-    <div class="modal-dialog-container">
-      <div class="modal-dialog-header">
-        <h2 class="modal-dialog-title">{{data.appUser ? 'Izmeni podatke o korisniku' : 'Dodaj novog korisnika'}}</h2>
-        <button mat-icon-button color="warn" (click)="closeDialog()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-      <mat-form-field class="form-field">
-        <mat-label>Korisničko ime</mat-label>
-        <input matInput [formControl]="form.controls.username">
-      </mat-form-field>
-      <mat-form-field class="form-field" *ngIf="data.appUser === null">
-        <mat-label>Šifra</mat-label>
-        <input matInput [formControl]="form.controls.password">
-      </mat-form-field>
+<div class="modal-dialog-header">
+  <h2 class="modal-dialog-title">{{data.appUser ? 'Izmeni podatke o korisniku' : 'Dodaj novog korisnika'}}</h2>
+  <button mat-icon-button color="warn" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content class="modal-dialog-content">
+  <div class="modal-dialog-container">
+    <mat-form-field class="form-field">
+      <mat-label>Korisničko ime</mat-label>
+      <input matInput [formControl]="form.controls.username">
+    </mat-form-field>
+    <mat-form-field class="form-field" *ngIf="data.appUser === null">
+      <mat-label>Šifra</mat-label>
+      <input matInput [formControl]="form.controls.password">
+    </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Ime</mat-label>
-        <input matInput [formControl]="form.controls.firstname">
-      </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Ime</mat-label>
+      <input matInput [formControl]="form.controls.firstname">
+    </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Prezime</mat-label>
-        <input matInput [formControl]="form.controls.lastname">
-      </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Prezime</mat-label>
+      <input matInput [formControl]="form.controls.lastname">
+    </mat-form-field>
 
-      <mat-form-field class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput [formControl]="form.controls.email">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>User Roles</mat-label>
-        <mat-select [formControl]="form.controls.roles" multiple>
-          <mat-option *ngFor="let item of data.appUserRoles" [value]="item">
-            {{item.name | role}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button color="primary" [disabled]="!form.valid" (click)="callbackFunc()">{{data.appUser ? 'Sačuvaj
-      izmene' : 'Dodaj novog korisnika'}}</button>
-  </mat-dialog-actions>
+    <mat-form-field class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="form.controls.email">
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>User Roles</mat-label>
+      <mat-select [formControl]="form.controls.roles" multiple>
+        <mat-option *ngFor="let item of data.appUserRoles" [value]="item">
+          {{item.name | role}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" [disabled]="!form.valid" (click)="callbackFunc()">{{data.appUser ? 'Sačuvaj
+    izmene' : 'Dodaj novog korisnika'}}</button>
+</mat-dialog-actions>
