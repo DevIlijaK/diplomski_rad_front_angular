@@ -3,10 +3,10 @@
     <!-- Content for your side navigation -->
     <mat-nav-list>
       <div class="section">
-        <span class="section-title">Section 1</span>
-        <a mat-list-item href="#">
-          <mat-icon class="nav-icon">home</mat-icon>
-          <span class="nav-text">Link 1</span>
+        <span class="section-title">Admin sekcija</span>
+        <a mat-list-item routerLink="/appUsers">
+          <mat-icon class="nav-icon">person</mat-icon>
+          <span class="nav-text">Korisnici</span>
         </a>
         <a mat-list-item href="#">
           <mat-icon class="nav-icon">settings</mat-icon>
@@ -46,14 +46,15 @@
       </div>
       <div style="display: flex; justify-content: flex-end;" [class]="isSmallScreen ? '' : 'flex-1'">
         <button class="custom-button" [class]="isSmallScreen ? 'mat-button' : 'mat-raised-button'" (click)="logout()">
-<!--          nisam siguran zasto ovo nece-->
+          <!--          nisam siguran zasto ovo nece-->
           <span *ngIf="!isSmallScreen" class="button-text">Izloguj se</span>
           <mat-icon class="logout-icon">exit_to_app</mat-icon>
         </button>
       </div>
     </mat-toolbar>
     <div class="content-container">
-      <app-responsive-grid></app-responsive-grid>
+      <router-outlet></router-outlet>
+      <!-- <app-responsive-grid></app-responsive-grid> -->
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

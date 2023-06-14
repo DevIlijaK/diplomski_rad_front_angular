@@ -1,9 +1,9 @@
-import {RouterModule, Routes} from "@angular/router";
-import {NgModule} from "@angular/core";
-import {CalendarComponent} from "./components/calendar/calendar.component";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { ResponsiveGridComponent } from "./components/responsive-grid/responsive-grid.component";
 
 const routes: Routes = [
-  {path: 'calendar', component: CalendarComponent},
+  {path: 'calendar', component: ResponsiveGridComponent},
 ];
 
 @NgModule({
