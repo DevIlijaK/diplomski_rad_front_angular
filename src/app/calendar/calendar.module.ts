@@ -26,6 +26,7 @@ import {ResponsiveGridComponent} from "./components/responsive-grid/responsive-g
 import {AngularMaterialModule} from "../angular-material/angular-material.module";
 import {FormsModule} from "@angular/forms";
 import { ResponsiveDayCardComponent } from './components/responsive-day-card/responsive-day-card.component';
+import { ResponsiveThesisModalComponent } from './modals/responsive-thesis-modal/responsive-thesis-modal.component';
 
 
 const grantedActions = [
@@ -44,7 +45,7 @@ export function getCalendarConfig(saveKeys: string[],
 }
 
 @NgModule({
-  declarations: [CalendarComponent, MonthComponent, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent, ResponsiveDayCardComponent],
+  declarations: [CalendarComponent, MonthComponent, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent, ResponsiveDayCardComponent, ResponsiveThesisModalComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),

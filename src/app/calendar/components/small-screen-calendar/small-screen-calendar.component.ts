@@ -41,7 +41,7 @@ export class SmallScreenCalendarComponent implements OnInit {
       console.log('uslo ovdeeee');
       if (date == 1) {
         console.log('uslo ovde 2')
-        return 'highlight-date';
+        return 'button-with-star';
       }
       return "";
     }

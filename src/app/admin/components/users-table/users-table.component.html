@@ -1,13 +1,6 @@
 <app-panel [isContainer]="false"
            [title]="'Korisnici aplikacije'"
            [actions]="appUserHeaderActions">
-  <!--  <div class="row">-->
-  <!--    <div class="col-md-12">-->
-  <!--      <app-search-input-->
-  <!--        [appearance]="'outline'"-->
-  <!--        [searchFormControl]="searchForm.controls.query"></app-search-input>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div>
     <table class="table" mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="username">

@@ -4,11 +4,11 @@
 
 .nav-text {
   margin-left: 12px;
-  margin-right: 8px; /* Add a right margin of 8px */
+  margin-right: 8px;
 }
 
 .custom-sidenav {
-  width: 280px; /* Set the width to your desired value */
+  width: 280px;
   padding: 20px;
 }
 
@@ -66,11 +66,11 @@
 
 @media screen and (max-width: 991px) {
   .custom-sidenav {
-    width: 180px; /* Set the width to your desired value */
+    width: 180px;
     padding: 10px;
   }
   .custom-sidenav .nav-text {
-    font-size: 14px; /* Set the font size to your desired value */
+    font-size: 14px;
   }
   .mat-toolbar {
     display: flex;

@@ -10,3 +10,29 @@ mat-chip {
   padding: 7px;
   margin-right: 4px;
 }
+::ng-deep th.mat-header-cell:last-of-type{
+  text-align: center;
+}
+@media (max-width: 991px) {
+  table.mat-table {
+    th.mat-header-cell:not(:nth-child(1)):not(:nth-child(6)),
+    td.mat-cell:not(:nth-child(1)):not(:nth-child(6)) {
+      display: none;
+    }
+  }
+  ::ng-deep .mat-paginator-page-size{
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+  }
+  ::ng-deep .mat-paginator-navigation-first,
+  ::ng-deep .mat-paginator-navigation-last {
+    display: none;
+  }
+
+}
+
+

@@ -1,6 +1,5 @@
 <mat-sidenav-container>
   <mat-sidenav mode="over" opened="false" #sidenav class="custom-sidenav">
-    <!-- Content for your side navigation -->
     <mat-nav-list>
       <div class="section">
         <span class="section-title">Admin sekcija</span>
@@ -35,7 +34,6 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <!-- Your main content -->
     <mat-toolbar>
       <button mat-icon-button class="menu-button" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
@@ -54,7 +52,6 @@
     </mat-toolbar>
     <div class="content-container">
       <router-outlet></router-outlet>
-      <!-- <app-responsive-grid></app-responsive-grid> -->
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
