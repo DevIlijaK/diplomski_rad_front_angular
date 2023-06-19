@@ -31,6 +31,9 @@ export enum ESharedAction {
   GET_THESIS = '[Shared] Get Thesis',
   GET_THESIS_SUCCESS = '[Shared] Get Thesis Success',
 
+  GET_THESIS_BY_EMAIL_AND_DATE_RANGE = '[Shared] Get Thesis By Email And Date Range',
+  GET_THESIS_BY_EMAIL_AND_DATE_RANGE_SUCCESS = '[Shared] Get Thesis By Email And Date Range Success',
+
   SAVE_DATABLE_CONFIG = '[Shared] Save Datable Config',
   RESET_DATATABLES_CONFIG = '[Shared] Reset Datable Config',
 }

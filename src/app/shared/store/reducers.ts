@@ -7,7 +7,7 @@ import {
   getCurrentYearNumberSucess,
   getSmallCalendarCurrentMonthNumberSucess,
   getSmallCalendarCurrentMonthSucess,
-  getSmallCalendarCurrentYearSucess,
+  getSmallCalendarCurrentYearSucess, getThesisByEmailAndDateRangeSuccess,
   openModalSuccess,
   resetDatatablesConfig,
   saveDatatableConfig,
@@ -49,6 +49,10 @@ const reducer = createReducer(
     smallCalendarCurrentYearNumber
   })),
   on(getAllThesisSuccess, (state, {thesis}) => ({
+    ...state,
+    thesis
+  })),
+  on(getThesisByEmailAndDateRangeSuccess, (state, {thesis}) => ({
     ...state,
     thesis
   })),

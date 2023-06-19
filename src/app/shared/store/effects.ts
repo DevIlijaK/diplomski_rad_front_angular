@@ -13,7 +13,7 @@ import {
   getCurrentMonth,
   getCurrentMonthNumber,
   getSmallCalendarCurrentMonth,
-  getSmallCalendarCurrentMonthNumber,
+  getSmallCalendarCurrentMonthNumber, getThesisByEmailAndDateRange,
   navigate,
   openModal, openModalSuccess,
   openSpinner
@@ -205,6 +205,16 @@ export class SharedEffects {
     switchMap((data) => this.thesisApiService.getThesis().pipe(
       switchMap((thesis) => of(
         SharedActions.getAllThesisSuccess({thesis})
+        ))
+    ))
+  ));
+
+  getThesisByEmailAndDateRange$ = createEffect(() => this.action$.pipe(
+    ofType(getThesisByEmailAndDateRange),
+    switchMap(data => this.thesisApiService
+      .getThesisByEmailAndDateRange(data.getThesisByEmailAndDateRangeRequest).pipe(
+      switchMap((thesis) => of(
+        SharedActions.getThesisByEmailAndDateRangeSuccess({thesis})
         ))
     ))
   ));

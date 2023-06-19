@@ -1,10 +1,8 @@
 import {MatDialogRef} from "@angular/material/dialog";
 import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
-import {ThesisModel} from "../models/thesis.model";
-import {Action} from "@ngrx/store";
 import {DatatableConfigurationModel} from "../models/datatable-configuration.model";
-import {ActionModel} from "../models/action.model";
+import {ThesisModel} from "../models/thesis.model";
 
 
 export interface SharedState {

@@ -12,6 +12,8 @@ export class ResponsiveThesisModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { thesis: ThesisModel }) {}
 
   ngOnInit(): void {
+
+    console.log(this.data.thesis);
   }
 
 }

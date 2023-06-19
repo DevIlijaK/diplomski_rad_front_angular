@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import * as dayjs from "dayjs";
-import {Dayjs} from "dayjs";
-import * as CommonActions from "../../../shared/store/actions";
-import {MatCalendarCellClassFunction, MatCalendarCellCssClasses} from "@angular/material/datepicker";
+import {Component, OnInit} from '@angular/core';
+import {MatCalendarCellClassFunction} from "@angular/material/datepicker";
+import {Store} from "@ngrx/store";
+import * as LibSharedActions from '../../../shared/store/actions';
+import {
+  GetThesisByEmailAndDateRangeRequest
+} from "../../../shared/models/requests/get-thesis-by-email-and-date-range-request";
 
 @Component({
   selector: 'app-small-screen-calendar',
@@ -13,12 +15,21 @@ export class SmallScreenCalendarComponent implements OnInit {
   date: Date;
   randomWords: string[];
 
-  constructor() {
+  constructor(private store$: Store) {
   }
 
+  /*Ovde mora da se mail zameni sa mailom ulogovanog korisnika*/
   ngOnInit(): void {
     this.date = new Date();
     this.randomWords = this.generateRandomWords(24);
+    this.store$.dispatch(LibSharedActions.getThesisByEmailAndDateRange({
+      getThesisByEmailAndDateRangeRequest:
+        {
+          email: 'test@test',
+          startDate: new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), 0, 0, 0, 0),
+          endDate: new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), 23, 59, 59, 999)
+        }
+    }))
   }
 
   changeCurrentDay(leftOrRight: number) {

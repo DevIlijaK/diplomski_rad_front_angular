@@ -1,14 +1,31 @@
-import {Dayjs} from "dayjs";
 import {StudentModel} from "./student.model";
 
 export interface ThesisModel {
   thesisId: number;
   thesisType: string;
   thesisTitle: string;
-  thesisRegistrationDate: Dayjs;
-  thesisDateOfSubmission: Dayjs;
-  thesisDateOfDefense: Dayjs;
+  thesisRegistrationDate: Date;
+  thesisDateOfSubmission: Date;
+  thesisDateOfDefense: Date;
   thesisGrade: number;
-  thesisTermOfDefense: Dayjs;
-  student: StudentModel;
+  thesisCommission: ThesisCommissionDTO[];
+  student: StudentDTO;
+}
+
+export interface ThesisCommissionDTO {
+  professor: ProfessorDTO;
+  role: string;
+}
+
+export interface ProfessorDTO {
+  professorId: string;
+  identificationNumber: string;
+  fullName: string;
+  email: string | null;
+}
+
+export interface StudentDTO {
+  studentId: string;
+  full_name: string;
+  indexNumber: string;
 }

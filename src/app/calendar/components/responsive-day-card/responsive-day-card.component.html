@@ -1,11 +1,11 @@
 <mat-grid-list cols="1" rowHeight="120px">
-  <mat-grid-tile *ngFor="let hour of hours">
-    <mat-card (click)="openModal(hour)">
+  <mat-grid-tile *ngFor="let thesis of thesisData | async">
+    <mat-card (click)="openModal(thesis)">
       <mat-card-header>
-        <mat-card-title>{{ hour.time }}</mat-card-title>
+        <mat-card-title>{{ thesis.thesisDateOfDefense }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>{{ hour.event }}</p>
+        <p>{{ thesis.thesisTitle }}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>

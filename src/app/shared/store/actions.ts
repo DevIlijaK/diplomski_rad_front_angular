@@ -6,6 +6,7 @@ import {Dayjs} from "dayjs";
 import {ThesisModel} from "../models/thesis.model";
 import {DatatableConfigurationModel} from "../models/datatable-configuration.model";
 import {ActionModel} from "../models/action.model";
+import {GetThesisByEmailAndDateRangeRequest} from "../models/requests/get-thesis-by-email-and-date-range-request";
 
 
 export const navigate = createAction(ESharedAction.NAVIGATE, props<{ url: string[] }>());
@@ -58,6 +59,12 @@ export const changeSmallCalendarCurrentMonth = createAction(ESharedAction.CHANGE
  */
 export const getAllThesis = createAction(ESharedAction.GET_THESIS);
 export const getAllThesisSuccess = createAction(ESharedAction.GET_THESIS_SUCCESS, props<{thesis: ThesisModel[]}>());
+
+export const getThesisByEmailAndDateRange = createAction(
+  ESharedAction.GET_THESIS_BY_EMAIL_AND_DATE_RANGE,
+  props<{getThesisByEmailAndDateRangeRequest: GetThesisByEmailAndDateRangeRequest}>());
+export const getThesisByEmailAndDateRangeSuccess = createAction(
+  ESharedAction.GET_THESIS_BY_EMAIL_AND_DATE_RANGE_SUCCESS, props<{thesis: ThesisModel[]}>());
 
 /**
  * Datatable config actions
