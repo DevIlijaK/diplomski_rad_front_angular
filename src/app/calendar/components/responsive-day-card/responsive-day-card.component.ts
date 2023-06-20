@@ -7,6 +7,7 @@ import {ThesisModel} from "../../../shared/models/thesis.model";
 import {Store} from "@ngrx/store";
 import {selectThesis} from "../../../shared/store/selectors";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-responsive-day-card',
@@ -16,6 +17,7 @@ import {Observable} from "rxjs";
 export class ResponsiveDayCardComponent implements OnInit {
 
   thesisData: Observable<ThesisModel[]>;
+  thesisDateOfDefence: string;
 
   constructor(private modalService: ModalService,
               private store$: Store) {
@@ -27,8 +29,7 @@ export class ResponsiveDayCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.thesisData = this.store$.select(selectThesis);
-    this.thesisData.subscribe(data => console.log(typeof data[0].thesisDateOfDefense))
-
   }
+
 
 }

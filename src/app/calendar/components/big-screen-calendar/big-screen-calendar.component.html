@@ -14,10 +14,13 @@
       <mat-grid-tile colspan="1">
         <mat-card class="grid-card">
           <!-- Content for each element -->
-          <mat-card-content>
-            <!-- Add content here -->
-            <h3>{{ element }}</h3>
-            <app-responsive-day-card></app-responsive-day-card>
+          <mat-card-content class="content">
+            <h3>{{ element.format('DD MMMM') | translateMonth }}</h3>
+            <ng-container *ngFor="let model of dataModel">
+              <div *ngIf="element.isSame(model.date, 'day')">
+                <p>{{model.matches > 0 ? model.matches : ''}}</p>
+              </div>
+            </ng-container>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

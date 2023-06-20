@@ -27,6 +27,7 @@ import * as dayjs from "dayjs";
 import {EventModalComponent} from "../components/event-modal/event-modal.component";
 import {ThesisApiService} from "../api/thesis-api.service";
 import {MatDialog} from "@angular/material/dialog";
+import {ThesisModel} from "../models/thesis.model";
 
 
 @Injectable()
@@ -205,7 +206,7 @@ export class SharedEffects {
     switchMap((data) => this.thesisApiService.getThesis().pipe(
       switchMap((thesis) => of(
         SharedActions.getAllThesisSuccess({thesis})
-        ))
+      ))
     ))
   ));
 
@@ -213,10 +214,34 @@ export class SharedEffects {
     ofType(getThesisByEmailAndDateRange),
     switchMap(data => this.thesisApiService
       .getThesisByEmailAndDateRange(data.getThesisByEmailAndDateRangeRequest).pipe(
-      switchMap((thesis) => of(
-        SharedActions.getThesisByEmailAndDateRangeSuccess({thesis})
+        switchMap((thesis) => of(
+          SharedActions.getThesisByEmailAndDateRangeSuccess({
+              thesis:
+                this.sortThesisByDefenseDate(
+                  this.convertDateStringsToDateObjects(thesis)
+                )
+            }
+          )
         ))
-    ))
+      ))
   ));
+
+  convertDateStringsToDateObjects(thesisList: ThesisModel[]): ThesisModel[] {
+    return thesisList.map((thesis) => {
+      return {
+        ...thesis,
+        thesisRegistrationDate: new Date(thesis.thesisRegistrationDate),
+        thesisDateOfSubmission: new Date(thesis.thesisDateOfSubmission),
+        thesisDateOfDefense: new Date(thesis.thesisDateOfDefense),
+      };
+    });
+  }
+
+  sortThesisByDefenseDate(thesisList: ThesisModel[]): ThesisModel[] {
+    let thesisModels = thesisList.sort((a, b) =>
+      a.thesisDateOfDefense.getTime() - b.thesisDateOfDefense.getTime());
+    console.log('THESIS MODEL: ', thesisModels);
+    return thesisModels;
+  }
 
 }
