@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {EventModalComponent} from "../../../shared/components/event-modal/event-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalService} from "../../services/modal-service";
@@ -6,7 +6,7 @@ import * as dayjs from "dayjs";
 import {ThesisModel} from "../../../shared/models/thesis.model";
 import {Store} from "@ngrx/store";
 import {selectThesis} from "../../../shared/store/selectors";
-import {Observable} from "rxjs";
+import {Observable, of, Subject, take, takeUntil} from "rxjs";
 import {map} from "rxjs/operators";
 
 @Component({
@@ -14,10 +14,11 @@ import {map} from "rxjs/operators";
   templateUrl: './responsive-day-card.component.html',
   styleUrls: ['./responsive-day-card.component.scss']
 })
-export class ResponsiveDayCardComponent implements OnInit {
+export class ResponsiveDayCardComponent implements OnInit, OnDestroy {
 
   thesisData: Observable<ThesisModel[]>;
-  thesisDateOfDefence: string;
+  ngUnsubscribe: Subject<void> = new Subject<void>();
+  @Input() thesisList: ThesisModel[] = [];
 
   constructor(private modalService: ModalService,
               private store$: Store) {
@@ -28,7 +29,20 @@ export class ResponsiveDayCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.thesisData = this.store$.select(selectThesis);
+    if (this.thesisList.length === 0) {
+      this.thesisData = this.store$.select(selectThesis);
+    } else {
+      this.thesisData = of(this.thesisList);
+    }
+
+    this.thesisData.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
+      this.thesisList = data;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 

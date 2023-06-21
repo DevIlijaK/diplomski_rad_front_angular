@@ -66,7 +66,6 @@ export class AdminEffects {
     switchMap(data => this.adminApi.createAppUser(data.appUser).pipe(
       withLatestFrom(this.store$.select(selectLastAppUsersSearchRequest)),
       switchMap(([response, lastAppUsersSearchRequest]) => {
-        console.log('uslo ovde', response);
         return of(
           saveLastDispatchedAction({lastDispatchedActionData: data}),
           getAppUsers({getAppUsersRequest: lastAppUsersSearchRequest}),

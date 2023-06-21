@@ -1,5 +1,5 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {combineLatest, Observable} from "rxjs";
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {combineLatest, Observable, Subject, takeUntil} from "rxjs";
 import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
 import {
@@ -15,21 +15,21 @@ import * as LibSharedActions from "../../../shared/store/actions";
 import * as CalendarActions from "../../store/actions";
 import {first} from "rxjs/operators";
 import {ThesisModel} from "../../../shared/models/thesis.model";
+import {DataModel} from "../../models/data-model";
 
-export interface DataModel { date: Dayjs, matches: number }
 
 @Component({
   selector: 'app-big-screen-calendar',
   templateUrl: './big-screen-calendar.component.html',
   styleUrls: ['./big-screen-calendar.component.scss']
 })
-export class BigScreenCalendarComponent implements OnInit, AfterViewInit {
+export class BigScreenCalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentMonth$: Observable<Dayjs[][]>;
   currentMonthsNumberNumber: number;
   currentYearNumberNumber: number;
   currentMonthsNumberString: string;
   thesisData$: Observable<ThesisModel[]>;
-  dataModel: DataModel[];
+  ngUnsubscribe: Subject<void> = new Subject<void>();
 
 
   constructor(
@@ -51,16 +51,14 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.currentMonth$ = this.store$.select(selectCurrentMonth);
-    this.currentMonth$.subscribe((value) => console.log(value));
-    combineLatest(this.store$.select(selectCurrentMonthNumber), this.store$.select(selectYearMonthNumber)).subscribe((data) => {
+    combineLatest(this.store$.select(selectCurrentMonthNumber), this.store$.select(selectYearMonthNumber))
+      .pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.currentMonthsNumberNumber = data[0];
       this.currentYearNumberNumber = data[1];
       this.currentMonthsNumberString = dayjs(new Date(data[1], data[0])).format("MMMM YYYY");
     })
     this.dispatchGetThesisByEmailAndDateRange();
     this.thesisData$ = this.store$.select(selectThesis);
-    this.dataModel = this.processThesisData();
-    console.log('aaaaaaaaaaa', this.dataModel)
 
     this.cdr.detectChanges();
   }
@@ -107,29 +105,8 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit {
 
   protected readonly dayjs = dayjs;
 
-  processThesisData(): DataModel[] {
-    const results: DataModel[] = [];
-
-    this.currentMonth$.subscribe(currentMonth => {
-      this.thesisData$.subscribe(thesisData => {
-        for (const row of currentMonth) {
-          for (const element of row) {
-            const elementDate = element;
-            let matchCount = 0;
-
-            for (const thesis of thesisData) {
-              const thesisDate = dayjs(thesis.thesisDateOfDefense);
-              if (element.isSame(thesisDate, 'day')) {
-                matchCount++;
-              }
-            }
-
-            results.push({ date: elementDate, matches: matchCount });
-          }
-        }
-      });
-    });
-
-    return results;
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

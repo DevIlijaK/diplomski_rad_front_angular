@@ -4,7 +4,7 @@ import {Dayjs} from "dayjs";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../root-store/state";
 import * as CalendarActions from '../../store/actions';
-import {Observable} from "rxjs";
+import {Observable, Subject, takeUntil} from "rxjs";
 import {selectSelectedDay} from "../../store/selectors";
 import * as CommonActions from "../../../shared/store/actions";
 import {selectCurrentMonthNumber, selectThesis} from "../../../shared/store/selectors";
@@ -27,6 +27,7 @@ export class DayComponent implements OnInit, AfterViewInit {
   currentMontsNumber$: Observable<number>;
   currentMontsNumber: Dayjs;
   thesis: ThesisModel;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
     private store$: Store<AppState>,
@@ -36,17 +37,17 @@ export class DayComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.selectedDay$ = this.store$.select(selectSelectedDay);
-    this.selectedDay$.subscribe((selectedDay) => {
+    this.selectedDay$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((selectedDay) => {
       this.checkedDay = dayjs(selectedDay).format('DD-MM-YY') === this.day.format('DD-MM-YY')
     })
     this.currentMontsNumber$ = this.store$.select(selectCurrentMonthNumber);
 
 
-    this.currentMontsNumber$.subscribe(currentMonthNumber => {
+    this.currentMontsNumber$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(currentMonthNumber => {
 
       this.currentMontsNumber = dayjs(new Date(dayjs().year(), currentMonthNumber))
     })
-    this.store$.select(selectThesis).subscribe(value =>{
+    this.store$.select(selectThesis).pipe(takeUntil(this.ngUnsubscribe)).subscribe(value =>{
       this.thesis = value});
   }
 

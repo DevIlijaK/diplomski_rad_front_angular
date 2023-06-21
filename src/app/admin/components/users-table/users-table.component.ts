@@ -69,10 +69,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getAppUsers();
     // if(this.sort){
     //   this.dataSource.sort = this.sort;
-    //   console.log(this.dataSource.sort);
     // }
     const sort$ = this.sort.sortChange.pipe(tap((sort) => {
-      console.log(sort)
       return this.paginator.pageIndex = 0
     }));
     this.subscription.add(merge(sort$, this.paginator.page).pipe(

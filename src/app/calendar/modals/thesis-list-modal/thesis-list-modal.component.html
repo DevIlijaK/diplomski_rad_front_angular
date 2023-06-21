@@ -1,0 +1,13 @@
+<div style="display: flex; align-items: center; justify-content: space-between;">
+  <h2 mat-dialog-title style="margin: 0;">Lista zakazanih diplomskih radova za dan:
+    {{ data.thesisList[0].thesisDateOfDefense.getDate() }}</h2>
+  <button mat-icon-button mat-dialog-close aria-label="Close" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <app-responsive-day-card
+    [thesisList]="data.thesisList"
+
+  ></app-responsive-day-card>
+</mat-dialog-content>

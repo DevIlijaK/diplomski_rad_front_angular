@@ -22,7 +22,6 @@ export class AadminApiService {
     return this.http.post<GetAppUsersResponse>(this.USER_API + '/get-users', getAppUsersRequest);
   }
   updateAppUser(appUser: AppUser): Observable<string> {
-    console.log('uslo');
     return this.http.put<string>(this.USER_API + '/update-user', appUser);
   }
   createAppUser(appUser: AppUser): Observable<HttpResponse<string>> {

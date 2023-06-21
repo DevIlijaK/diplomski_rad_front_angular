@@ -12,7 +12,6 @@ export class AdminModalService{
   constructor(private store$: Store) {
   }
   openAppUserModal(appUser: AppUser, callbackFunc: (appUser: AppUser) => void, appUserRoles: AppUserRole[]){
-    console.log(appUserRoles);
     return this.store$.dispatch(openModal({
       component: EditUserModalComponent,
       config: {

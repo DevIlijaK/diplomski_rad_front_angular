@@ -32,10 +32,8 @@ export class EditUserModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.data$.subscribe(data => {
-      console.log("Uslo ovde", data);
       this.initForm()
     });
-    this.form.valueChanges.subscribe(value => console.log(value));
   }
 
   initForm(): void {
@@ -65,7 +63,6 @@ export class EditUserModalComponent implements OnInit {
   }
 
   callbackFunc(): void {
-    console.log(1);
     let appUser = {
       username: this.data.appUser ? this.data.appUser.username : this.form.controls.username.value,
       firstname: this.form.controls.firstname.value,
@@ -74,12 +71,9 @@ export class EditUserModalComponent implements OnInit {
       roles: this.form.controls.roles.value,
     } as AppUser;
     appUser['password'] = this.data.appUser ? this.data.appUser.password : this.form.controls.password.value;
-    console.log("posle", appUser);
     if (this.data.appUser) {
-      console.log("Uslo u if?", this.data.appUser);
       delete appUser.password;
     }
-    console.log("posle", appUser);
     this.data.callbackFunc(appUser);
     this.closeDialog();
   }

@@ -240,7 +240,6 @@ export class SharedEffects {
   sortThesisByDefenseDate(thesisList: ThesisModel[]): ThesisModel[] {
     let thesisModels = thesisList.sort((a, b) =>
       a.thesisDateOfDefense.getTime() - b.thesisDateOfDefense.getTime());
-    console.log('THESIS MODEL: ', thesisModels);
     return thesisModels;
   }
 

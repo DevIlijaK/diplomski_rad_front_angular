@@ -31,7 +31,6 @@ export class ResponsiveSidenavComponent implements OnInit, AfterViewInit {
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
         this.isSmallScreen = result.matches;
-        console.log(this.isSmallScreen);
       });
     this.cdr.detectChanges();
   }

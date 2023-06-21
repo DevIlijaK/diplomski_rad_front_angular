@@ -1,0 +1,18 @@
+#parentElement {
+  display: flex;
+  justify-content: center;
+}
+
+#dynamicButton {
+  display: flex;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#buttonText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+

@@ -33,7 +33,6 @@ export class ResponsiveGridComponent implements OnInit {
     this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
-        console.log(result);
         this.isSmallScreen = result.matches;
       });
   }

@@ -15,7 +15,6 @@ export class DaysOfTheWeekGridComponent implements OnInit {
     this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
-        console.log(result);
         this.isSmallScreen = result.matches;
       });
   }
