@@ -30,6 +30,7 @@ import { ResponsiveThesisModalComponent } from './modals/responsive-thesis-modal
 import {TranslateMonthPipe} from "./pipes/tranlsate-mont-pipe";
 import { BigCalendarCardComponent } from './components/big-calendar-card/big-calendar-card.component';
 import { ThesisListModalComponent } from './modals/thesis-list-modal/thesis-list-modal.component';
+import {TimePipe} from "./pipes/time-pipe";
 
 
 const grantedActions = [
@@ -48,7 +49,7 @@ export function getCalendarConfig(saveKeys: string[],
 }
 
 @NgModule({
-  declarations: [CalendarComponent, MonthComponent, TranslateMonthPipe, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent, ResponsiveDayCardComponent, ResponsiveThesisModalComponent, BigCalendarCardComponent, ThesisListModalComponent],
+  declarations: [CalendarComponent, MonthComponent, TranslateMonthPipe, TimePipe, DayComponent, BigScreenCalendarComponent, SmallScreenCalendarComponent, DaysOfTheWeekGridComponent, ResponsiveGridComponent, ResponsiveDayCardComponent, ResponsiveThesisModalComponent, BigCalendarCardComponent, ThesisListModalComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('calendar', calendarReducers, CALENDAR_CONFIG_TOKEN),

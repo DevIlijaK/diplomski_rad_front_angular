@@ -1,6 +1,6 @@
 <div style="display: flex; align-items: center; justify-content: space-between;">
   <h2 mat-dialog-title style="margin: 0;">Lista zakazanih diplomskih radova za dan:
-    {{ data.thesisList[0].thesisDateOfDefense.getDate() }}</h2>
+    {{ data.thesisList[0].thesisDateOfDefense | date }}</h2>
   <button mat-icon-button mat-dialog-close aria-label="Close" class="close-button">
     <mat-icon>close</mat-icon>
   </button>

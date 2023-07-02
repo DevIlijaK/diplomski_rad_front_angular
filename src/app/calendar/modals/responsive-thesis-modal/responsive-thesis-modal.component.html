@@ -1,22 +1,25 @@
-<h2 mat-dialog-title>Thesis Details</h2>
+<h2 mat-dialog-title>Informacije o diplomskom radu</h2>
 <mat-dialog-content>
-  <p>Thesis Type: {{ data.thesis.thesisType }}</p>
-  <p>Thesis Title: {{ data.thesis.thesisTitle }}</p>
-  <p>Registration Date: {{ data.thesis.thesisRegistrationDate }}</p>
-  <p>Date of Submission: {{ data.thesis.thesisDateOfSubmission }}</p>
-  <p>Date of Defense: {{ data.thesis.thesisDateOfDefense }}</p>
-  <p>Thesis Grade: {{ data.thesis.thesisGrade }}</p>
-  <p>Commission Members:</p>
-<!--  <ul>-->
-<!--    <li *ngFor="let commission of data.thesis.thesisCommission">-->
-<!--      {{ commission.professor.fullName }} - {{ commission.role }}-->
-<!--    </li>-->
-<!--  </ul>-->
-  <p>Student Details:</p>
-  <p>Student ID: {{ data.thesis.student.studentId }}</p>
-  <p>Full Name: {{ data.thesis.student.full_name }}</p>
-  <p>Index Number: {{ data.thesis.student.indexNumber }}</p>
+<!--  <p>Thesis Type: {{ data.thesis.thesisType }}</p>-->
+  <p>Tema: {{ data.thesis.thesisTitle }}</p>
+<!--  <p>Registration Date: {{ data.thesis.thesisRegistrationDate }}</p>-->
+<!--  <p>Date of Submission: {{ data.thesis.thesisDateOfSubmission }}</p>-->
+  <p>Datum odbrane: {{ data.thesis.thesisDateOfDefense | date}}</p>
+  <p>Vreme odbrane: {{ data.thesis.thesisDateOfDefense | time}}</p>
+
+<!--  <p>Thesis Grade: {{ data.thesis.thesisGrade }}</p>-->
+  <p>Komisija:</p>
+  <ul>
+    <li *ngFor="let commission of data.thesis.thesisCommission">
+      {{ commission.professor.fullName }} - {{ commission.role }}
+    </li>
+  </ul>
+  <p>Student:</p>
+<!--  <p>Student ID: {{ data.thesis.student.studentId }}</p>-->
+  <p>Ime i prezime: {{ data.thesis.student.full_name }}</p>
+  <p>Broj indeksa: {{ data.thesis.student.indexNumber }}</p>
 </mat-dialog-content>
 <mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="generateICalendarFIle()">Generiši ICalendar file</button>
   <button mat-button [mat-dialog-close]="true">Close</button>
 </mat-dialog-actions>
