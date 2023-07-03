@@ -1,7 +1,7 @@
-  <button mat-button style="width: 100%; white-space: normal;" *ngIf="dataModel.matches > 0" (click)="openModal()">
+  <button mat-button style="width: 100%; white-space: normal;" *ngIf="dataModel?.matches > 0" (click)="openModal()">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <span style="text-align: center;">Broj zakazanih</span>
-      <span style="text-align: center;">diplomskih radova je: {{dataModel.matches}}</span>
+      <span style="text-align: center;">diplomskih radova je: {{dataModel?.matches}}</span>
       <span style="text-align: center;">Klik za vise inf.</span>
     </div>
   </button>

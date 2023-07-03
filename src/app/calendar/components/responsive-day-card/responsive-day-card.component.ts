@@ -8,6 +8,8 @@ import {Store} from "@ngrx/store";
 import {selectThesis} from "../../../shared/store/selectors";
 import {Observable, of, Subject, take, takeUntil} from "rxjs";
 import {map} from "rxjs/operators";
+import {selectLoggedInUser} from "../../../auth/store/selectors";
+import {LoggedInUser} from "../../../auth/model/loggedInUser";
 
 @Component({
   selector: 'app-responsive-day-card',
@@ -19,6 +21,7 @@ export class ResponsiveDayCardComponent implements OnInit, OnDestroy {
   thesisData: Observable<ThesisModel[]>;
   ngUnsubscribe: Subject<void> = new Subject<void>();
   @Input() thesisList: ThesisModel[] = [];
+  logedInUser: LoggedInUser;
 
   constructor(private modalService: ModalService,
               private store$: Store) {
@@ -29,6 +32,7 @@ export class ResponsiveDayCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store$.select(selectLoggedInUser).subscribe(user => this.logedInUser = user);
     if (this.thesisList.length === 0) {
       this.thesisData = this.store$.select(selectThesis);
     } else {

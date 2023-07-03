@@ -1,13 +1,13 @@
-<mat-grid-list cols="1" rowHeight="120px">
+<mat-grid-list cols="1" rowHeight="160px">
   <mat-grid-tile *ngFor="let thesis of thesisData | async">
     <mat-card (click)="openModal(thesis)">
-      <mat-card-header>
-        <mat-card-title>{{ thesis.thesisTitle }}</mat-card-title>
-      </mat-card-header>
       <mat-card-content style="padding-left: 15px">
-        <p>{{ thesis.thesisDateOfDefense | time }}</p>
-
-        <p>{{ thesis.student.full_name }}</p>
+        <p style="margin: 5px">Tema: {{ thesis.thesisTitle }}</p>
+        <p style="margin: 5px">Vreme: {{ thesis.thesisDateOfDefense | time }}</p>
+        <p style="margin: 2px">Student: {{ thesis.student.full_name }} {{thesis.student.indexNumber}}</p>
+        <ng-container *ngFor="let element of thesis.thesisCommission">
+        <p style="margin: 2px" *ngIf="element.professor.email == logedInUser.email">Uloga: {{ element.role}}</p>
+        </ng-container>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>

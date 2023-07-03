@@ -3,6 +3,8 @@ import {MatCalendarCellClassFunction} from "@angular/material/datepicker";
 import {Store} from "@ngrx/store";
 import * as LibSharedActions from '../../../shared/store/actions';
 import {Subject} from "rxjs";
+import {selectLoggedInUser} from "../../../auth/store/selectors";
+import {LoggedInUser} from "../../../auth/model/loggedInUser";
 
 /**Treba da se doradi da se u memoriji sacuva selektovani dan **/
 
@@ -14,6 +16,7 @@ import {Subject} from "rxjs";
 export class SmallScreenCalendarComponent implements OnInit {
   date: Date;
   dateChanged$: Subject<Date> = new Subject<Date>();
+  logedInUser: LoggedInUser;
 
   constructor(private store$: Store) {
   }
@@ -24,6 +27,7 @@ export class SmallScreenCalendarComponent implements OnInit {
 
     this.dispatch();
     this.subscribeToDateChanges();
+    this.store$.select(selectLoggedInUser).subscribe(user => this.logedInUser = user);
   }
 
   dispatch(): void {
@@ -68,10 +72,11 @@ export class SmallScreenCalendarComponent implements OnInit {
 
   /*Ovde mora da se mail zameni sa mailom ulogovanog korisnika*/
   dispatchGetThesisByEmailAndDateRange() {
+    console.log('ulazi ovde');
     this.store$.dispatch(LibSharedActions.getThesisByEmailAndDateRange({
       getThesisByEmailAndDateRangeRequest:
         {
-          email: 'test@test',
+          email: this.logedInUser?.email,
           startDate: new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), 0, 0, 0, 0),
           endDate: new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), 23, 59, 59, 999)
         }

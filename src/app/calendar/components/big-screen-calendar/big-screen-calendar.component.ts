@@ -16,6 +16,7 @@ import * as CalendarActions from "../../store/actions";
 import {first} from "rxjs/operators";
 import {ThesisModel} from "../../../shared/models/thesis.model";
 import {DataModel} from "../../models/data-model";
+import {selectLoggedInUser} from "../../../auth/store/selectors";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit, OnDest
   currentMonthsNumberString: string;
   thesisData$: Observable<ThesisModel[]>;
   ngUnsubscribe: Subject<void> = new Subject<void>();
+  logedInUser:any;
 
 
   constructor(
@@ -40,6 +42,7 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnInit(): void {
     this.dispatch();
+    this.store$.select(selectLoggedInUser).subscribe(user => this.logedInUser = user);
   }
 
   dispatch(): void {
@@ -89,7 +92,7 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit, OnDest
       this.store$.dispatch(LibSharedActions.getThesisByEmailAndDateRange({
         getThesisByEmailAndDateRangeRequest:
           {
-            email: 'test@test',
+            email: this.logedInUser.email,
             ...r
           }
       }))
