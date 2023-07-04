@@ -74,16 +74,6 @@ export function getSharedConfig(
     CommonModule,
     StoreModule.forFeature('shared', sharedReducers, SHARED_CONFIG_TOKEN),
     EffectsModule.forFeature([SharedEffects]),
-    ToastrModule.forRoot({
-      closeButton: true,
-      timeOut: 3000,
-      tapToDismiss: true,
-      positionClass: 'toast-top-center',
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      preventDuplicates: true,
-      enableHtml: true,
-    }),
     ReactiveFormsModule,
     RouterModule,
     AngularMaterialModule

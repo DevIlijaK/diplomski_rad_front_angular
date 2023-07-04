@@ -23,6 +23,7 @@ import {SharedModule} from "./shared/shared.module";
 import {environment} from "../environments/environment.prod";
 import {AuthInterceptor} from "./shared/interceptors/interceptors";
 import {AngularMaterialModule} from "./angular-material/angular-material.module";
+import {ToastrModule} from "ngx-toastr";
 
 
 @NgModule({
@@ -36,6 +37,16 @@ import {AngularMaterialModule} from "./angular-material/angular-material.module"
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 3000,
+      tapToDismiss: true,
+      positionClass: 'toast-top-center',
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      preventDuplicates: true,
+      enableHtml: true,
+    }),
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: false,
