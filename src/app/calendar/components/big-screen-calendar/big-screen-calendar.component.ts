@@ -15,8 +15,9 @@ import * as LibSharedActions from "../../../shared/store/actions";
 import * as CalendarActions from "../../store/actions";
 import {first} from "rxjs/operators";
 import {ThesisModel} from "../../../shared/models/thesis.model";
-import {DataModel} from "../../models/data-model";
 import {selectLoggedInUser} from "../../../auth/store/selectors";
+import * as ics from "ics";
+import {saveAs} from 'file-saver';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit, OnDest
   currentMonthsNumberString: string;
   thesisData$: Observable<ThesisModel[]>;
   ngUnsubscribe: Subject<void> = new Subject<void>();
-  logedInUser:any;
+  logedInUser: any;
 
 
   constructor(
@@ -111,5 +112,44 @@ export class BigScreenCalendarComponent implements OnInit, AfterViewInit, OnDest
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+  }
+
+  generateICalendarFIle() {
+    let events = []
+    this.thesisData$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(thesisList => {
+      thesisList.map(thesis => {
+        let alarms = [];
+        events.push({
+          title: 'Odbrana diplomskog rada - ' + thesis.student.full_name,
+          description: thesis.thesisTitle,
+          // busyStatus: 'FREE',
+          start: [
+            thesis.thesisDateOfDefense.getFullYear(),
+            thesis.thesisDateOfDefense.getMonth() + 1,
+            thesis.thesisDateOfDefense.getDate(),
+            thesis.thesisDateOfDefense.getHours(),
+            thesis.thesisDateOfDefense.getMinutes()],
+          duration: {minutes: 50},
+          alarms: alarms,
+        })
+        alarms.push({
+          action: 'display',
+          trigger: {hours: 2, minutes: 0, before: true},
+        })
+
+
+      })
+    })
+    ics.createEvents(events
+      , (error, value) => {
+        if (error) {
+          console.log(error)
+        }
+
+        const blob = new Blob([value], { type: 'text/calendar;charset=utf-8' });
+        saveAs(blob, 'event.ics');
+      })
+
+
   }
 }
